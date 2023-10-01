@@ -1,0 +1,13 @@
+@use "../../assets/styles/colors.scss" as *;
+
+.main-page {
+  width: 100%;
+  height: 100vh;
+  background-color: $color-bg-main;
+  &__project-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    padding: 2rem 6rem;
+    gap: 2rem;
+  }
+}

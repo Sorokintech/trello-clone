@@ -1,0 +1,45 @@
+@use "../../assets/styles/colors.scss" as *;
+
+.project-tab {
+  background-color: $color-bg-main-blue;
+  position: relative;
+  display: grid;
+  grid-column: 4 span;
+  align-content: space-between;
+  padding: 1rem;
+  border: transparent;
+  border-radius: 0.625rem;
+  width: 100%;
+  height: 200px;
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-bg-other;
+    .project-tab__edit-image {
+      right: 0;
+      z-index: 0;
+    }
+    .project-tab__content {
+      z-index: 0;
+    }
+  }
+  &__edit-image {
+    width: 7rem;
+    position: absolute;
+    right: -5rem;
+    z-index: -1;
+    transition: 0.5s ease-in-out;
+  }
+  &__title {
+    color: $color-bg-main;
+    font-size: 1.625rem;
+    font-weight: 800;
+  }
+  &__content {
+    transition: 0.5s ease-in-out;
+    z-index: -1;
+    color: $color-bg-main;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+}

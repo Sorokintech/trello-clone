@@ -1,0 +1,15 @@
+@use "../../../assets/styles/colors.scss" as *;
+
+.button {
+  padding: 0.125rem 0.5rem;
+  border: transparent;
+  border-radius: 0.125rem;
+  background-color: $color-btn-main;
+  color: $color-text-light;
+  cursor: pointer;
+  transition: 0.5s all;
+  &:hover {
+    background-color: $color-btn-hover;
+    color: $color-text-dark-blue;
+  }
+}

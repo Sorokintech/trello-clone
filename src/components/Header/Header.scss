@@ -1,0 +1,14 @@
+@use "../../assets/styles/colors.scss" as *;
+
+.header {
+  width: 100%;
+  background-color: $color-bg-other;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header-content {
+  color: $color-bg-main;
+  font-size: 2rem;
+  font-weight: 600;
+}

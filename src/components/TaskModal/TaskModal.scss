@@ -1,0 +1,58 @@
+@use "../../assets/styles/colors.scss" as *;
+
+.task-modal {
+  margin-top: 20px;
+  margin-left: 100px;
+  width: 800px;
+  height: 300px;
+  padding: 1rem;
+  border: transparent;
+  border-radius: 0.625rem;
+  background-color: $color-bg-main-blue;
+  color: $color-text-light;
+  display: grid;
+  grid-template-columns: repeat(18, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  row-gap: 0.325rem;
+  &__number {
+    grid-column: span 1;
+    font-size: 1.125rem;
+    text-align: end;
+  }
+  &__title {
+    grid-column: span 14;
+    font-size: 1.5rem;
+  }
+  &__description {
+    grid-column: span 18;
+    grid-row: span 5;
+  }
+  &__create-date {
+    grid-column: span 3;
+    text-align: end;
+  }
+  &__dev-time {
+    grid-column: span 18;
+  }
+  &__end-date {
+    grid-column: span 9;
+  }
+  &__priority {
+    grid-column: span 18;
+    color: $color-text-high-priority;
+    font-weight: 600;
+  }
+  &__status {
+    grid-column: span 9;
+    text-align: end;
+  }
+  &__sub-task-section {
+    grid-column: span 18;
+    &__create-btn {
+      padding: 0.125rem 0.5rem;
+    }
+  }
+  &__comment-section {
+    grid-column: span 18;
+  }
+}

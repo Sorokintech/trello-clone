@@ -1,0 +1,16 @@
+@use "../../assets/styles/colors.scss" as *;
+
+.task-column {
+  width: 100%;
+  &__header {
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-align: center;
+    color: $color-text-dark-blue;
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

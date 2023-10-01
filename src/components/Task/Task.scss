@@ -1,0 +1,77 @@
+@use "../../assets/styles/colors.scss" as *;
+
+.task {
+  min-width: 100%;
+  position: relative;
+  height: 10rem;
+  border: transparent;
+  border-radius: 0.625rem;
+  padding: 1rem;
+  background-color: $color-bg-main-blue;
+  color: $color-text-light;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  cursor: pointer;
+  transition: 0.5s all;
+  &:hover {
+    background-color: $color-bg-other;
+    .task__dev-time {
+      z-index: -1;
+    }
+    .task__edit-image {
+      right: 0;
+      z-index: 0;
+    }
+  }
+  &:active {
+    .task__edit-image {
+      z-index: -9999;
+    }
+  }
+  &__number {
+    grid-column: span 1;
+    font-size: 1.125rem;
+  }
+  &__title {
+    grid-column: span 7;
+    font-size: 1.325rem;
+  }
+  &__priority {
+    grid-column: span 6;
+    grid-row: 12;
+    font-size: 0.725rem;
+  }
+  &__create-date {
+    grid-column: span 4;
+    text-align: end;
+    font-size: 0.725rem;
+  }
+  &__dev-time {
+    grid-column: span 6;
+    grid-row: 12;
+    font-size: 0.725rem;
+    display: none;
+  }
+  &__end-date {
+    display: none;
+    // grid-column: span 12;
+    // grid-row: span 2;
+    // text-align: end;
+    // font-size: 0.725rem;
+  }
+  &__status {
+    grid-column: span 6;
+    text-align: end;
+    grid-row: 12;
+    font-size: 0.725rem;
+  }
+  &__edit-image {
+    width: 4rem;
+    position: absolute;
+    top: 3rem;
+    right: -5rem;
+    z-index: -1;
+    transition: 0.5s ease-in-out;
+  }
+}

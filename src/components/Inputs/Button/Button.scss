@@ -4,12 +4,12 @@
   padding: 0.125rem 0.5rem;
   border: transparent;
   border-radius: 0.125rem;
-  background-color: $color-btn-main;
-  color: $color-text-light;
+  background-color: inherit;
+  color: inherit;
   cursor: pointer;
   transition: 0.5s all;
   &:hover {
-    background-color: $color-btn-hover;
-    color: $color-text-dark-blue;
+    background-color: $color-btn-active;
+    color: $color-text-light;
   }
 }

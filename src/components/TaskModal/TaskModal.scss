@@ -1,15 +1,13 @@
 @use "../../assets/styles/colors.scss" as *;
 
 .task-modal {
-  margin-top: 20px;
-  margin-left: 100px;
-  width: 800px;
-  height: 300px;
-  padding: 1rem;
+  margin: 10% 20%;
+  z-index: 1;
+  padding: 1rem 2rem;
   border: transparent;
   border-radius: 0.625rem;
-  background-color: $color-bg-main-blue;
-  color: $color-text-light;
+  background-color: $color-bg-main;
+  color: $color-text-dark-blue;
   display: grid;
   grid-template-columns: repeat(18, 1fr);
   grid-template-rows: repeat(10, 1fr);
@@ -55,4 +53,26 @@
   &__comment-section {
     grid-column: span 18;
   }
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 1;
+}
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  background: rgba(49, 49, 49, 0.8);
+  cursor: pointer;
 }

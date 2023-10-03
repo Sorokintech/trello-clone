@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+// import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import cn from "classnames";
 import "./TaskColumn.scss";
 import Task from "../Task/Task";
@@ -81,50 +81,59 @@ const TaskColumn: FC<ITaskColumn> = ({ title, id }) => {
   const ColumnTasks = MockColumnData.filter((el) => el.category === id);
   const [column, updateColumn] = useState(ColumnTasks);
 
-  function handleOnDragEnd(result: any) {
-    console.log(result);
-    if (!result.destination) return;
-    const items = column;
-    const [reordedItem] = column.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reordedItem);
+  // function handleOnDragEnd(result: any) {
+  //   console.log(result);
+  //   if (!result.destination) return;
+  //   const items = column;
+  //   const [reorderedItem] = column.splice(result.source.index, 1);
+  //   items.splice(result.destination.index, 0, reorderedItem);
 
-    updateColumn(items);
-  }
+  //   updateColumn(items);
+  // }
   return (
     <div className={cn("task-column")}>
       <h4 className={cn("task-column__header")}>{title}</h4>
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId={title}>
-          {(provided) => (
-            <div
-              className={cn("task-column__content")}
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {column.map((i, index) => (
-                <Draggable
-                  draggableId={i.task_id}
-                  key={i.task_id}
-                  index={index}
-                >
-                  {(provided) => (
-                    <div
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      ref={provided.innerRef}
-                    >
-                      <Task {...i} />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <div className={cn("task-column__content")}>
+        {column.map((i, index) => (
+          <Task {...i} />
+        ))}
+      </div>
     </div>
   );
 };
 
 export default TaskColumn;
+
+// <DragDropContext onDragEnd={handleOnDragEnd}>
+// <div className={cn("task-column")}>
+//   <h4 className={cn("task-column__header")}>{title}</h4>
+//   <Droppable droppableId={title}>
+//     {(provided) => (
+//       <div
+//         className={cn("task-column__content")}
+//         {...provided.droppableProps}
+//         ref={provided.innerRef}
+//       >
+//         {column.map((i, index) => (
+//           <Draggable
+//             draggableId={i.task_id}
+//             key={i.task_id}
+//             index={index}
+//           >
+//             {(provided) => (
+//               <div
+//                 {...provided.draggableProps}
+//                 {...provided.dragHandleProps}
+//                 ref={provided.innerRef}
+//               >
+//                 <Task {...i} />
+//               </div>
+//             )}
+//           </Draggable>
+//         ))}
+//         {provided.placeholder}
+//       </div>
+//     )}
+//   </Droppable>
+// </div>
+// </DragDropContext>

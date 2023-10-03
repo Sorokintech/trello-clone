@@ -6,7 +6,6 @@ import Header from "../../components/Header/Header";
 
 import "./ProjectPage.scss";
 import TaskColumn from "../../components/TaskColumn/TaskColumn";
-import TaskModal from "../../components/TaskModal/TaskModal";
 
 const ProjectPage: FC = () => {
   const { project_id } = useParams();
@@ -14,7 +13,6 @@ const ProjectPage: FC = () => {
   return (
     <div className={cn("project-page")}>
       <Header />
-      {/* <TaskModal /> */}
       <div className={cn("project-page__task-container")}>
         <TaskColumn title={"В очереди"} id={"queue"} />
         <TaskColumn title={"В работе"} id={"dev"} />

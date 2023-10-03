@@ -1,39 +1,28 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 
 import Header from "../../components/Header/Header";
 import ProjectTab from "../../components/ProjectTab/ProjectTab";
+import { mockProjectsData } from "../../assets/data/mockProjectsData";
 import "./MainPage.scss";
-
-const MockProjects = [
-  {
-    id: "1",
-    title: "Project Alpha",
-    task_done: 2,
-    task_queue: 1,
-    task_dev: 1,
-  },
-  {
-    id: "2",
-    title: "Project Beta",
-    task_done: 1,
-    task_queue: 1,
-    task_dev: 3,
-  },
-  {
-    id: "3",
-    title: "Project Gamma",
-    task_done: 2,
-    task_queue: 2,
-    task_dev: 1,
-  },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators, State } from "../../store";
+import { IProject } from "../../assets/types/types";
 
 const MainPage: FC = () => {
+  const dispatch = useDispatch();
+  const projects = useSelector((state: State) => state.projectData);
+
+  useEffect(() => {
+    dispatch(actionCreators.setProjects(mockProjectsData));
+  }, []);
   return (
     <div className="main-page">
       <Header />
-      <div className="main-page__project-container">
-        {MockProjects.map((p) => (
+      <div
+        className="main-page__project-container"
+        onClick={() => console.log(projects)}
+      >
+        {mockProjectsData.map((p) => (
           <ProjectTab {...p} />
         ))}
       </div>

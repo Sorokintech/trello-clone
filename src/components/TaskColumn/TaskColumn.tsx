@@ -3,6 +3,8 @@ import React, { FC, useState } from "react";
 import cn from "classnames";
 import "./TaskColumn.scss";
 import Task from "../Task/Task";
+import { useSelector } from "react-redux";
+import { actionCreators, State } from "../../store";
 
 const MockColumnData = [
   {
@@ -78,7 +80,10 @@ interface ITaskColumn {
 }
 
 const TaskColumn: FC<ITaskColumn> = ({ title, id }) => {
-  const ColumnTasks = MockColumnData.filter((el) => el.category === id);
+  // const ColumnTasks = MockColumnData.filter((el) => el.category === id);
+  const state = useSelector((state: State) => state.projectData[0]);
+  console.log(state);
+  const ColumnTasks = state.tasks.filter((el) => el.category === id);
   const [column, updateColumn] = useState(ColumnTasks);
 
   // function handleOnDragEnd(result: any) {
@@ -94,9 +99,9 @@ const TaskColumn: FC<ITaskColumn> = ({ title, id }) => {
     <div className={cn("task-column")}>
       <h4 className={cn("task-column__header")}>{title}</h4>
       <div className={cn("task-column__content")}>
-        {column.map((i, index) => (
+        {/* {column.map((i, index) => (
           <Task {...i} />
-        ))}
+        ))} */}
       </div>
     </div>
   );

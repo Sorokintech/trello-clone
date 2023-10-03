@@ -14,7 +14,6 @@ interface IModalProps {
 }
 
 const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
-  // const [content, setContent] = useState();
   const overlayRef = useRef(null);
   const handleOverlayClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     if (e.target === overlayRef.current) {

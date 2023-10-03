@@ -3,24 +3,17 @@ import projectEditImage from "../../assets/images/project-edit-image.png";
 import "./ProjectTab.scss";
 import cn from "classnames";
 import { useNavigate } from "react-router-dom";
+import { IProject } from "../../assets/types/types";
 
-interface IProjectTab {
-  id: string;
-  title: string;
-  task_done: number;
-  task_queue: number;
-  task_dev: number;
-}
-
-const ProjectTab: FC<IProjectTab> = ({ ...props }) => {
-  console.log(props);
+const ProjectTab: FC<IProject> = ({ ...props }) => {
   const navigate = useNavigate();
+  const task = props.tasks;
+  console.log(task);
   return (
     <div
-      id={props.id}
+      id={props.projectId}
       className={cn("project-tab")}
       onClick={() => navigate(`/project-page`)}
-      // onClick={() => navigate(`/project-page/${props.id}`)}
     >
       <img
         className={cn("project-tab__edit-image")}
@@ -30,13 +23,22 @@ const ProjectTab: FC<IProjectTab> = ({ ...props }) => {
       <h3 className={cn("project-tab__title")}>{props.title}</h3>
       <div className={cn("project-tab__content")}>
         <div className={cn("project-tab__content__item")}>
-          В работе : <span>{props.task_dev}</span>
+          В работе :{" "}
+          <span>
+            {props.tasks.filter((el) => el.category === "dev").length}
+          </span>
         </div>
         <div className={cn("project-tab__content__item")}>
-          В очереди: <span>{props.task_queue}</span>
+          В очереди:{" "}
+          <span>
+            {props.tasks.filter((el) => el.category === "queue").length}
+          </span>
         </div>
         <div className={cn("project-tab__content__item")}>
-          Выполнено : <span>{props.task_done}</span>
+          Выполнено :{" "}
+          <span>
+            {props.tasks.filter((el) => el.category === "done").length}
+          </span>
         </div>
       </div>
     </div>

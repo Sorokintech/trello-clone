@@ -1,7 +1,8 @@
+import { ITask } from "../../assets/types/types";
 import { ActionType } from "../action-types";
 import { ISetCurrentTaskAction } from "../actions/index";
 
-const initialState = {
+const initialState: ITask = {
   category: "",
   createDate: "",
   devTime: "",
@@ -12,6 +13,8 @@ const initialState = {
   task_number: "",
   title: "",
   description: "",
+  subtasks: [],
+  comments: [],
 };
 
 const currentTaskReducer = (

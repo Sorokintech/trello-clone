@@ -15,6 +15,8 @@ export const mockProjectsData = [
         devTime: "3",
         endDate: "В работе",
         status: "В работе",
+        subtasks: [],
+        comments: [],
       },
       {
         category: "dev",
@@ -27,6 +29,8 @@ export const mockProjectsData = [
         devTime: "2",
         endDate: "В работе",
         status: "В работе",
+        subtasks: [],
+        comments: [],
       },
       {
         category: "done",
@@ -39,6 +43,8 @@ export const mockProjectsData = [
         devTime: "4",
         endDate: "30.09.2023",
         status: "Выполнено",
+        subtasks: [],
+        comments: [],
       },
       {
         category: "done",
@@ -51,6 +57,8 @@ export const mockProjectsData = [
         devTime: "2",
         endDate: "30.09.2023",
         status: "Выполнено",
+        subtasks: [],
+        comments: [],
       },
       {
         category: "done",
@@ -63,6 +71,8 @@ export const mockProjectsData = [
         devTime: "2",
         endDate: "30.09.2023",
         status: "Выполнено",
+        subtasks: [],
+        comments: [],
       },
       {
         category: "queue",
@@ -75,6 +85,8 @@ export const mockProjectsData = [
         devTime: "В очереди",
         endDate: "В очереди",
         status: "В очереди",
+        subtasks: [],
+        comments: [],
       },
     ],
   },
@@ -93,6 +105,15 @@ export const mockProjectsData = [
         devTime: "В очереди",
         endDate: "В очереди",
         status: "В очереди",
+        subtasks: [
+          { subTaskId: "1", content: "Wildberries тоже чекнуть", done: false },
+        ],
+        comments: [
+          {
+            commentId: "1",
+            content: "Шляпа полная, зачем делать такой коммент не понимаю",
+          },
+        ],
       },
       {
         category: "dev",
@@ -105,6 +126,8 @@ export const mockProjectsData = [
         devTime: "2",
         endDate: "В работе",
         status: "В работе",
+        subtasks: [],
+        comments: [],
       },
       {
         category: "dev",
@@ -117,6 +140,8 @@ export const mockProjectsData = [
         devTime: "4",
         endDate: "В работе",
         status: "В работе",
+        subtasks: [],
+        comments: [],
       },
       {
         category: "queue",
@@ -129,6 +154,8 @@ export const mockProjectsData = [
         devTime: "В очереди",
         endDate: "В очереди",
         status: "В очереди",
+        subtasks: [],
+        comments: [],
       },
       {
         category: "done",
@@ -141,6 +168,8 @@ export const mockProjectsData = [
         devTime: "2",
         endDate: "30.09.2023",
         status: "Выполнено",
+        subtasks: [],
+        comments: [],
       },
       {
         category: "queue",
@@ -153,6 +182,8 @@ export const mockProjectsData = [
         devTime: "В очереди",
         endDate: "В очереди",
         status: "В очереди",
+        subtasks: [],
+        comments: [],
       },
     ],
   },

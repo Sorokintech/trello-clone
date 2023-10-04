@@ -5,10 +5,16 @@ import "./Button.scss";
 
 interface IButton {
   title: string;
+  className: string;
+  click?: () => void;
 }
 
-const Button: FC<IButton> = ({ title }) => {
-  return <button className={cn("button")}>{title}</button>;
+const Button: FC<IButton> = ({ title, className, click }) => {
+  return (
+    <button className={cn(`button ${className}`)} onClick={click}>
+      {title}
+    </button>
+  );
 };
 
 export default Button;

@@ -14,4 +14,21 @@ export interface ITask {
   devTime: string;
   endDate: string;
   status: string;
+  subtasks: ISubTask[];
+  comments: ICommentSection[];
+}
+export interface ICommentSection {
+  commentId: string;
+  content: string;
+}
+export interface ISubTask {
+  subTaskId: string;
+  content: string;
+  done: boolean;
+}
+export interface IModalProps {
+  id?: string;
+  task_id?: string;
+  isOpen: boolean;
+  onClose: () => void;
 }

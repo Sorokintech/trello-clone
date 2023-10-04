@@ -6,18 +6,8 @@ import "./Task.scss";
 import TaskModal from "../TaskModal/TaskModal";
 import { useDispatch } from "react-redux";
 import { actionCreators } from "../../store";
+import { ITask } from "../../assets/types/types";
 
-export interface ITask {
-  category: string;
-  task_id: string;
-  task_number: string;
-  title: string;
-  priority: string;
-  createDate: string;
-  devTime: string;
-  endDate: string;
-  status: string;
-}
 const Task: FC<ITask> = ({ ...props }) => {
   const data = props;
   const [isModalOpen, setModalState] = useState(false);

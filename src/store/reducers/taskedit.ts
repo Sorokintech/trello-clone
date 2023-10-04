@@ -11,6 +11,7 @@ const initialState = {
   task_id: "",
   task_number: "",
   title: "",
+  description: "",
 };
 
 const currentTaskReducer = (

@@ -1,23 +1,8 @@
+import { IProject } from "../../assets/types/types";
 import { ActionType } from "../action-types";
 import { ISetProjectData } from "../actions/index";
 
-const initialState = [
-  {
-    title: "",
-    projectId: "",
-    tasks: {
-      category: "",
-      createDate: "",
-      devTime: "",
-      endDate: "",
-      priority: "",
-      status: "",
-      task_id: "",
-      task_number: "",
-      title: "",
-    },
-  },
-];
+const initialState: IProject[] = [];
 
 const projectsDataReducer = (state = initialState, action: ISetProjectData) => {
   switch (action.type) {

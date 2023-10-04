@@ -10,7 +10,7 @@ import { IProject } from "../../assets/types/types";
 
 const MainPage: FC = () => {
   const dispatch = useDispatch();
-  const projects = useSelector((state: State) => state.projectData);
+  const projects = useSelector((state: State) => state.projectData); //=>
 
   useEffect(() => {
     dispatch(actionCreators.setProjects(mockProjectsData));

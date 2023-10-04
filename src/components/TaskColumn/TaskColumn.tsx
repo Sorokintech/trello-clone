@@ -6,74 +6,6 @@ import Task from "../Task/Task";
 import { useSelector } from "react-redux";
 import { actionCreators, State } from "../../store";
 
-const MockColumnData = [
-  {
-    category: "dev",
-    task_id: "1",
-    task_number: "1",
-    title: "Локализировать проблему",
-    priority: "Средний",
-    createDate: "30.09.2023",
-    devTime: "3 часа",
-    endDate: "В работе",
-    status: "В работе",
-  },
-  {
-    category: "dev",
-    task_id: "2",
-    task_number: "3",
-    title: "Кукусить пору",
-    priority: "Средний",
-    createDate: "30.09.2023",
-    devTime: "2 часа",
-    endDate: "В работе",
-    status: "В работе",
-  },
-  {
-    category: "done",
-    task_id: "1",
-    task_number: "2",
-    title: "Приготовить готовое",
-    priority: "Средний",
-    createDate: "30.09.2023",
-    devTime: "4 часа",
-    endDate: "30.09.2023",
-    status: "Выполнено",
-  },
-  {
-    category: "done",
-    task_id: "2",
-    task_number: "5",
-    title: "Покушать макару",
-    priority: "Средний",
-    createDate: "30.09.2023",
-    devTime: "2 часа",
-    endDate: "30.09.2023",
-    status: "Выполнено",
-  },
-  {
-    category: "done",
-    task_id: "3",
-    task_number: "4",
-    title: "Включить бубан",
-    priority: "Средний",
-    createDate: "30.09.2023",
-    devTime: "2 часа",
-    endDate: "30.09.2023",
-    status: "Выполнено",
-  },
-  {
-    category: "queue",
-    task_id: "1",
-    task_number: "6",
-    title: "Завести газ",
-    priority: "Средний",
-    createDate: "30.09.2023",
-    devTime: "0",
-    endDate: "В очереди",
-    status: "В очереди",
-  },
-];
 interface ITaskColumn {
   title: string;
   id: string;
@@ -81,7 +13,7 @@ interface ITaskColumn {
 
 const TaskColumn: FC<ITaskColumn> = ({ title, id }) => {
   // const ColumnTasks = MockColumnData.filter((el) => el.category === id);
-  const state = useSelector((state: State) => state.projectData[0]);
+  const state = useSelector((state: State) => state.projectData[1]);
   console.log(state);
   const ColumnTasks = state.tasks.filter((el) => el.category === id);
   const [column, updateColumn] = useState(ColumnTasks);
@@ -99,9 +31,9 @@ const TaskColumn: FC<ITaskColumn> = ({ title, id }) => {
     <div className={cn("task-column")}>
       <h4 className={cn("task-column__header")}>{title}</h4>
       <div className={cn("task-column__content")}>
-        {/* {column.map((i, index) => (
+        {column.map((i) => (
           <Task {...i} />
-        ))} */}
+        ))}
       </div>
     </div>
   );

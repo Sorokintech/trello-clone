@@ -5,7 +5,7 @@ import {
   ISetCurrentTaskAction,
   ISetProjectData,
 } from "../actions";
-import { ITask } from "../../components/Task/Task";
+import { ITask } from "../../assets/types/types";
 import { IProject } from "../../assets/types/types";
 
 export const addSubTask = () => {

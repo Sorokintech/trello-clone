@@ -37,7 +37,7 @@ const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
             от {currentTask.createDate}
           </div>
           <div className={cn("task-modal__description")}>
-            Добавить стилей для главной страницы и страниц товаров
+            {currentTask.description}
           </div>
           <div className={cn("task-modal__priority")} onClick={() => hello()}>
             {currentTask.priority}

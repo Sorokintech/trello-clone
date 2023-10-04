@@ -1,5 +1,5 @@
 import { IProject } from "../../assets/types/types";
-import { ITask } from "../../components/Task/Task";
+import { ITask } from "../../assets/types/types";
 import { ActionType } from "../action-types";
 
 export interface ISubTaskAction {

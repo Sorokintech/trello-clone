@@ -37,6 +37,9 @@
   &__title {
     grid-column: span 7;
     font-size: 1.325rem;
+    grid-row: span 8;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   &__priority {
     grid-column: span 6;

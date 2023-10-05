@@ -9,7 +9,7 @@ import TaskColumn from "../../components/TaskColumn/TaskColumn";
 
 const ProjectPage: FC = () => {
   const { project_id } = useParams();
-  console.log(project_id);
+  // console.log(project_id);
   return (
     <div className={cn("project-page")}>
       <Header />

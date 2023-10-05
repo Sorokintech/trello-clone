@@ -19,7 +19,7 @@ const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
     currentTask.description
   );
   const [taskTitle, setTaskTitle] = useState<string>(currentTask.title);
-  console.log(taskDescription);
+  // console.log(taskDescription);
   const dispatch = useDispatch();
   function hello() {
     dispatch(actionCreators.addSubTask());

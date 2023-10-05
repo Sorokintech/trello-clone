@@ -14,11 +14,13 @@ const NewTaskModal: FC<IModalProps> = ({ isOpen, onClose }) => {
       onClose();
     }
   };
-  const [newTask, updateNewTask] = useState<ITask>();
   const [newTaskTitle, updateNewTaskTitle] = useState<string>("");
   const [newTaskDescription, updateNewTaskDescription] = useState<string>("");
-  const [newTaskPriority, updateNewTaskPriority] = useState<string>("");
+  const [newTaskPriority, updateNewTaskPriority] = useState<string>("Высокий");
+  const [newTask, updateNewTask] = useState<ITask>();
+
   const dispatch = useDispatch();
+
   function taskCreateHandler(e: React.ChangeEvent<HTMLInputElement>) {
     e.target.id === "title"
       ? updateNewTaskTitle(e.target.value)
@@ -40,14 +42,11 @@ const NewTaskModal: FC<IModalProps> = ({ isOpen, onClose }) => {
       subtasks: [],
       comments: [],
     });
-    console.log(newTask);
   }
 
   useEffect(() => {
-    console.log(`Title: ${newTaskTitle}`);
-    console.log(`Description: ${newTaskDescription}`);
-    console.log();
-  }, [newTaskDescription, newTaskTitle]);
+    console.log(newTask);
+  }, [newTask]);
 
   return isOpen ? (
     <div className="container">

@@ -8,8 +8,8 @@ const AppRoutes: FC = () => {
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />
-      {/* <Route path="/project-page/project_id" element={<ProjectPage />} /> */}
-      <Route path="/project-page" element={<ProjectPage />} />
+      <Route path="/project-page/:project_id" element={<ProjectPage />} />
+      {/* <Route path="/project-page" element={<ProjectPage />} /> */}
     </Routes>
   );
 };

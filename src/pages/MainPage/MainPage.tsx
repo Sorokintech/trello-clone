@@ -18,11 +18,8 @@ const MainPage: FC = () => {
   return (
     <div className="main-page">
       <Header />
-      <div
-        className="main-page__project-container"
-        onClick={() => console.log(projects)}
-      >
-        {mockProjectsData.map((p) => (
+      <div className="main-page__project-container">
+        {projects.map((p) => (
           <ProjectTab {...p} />
         ))}
       </div>

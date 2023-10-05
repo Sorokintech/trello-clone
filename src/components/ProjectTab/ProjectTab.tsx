@@ -2,18 +2,18 @@ import React, { FC } from "react";
 import projectEditImage from "../../assets/images/project-edit-image.png";
 import "./ProjectTab.scss";
 import cn from "classnames";
+
 import { useNavigate } from "react-router-dom";
 import { IProject } from "../../assets/types/types";
 
 const ProjectTab: FC<IProject> = ({ ...props }) => {
   const navigate = useNavigate();
   const task = props.tasks;
-  console.log(task);
   return (
     <div
       id={props.projectId}
       className={cn("project-tab")}
-      onClick={() => navigate(`/project-page`)}
+      onClick={() => navigate(`/project-page/${props.projectId}`)}
     >
       <img
         className={cn("project-tab__edit-image")}

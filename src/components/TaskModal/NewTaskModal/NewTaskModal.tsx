@@ -2,12 +2,15 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 
 import "./NewTaskModal.scss";
-
-import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { IModalProps, ITask } from "../../../assets/types/types";
 import Button from "../../Inputs/Button/Button";
+import { actionCreators, State } from "../../../store";
+import { format, compareAsc } from "date-fns";
 
 const NewTaskModal: FC<IModalProps> = ({ isOpen, onClose }) => {
+  const { project_id } = useParams();
   const overlayRef = useRef(null);
   const handleOverlayClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     if (e.target === overlayRef.current) {
@@ -18,6 +21,7 @@ const NewTaskModal: FC<IModalProps> = ({ isOpen, onClose }) => {
   const [newTaskDescription, updateNewTaskDescription] = useState<string>("");
   const [newTaskPriority, updateNewTaskPriority] = useState<string>("Высокий");
   const [newTask, updateNewTask] = useState<ITask>();
+  const [formValidation, updateFormValidation] = useState<boolean>(true);
 
   const dispatch = useDispatch();
 
@@ -26,22 +30,32 @@ const NewTaskModal: FC<IModalProps> = ({ isOpen, onClose }) => {
       ? updateNewTaskTitle(e.target.value)
       : updateNewTaskDescription(e.target.value);
   }
-
+  const state = useSelector((state: State) => state.projectData);
+  const tasksAmount = state.filter((el) => el.projectId === project_id)[0].tasks
+    .length;
   function createNewTask() {
-    updateNewTask({
-      category: "queue",
-      task_id: "30",
-      task_number: "4",
-      title: newTaskTitle,
-      description: newTaskDescription,
-      priority: newTaskPriority,
-      createDate: "04.10.2023",
-      devTime: "В очереди",
-      endDate: "В очереди",
-      status: "В очереди",
-      subtasks: [],
-      comments: [],
-    });
+    if (newTaskTitle === "" || newTaskDescription === "") {
+      updateFormValidation(false);
+    } else {
+      let date = new Date();
+      updateNewTask({
+        category: "queue",
+        task_id: (tasksAmount + 1).toString(),
+        task_number: (tasksAmount + 1).toString(),
+        title: newTaskTitle,
+        description: newTaskDescription,
+        priority: newTaskPriority,
+        createDate: format(date, "dd.MM.yyyy"),
+        createTime: format(date, "HH:mm"),
+        devStartTime: "В очереди",
+        endDate: "В очереди",
+        status: "В очереди",
+        subtasks: [],
+        comments: [],
+      });
+      updateFormValidation(true);
+      onClose();
+    }
   }
 
   useEffect(() => {
@@ -89,6 +103,11 @@ const NewTaskModal: FC<IModalProps> = ({ isOpen, onClose }) => {
             <option value="Средний">Средний</option>
             <option value="Низкий">Низкий</option>
           </select>
+          {!formValidation && (
+            <div className={cn("new-task-modal__error-message")}>
+              Введите название и задайте описание задачи
+            </div>
+          )}
           <div className={cn("new-task-modal__btn-container")}>
             <Button
               title={"Создать задачу"}

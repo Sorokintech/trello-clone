@@ -6,12 +6,14 @@ import Button from "../Inputs/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators, State } from "../../store";
 import { IModalProps } from "../../assets/types/types";
+import Input from "../Inputs/Input/Input";
 
 const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
   const overlayRef = useRef(null);
   const handleOverlayClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     if (e.target === overlayRef.current) {
       onClose();
+      setAddSubTask(false);
     }
   };
   const currentTask = useSelector((state: State) => state.currentTask);
@@ -19,11 +21,23 @@ const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
     currentTask.description
   );
   const [taskTitle, setTaskTitle] = useState<string>(currentTask.title);
-  // console.log(taskDescription);
+  const [subTask, updateSubTask] = useState<string>("");
+  const [newComment, updateNewComment] = useState<string>("");
+  const [taskDone, setTaskDone] = useState<boolean>(false);
+  const [addSubTask, setAddSubTask] = useState<boolean>(false);
   const dispatch = useDispatch();
+
+  function addSubTaskHandler() {
+    if (subTask.length > 1) {
+      console.log(subTask);
+      setAddSubTask(false);
+      updateSubTask("");
+    }
+  }
   function hello() {
     dispatch(actionCreators.addSubTask());
   }
+  console.log(newComment);
 
   return isOpen ? (
     <div className="container">
@@ -51,7 +65,7 @@ const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
             Приоритет: {currentTask.priority}
           </div>
           <div className={cn("task-modal__dev-time")}>
-            В работе: {currentTask.devTime}
+            В работе: {currentTask.devStartTime}
           </div>
           <div className={cn("task-modal__end-date")}>
             Закрыта: {currentTask.endDate}
@@ -59,7 +73,27 @@ const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
 
           <div className={cn("task-modal__status")}>{currentTask.status}</div>
           <div className={cn("task-modal__sub-task-section")}>
-            <Button title={"+ Добавить подзадачу"} className={"button-dark"} />
+            <Button
+              title={"+ Добавить подзадачу"}
+              className={"button-light-blue"}
+              click={() => setAddSubTask(true)}
+            />
+            {addSubTask && (
+              <div className={cn("task-modal__sub-task-section__add-subtask")}>
+                <Input
+                  id={"subtask"}
+                  type={"text"}
+                  placeholder={"Добавьте описание..."}
+                  defaultV={subTask}
+                  onchange={(e) => updateSubTask(e.target.value)}
+                />
+                <Button
+                  title={"Добавить"}
+                  className={"button-light-blue"}
+                  click={addSubTaskHandler}
+                />
+              </div>
+            )}
             {currentTask.subtasks.map((item) => (
               <div className={cn("task-modal__sub-task-section__item")}>
                 <div
@@ -68,7 +102,7 @@ const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
                 >
                   {item.content}
                 </div>
-                <Button title={"Выполнено"} className={"button-dark"} />
+                <Button title={"Выполнено"} className={"button-light-blue"} />
               </div>
             ))}
           </div>
@@ -84,13 +118,14 @@ const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
             ))}
             <div className={cn("task-modal__comment-section__add-comment")}>
               {" "}
-              <input
-                type="textarea"
-                className={cn(
-                  "task-modal__comment-section__add-comment__input"
-                )}
+              <Input
+                id={"comment"}
+                type={"text"}
+                placeholder={"Оставьте комментарий..."}
+                defaultV={newComment}
+                onchange={(e) => updateNewComment(e.target.value)}
               />
-              <Button title={"Опубликовать"} className={"button-dark"} />
+              <Button title={"Опубликовать"} className={"button-light-blue"} />
             </div>
           </div>
         </div>

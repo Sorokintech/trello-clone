@@ -13,3 +13,7 @@ export interface ISetProjectData {
   type: ActionType.SetProjectsData;
   payload: IProject[];
 }
+export interface IAddTask {
+  type: ActionType.addTask;
+  payload: ITask;
+}

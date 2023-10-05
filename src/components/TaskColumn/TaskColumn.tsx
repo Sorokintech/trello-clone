@@ -16,7 +16,6 @@ interface ITaskColumn {
 
 const TaskColumn: FC<ITaskColumn> = ({ title, id }) => {
   const { project_id } = useParams();
-  console.log(project_id);
   const state = useSelector((state: State) => state.projectData);
 
   const ColumnTasks = state

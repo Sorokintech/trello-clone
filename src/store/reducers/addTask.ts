@@ -1,6 +1,7 @@
+import { useSelector } from "react-redux";
 import { ITask } from "../../assets/types/types";
 import { ActionType } from "../action-types";
-import { ISetCurrentTaskAction } from "../actions/index";
+import { IAddTask } from "../actions/index";
 
 const initialState: ITask = {
   category: "",
@@ -18,12 +19,9 @@ const initialState: ITask = {
   comments: [],
 };
 
-const currentTaskReducer = (
-  state = initialState,
-  action: ISetCurrentTaskAction
-) => {
+const addTaskReducer = (state = initialState, action: IAddTask) => {
   switch (action.type) {
-    case ActionType.SetCurrent:
+    case ActionType.addTask:
       const data = action.payload;
       return {
         ...data,
@@ -32,4 +30,4 @@ const currentTaskReducer = (
       return state;
   }
 };
-export default currentTaskReducer;
+export default addTaskReducer;

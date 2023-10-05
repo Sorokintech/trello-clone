@@ -4,6 +4,7 @@ import {
   ISubTaskAction,
   ISetCurrentTaskAction,
   ISetProjectData,
+  IAddTask,
 } from "../actions";
 import { ITask } from "../../assets/types/types";
 import { IProject } from "../../assets/types/types";
@@ -27,6 +28,14 @@ export const setProjects = (payload: IProject[]) => {
   return (dispatch: Dispatch<ISetProjectData>) => {
     dispatch({
       type: ActionType.SetProjectsData,
+      payload: payload,
+    });
+  };
+};
+export const addTask = (payload: ITask) => {
+  return (dispatch: Dispatch<IAddTask>) => {
+    dispatch({
+      type: ActionType.addTask,
       payload: payload,
     });
   };

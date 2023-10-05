@@ -22,7 +22,9 @@ const Task: FC<ITask> = ({ ...props }) => {
         <h4 className={cn("task__title")}>{props.title}</h4>
         <div className={cn("task__priority")}>{props.priority}</div>
         <div className={cn("task__create-date")}>от {props.createDate}</div>
-        <div className={cn("task__dev-time")}>В работе: {props.devTime}</div>
+        <div className={cn("task__dev-time")}>
+          В работе: {props.devStartTime}
+        </div>
 
         <div className={cn("task__end-date")}>готово {props.endDate}</div>
         <div className={cn("task__status")}>{props.status}</div>

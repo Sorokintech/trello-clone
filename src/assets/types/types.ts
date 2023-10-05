@@ -11,7 +11,8 @@ export interface ITask {
   description: string;
   priority: string;
   createDate: string;
-  devTime: string;
+  createTime: string;
+  devStartTime: string;
   endDate: string;
   status: string;
   subtasks: ISubTask[];

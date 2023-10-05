@@ -1,13 +1,13 @@
 @use "../../assets/styles/colors.scss" as *;
 
 .task-modal {
-  margin: 10% 20%;
+  margin: 10% 25%;
   z-index: 1;
   padding: 1rem 2rem;
   border: transparent;
   border-radius: 0.625rem;
-  background-color: $color-bg-other;
-  color: $color-text-light;
+  background-color: $color-bg-main;
+  color: $color-text-dark-blue;
   display: grid;
   grid-template-columns: repeat(18, 1fr);
   // grid-template-rows: repeat(10, 1fr);
@@ -33,7 +33,7 @@
     }
   }
   &__description {
-    color: $color-text-light;
+    color: $color-text-dark-blue;
     outline: none;
     background-color: inherit;
     border: transparent;
@@ -75,6 +75,18 @@
   }
   &__sub-task-section {
     grid-column: span 18;
+    &__add-subtask {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.325rem;
+      &__input {
+        width: 100%;
+        outline: none;
+        border: transparent;
+        border-radius: 0.125rem;
+        padding: 0.125rem;
+      }
+    }
     &__create-btn {
       padding: 0.125rem 0.5rem;
     }
@@ -91,9 +103,14 @@
         padding-left: 1rem;
         font-size: 0.825rem;
         // margin: 0.325rem 0;
-        background-color: $color-bg-main;
-        color: $color-text-dark-blue;
+        background-color: $color-bg-main-blue;
+        color: $color-text-light;
         cursor: default;
+        &:hover {
+          background-color: $color-bg-other;
+          color: $color-text-light;
+          text-decoration: line-through;
+        }
       }
     }
   }
@@ -121,7 +138,7 @@
         outline: none;
         border: transparent;
         border-radius: 0.125rem;
-        padding: 0.125rem;
+        padding: 0.325rem 1rem;
       }
     }
   }

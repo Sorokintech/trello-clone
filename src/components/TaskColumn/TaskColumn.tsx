@@ -5,9 +5,9 @@ import Task from "../Task/Task";
 import { useSelector } from "react-redux";
 import { actionCreators, State } from "../../store";
 import Button from "../Inputs/Button/Button";
-import NewTaskModal from "../TaskModal/NewTaskModal/NewTaskModal";
 import { useParams } from "react-router-dom";
 import { IProject } from "../../assets/types/types";
+import CreateTask from "../Modals/CreateTask/CreateTask";
 
 interface ITaskColumn {
   title: string;
@@ -43,7 +43,7 @@ const TaskColumn: FC<ITaskColumn> = ({ title, id }) => {
             click={ToggleModal}
           />
         )}
-        <NewTaskModal isOpen={isModalOpen} onClose={ToggleModal} />
+        <CreateTask isOpen={isModalOpen} onClose={ToggleModal} />
       </div>
     </div>
   );

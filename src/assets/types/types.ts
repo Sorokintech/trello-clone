@@ -33,3 +33,16 @@ export interface IModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+export interface IInput {
+  id: string;
+  type: string;
+  defaultV: string;
+  className?: string;
+  placeholder?: string;
+  onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+export interface IButton {
+  title: string;
+  className?: string;
+  click?: () => void;
+}

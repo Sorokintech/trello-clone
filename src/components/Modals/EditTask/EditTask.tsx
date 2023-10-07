@@ -1,14 +1,14 @@
 import React, { FC, useRef, useState } from "react";
 import cn from "classnames";
 
-import "./TaskModal.scss";
-import Button from "../Inputs/Button/Button";
+import "./EditTask.scss";
+import Button from "../../Inputs/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators, State } from "../../store";
-import { IModalProps } from "../../assets/types/types";
-import Input from "../Inputs/Input/Input";
+import { actionCreators, State } from "../../../store";
+import { IModalProps } from "../../../assets/types/types";
+import Input from "../../Inputs/Input/Input";
 
-const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
+const EditTask: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
   const overlayRef = useRef(null);
   const handleOverlayClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     if (e.target === overlayRef.current) {
@@ -25,6 +25,7 @@ const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
   const [newComment, updateNewComment] = useState<string>("");
   const [taskDone, setTaskDone] = useState<boolean>(false);
   const [addSubTask, setAddSubTask] = useState<boolean>(false);
+  const [addSubComment, setAddSubComment] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   function addSubTaskHandler() {
@@ -46,20 +47,22 @@ const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
           <div className={cn("task-modal__number")}>
             #{currentTask.task_number}
           </div>
-          <input
-            type="text"
-            className={cn("task-modal__title")}
-            defaultValue={currentTask.title}
-            onChange={(e) => setTaskTitle(e.target.value)}
+          <Input
+            id={"title"}
+            type={"text"}
+            defaultV={currentTask.title}
+            className={"input-title-edit"}
+            onchange={(e) => setTaskTitle(e.target.value)}
           />
           <div className={cn("task-modal__create-date")}>
             от {currentTask.createDate}
           </div>
-          <input
-            typeof="textarea"
-            className={cn("task-modal__description")}
-            defaultValue={currentTask.description}
-            onChange={(e) => setTaskDescription(e.target.value)}
+          <Input
+            id={"description"}
+            type={"textarea"}
+            defaultV={currentTask.description}
+            className={"input-description-edit"}
+            onchange={(e) => setTaskDescription(e.target.value)}
           />
           <div className={cn("task-modal__priority")} onClick={() => hello()}>
             Приоритет: {currentTask.priority}
@@ -81,7 +84,7 @@ const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
             {addSubTask && (
               <div className={cn("task-modal__sub-task-section__add-subtask")}>
                 <Input
-                  id={"subtask"}
+                  id={"subtask-add"}
                   type={"text"}
                   placeholder={"Добавьте описание..."}
                   defaultV={subTask}
@@ -96,12 +99,13 @@ const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
             )}
             {currentTask.subtasks.map((item) => (
               <div className={cn("task-modal__sub-task-section__item")}>
-                <div
-                  key={item.subTaskId}
-                  className={cn("task-modal__sub-task-section__item__content")}
-                >
-                  {item.content}
-                </div>
+                <Input
+                  id={"subtask"}
+                  type={"text"}
+                  defaultV={item.content}
+                  className={"input-subtask"}
+                  // onchange={(e) => updateSubTask(e.target.value)}
+                />
                 <Button title={"Выполнено"} className={"button-light-blue"} />
               </div>
             ))}
@@ -109,13 +113,36 @@ const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
           <div className={cn("task-modal__comment-section")}>
             Комментарии
             {currentTask?.comments.map((item) => (
-              <div
-                className={cn("task-modal__comment-section__comment")}
-                key={item.commentId}
-              >
-                {item.content}
+              <div className={cn("task-modal__comment-section__comment")}>
+                <div
+                  className={cn(
+                    "task-modal__comment-section__comment__content"
+                  )}
+                  key={item.commentId}
+                >
+                  {item.content}
+                </div>
+                <Button
+                  title={"Ответить"}
+                  className={"button-light-blue"}
+                  click={() => setAddSubComment(true)}
+                />
               </div>
             ))}
+            {addSubComment && (
+              <div
+                className={cn("task-modal__comment-section__add-sub-comment")}
+              >
+                <Input
+                  id={"subtask-add"}
+                  type={"text"}
+                  placeholder={"Дополните комментарий..."}
+                  defaultV={subTask}
+                  // onchange={(e) => setSubComment(e.target.value)}
+                />
+                <Button title={"Дополнить"} className={"button-light-blue"} />
+              </div>
+            )}
             <div className={cn("task-modal__comment-section__add-comment")}>
               {" "}
               <Input
@@ -128,10 +155,17 @@ const TaskModal: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
               <Button title={"Опубликовать"} className={"button-light-blue"} />
             </div>
           </div>
+          <div className={cn("task-modal__save-btn")}>
+            <Button
+              title={"Сохранить изменения"}
+              className={"button-light-blue"}
+              click={addSubTaskHandler}
+            />
+          </div>
         </div>
       </div>
     </div>
   ) : null;
 };
 
-export default TaskModal;
+export default EditTask;

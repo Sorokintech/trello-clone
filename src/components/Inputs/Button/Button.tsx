@@ -2,12 +2,7 @@ import React, { FC } from "react";
 
 import cn from "classnames";
 import "./Button.scss";
-
-interface IButton {
-  title: string;
-  className: string;
-  click?: () => void;
-}
+import { IButton } from "../../../assets/types/types";
 
 const Button: FC<IButton> = ({ title, className, click }) => {
   return (

@@ -2,15 +2,7 @@ import React, { FC } from "react";
 
 import cn from "classnames";
 import "./Input.scss";
-
-interface IInput {
-  id: string;
-  type: string;
-  defaultV: string;
-  className?: string;
-  placeholder?: string;
-  onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import { IInput } from "../../../assets/types/types";
 
 const Input: FC<IInput> = ({
   id,

@@ -3,10 +3,10 @@ import React, { FC, useState } from "react";
 import cn from "classnames";
 import "./Task.scss";
 // import projectEditImage from "../../assets/images/project-edit-image.png";
-import TaskModal from "../TaskModal/TaskModal";
 import { useDispatch } from "react-redux";
 import { actionCreators } from "../../store";
 import { ITask } from "../../assets/types/types";
+import EditTask from "../Modals/EditTask/EditTask";
 
 const Task: FC<ITask> = ({ ...props }) => {
   const data = props;
@@ -29,7 +29,7 @@ const Task: FC<ITask> = ({ ...props }) => {
         <div className={cn("task__end-date")}>готово {props.endDate}</div>
         <div className={cn("task__status")}>{props.status}</div>
       </div>
-      <TaskModal
+      <EditTask
         id={props.title}
         task_id={props.task_id}
         isOpen={isModalOpen}

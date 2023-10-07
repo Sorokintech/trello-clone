@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 
-import "./NewTaskModal.scss";
+import "./CreateTask.scss";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { IModalProps, ITask } from "../../../assets/types/types";
@@ -9,7 +9,7 @@ import Button from "../../Inputs/Button/Button";
 import { actionCreators, State } from "../../../store";
 import { format, compareAsc } from "date-fns";
 
-const NewTaskModal: FC<IModalProps> = ({ isOpen, onClose }) => {
+const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
   const { project_id } = useParams();
   const overlayRef = useRef(null);
   const handleOverlayClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -121,4 +121,4 @@ const NewTaskModal: FC<IModalProps> = ({ isOpen, onClose }) => {
   ) : null;
 };
 
-export default NewTaskModal;
+export default CreateTask;

@@ -1,5 +1,21 @@
-@use "../../assets/styles/colors.scss" as *;
+@use "../../../assets/styles/colors.scss" as *;
 
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  background: rgba(49, 49, 49, 0.8);
+  cursor: pointer;
+}
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.325rem;
+}
 .task-modal {
   margin: 10% 25%;
   z-index: 1;
@@ -10,11 +26,10 @@
   color: $color-text-dark-blue;
   display: grid;
   grid-template-columns: repeat(18, 1fr);
-  // grid-template-rows: repeat(10, 1fr);
   row-gap: 0.325rem;
   &__number {
     grid-column: span 1;
-    font-size: 1.125rem;
+    font-size: 2rem;
     text-align: start;
   }
   &__title {
@@ -79,6 +94,7 @@
       display: flex;
       justify-content: space-between;
       gap: 0.325rem;
+      margin-top: 0.325rem;
       &__input {
         width: 100%;
         outline: none;
@@ -95,40 +111,36 @@
       justify-content: space-between;
       gap: 0.325rem;
       margin: 0.325rem 0;
-      &__content {
-        width: 100%;
-        border: transparent;
-        border-radius: 0.125rem;
-        padding: 0.325rem;
-        padding-left: 1rem;
-        font-size: 0.825rem;
-        // margin: 0.325rem 0;
-        background-color: $color-bg-main-blue;
-        color: $color-text-light;
-        cursor: default;
-        &:hover {
-          background-color: $color-bg-other;
-          color: $color-text-light;
-          text-decoration: line-through;
-        }
-      }
     }
   }
   &__comment-section {
     grid-column: span 18;
     grid-row: auto;
-
-    &__comment {
-      background-color: $color-bg-main-blue;
-      border: transparent;
-      border-radius: 0.125rem;
-      padding: 0.325rem;
-      padding-left: 1rem;
-      font-size: 0.825rem;
-      margin: 0.325rem 0;
-      width: 100%;
-      cursor: default;
+    &__add-sub-comment {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.325rem;
+      margin-top: 0.325rem;
     }
+    &__comment {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.325rem;
+      margin-bottom: 0.325rem;
+
+      &__content {
+        background-color: $color-bg-other;
+        border: transparent;
+        border-radius: 0.125rem;
+        padding: 0.325rem;
+        padding-left: 1rem;
+        color: $color-text-light;
+        font-size: 0.825rem;
+        width: 100%;
+        cursor: default;
+      }
+    }
+
     &__add-comment {
       display: flex;
       justify-content: space-between;
@@ -142,6 +154,13 @@
       }
     }
   }
+  &__save-btn {
+    grid-column: span 18;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .container {
@@ -153,15 +172,4 @@
   bottom: 0;
   position: fixed;
   z-index: 1;
-}
-.wrapper {
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: fixed;
-  background: rgba(49, 49, 49, 0.8);
-  cursor: pointer;
 }

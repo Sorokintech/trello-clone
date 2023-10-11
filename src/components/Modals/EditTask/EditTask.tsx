@@ -21,6 +21,8 @@ const EditTask: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
   const currentTask = useSelector((state: State) => state.currentTask);
   const [updatedTask, setUpdatedTask] = useState<ITask>(currentTask);
   const dispatch = useDispatch();
+
+  // функцию ниже, нужно просто сделать через reducer updateTask
   function updateCurrentTask(key: string, value: string) {
     setUpdatedTask((prevState) => ({
       ...prevState,
@@ -89,8 +91,8 @@ const EditTask: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
             Закрыта: {updatedTask.endDate}
           </div>
           <div className={cn("task-modal__status")}>{updatedTask.status}</div>
-          <SubTaskSection {...updatedTask} />
-          <CommentSection {...updatedTask} />
+          <SubTaskSection {...currentTask} />
+          <CommentSection {...currentTask} />
           <div className={cn("task-modal__save-btn")}>
             <Button
               title={"Сохранить изменения"}

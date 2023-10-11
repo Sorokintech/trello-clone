@@ -8,6 +8,7 @@ import { IModalProps, ITask } from "../../../assets/types/types";
 import Button from "../../Inputs/Button/Button";
 import { actionCreators, State } from "../../../store";
 import { format, compareAsc } from "date-fns";
+import Input from "../../Inputs/Input/Input";
 
 const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
   const { project_id } = useParams();
@@ -17,12 +18,9 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
       onClose();
     }
   };
-  const [newTaskTitle, updateNewTaskTitle] = useState<string>("");
-  const [newTaskDescription, updateNewTaskDescription] = useState<string>("");
-  const [newTaskPriority, updateNewTaskPriority] = useState<string>("Высокий");
-  const [newTask, updateNewTask] = useState<ITask>({
-    project_id: "",
-    category: "",
+  const [newTask, setNewTask] = useState<ITask>({
+    project_id: project_id,
+    category: "queue",
     task_id: "",
     task_number: "",
     title: "",
@@ -36,49 +34,39 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
     subtasks: [],
     comments: [],
   });
-  const [formValidation, updateFormValidation] = useState<boolean>(true);
+  const [formIsValid, updateFormIsValid] = useState<boolean>(true);
 
   const dispatch = useDispatch();
 
-  function taskCreateHandler(e: React.ChangeEvent<HTMLInputElement>) {
-    e.target.id === "title"
-      ? updateNewTaskTitle(e.target.value)
-      : updateNewTaskDescription(e.target.value);
-  }
   const state = useSelector((state: State) => state.projectData);
   const tasksAmount = state.filter((el) => el.project_id === project_id)[0]
     .tasks.length;
-  function createNewTask() {
-    if (newTaskTitle === "" || newTaskDescription === "") {
-      updateFormValidation(false);
-    } else {
-      let date = new Date();
-      updateNewTask({
-        project_id: project_id,
-        category: "queue",
-        task_id: (tasksAmount + 1).toString(),
-        task_number: (tasksAmount + 1).toString(),
-        title: newTaskTitle,
-        description: newTaskDescription,
-        priority: newTaskPriority,
-        createDate: format(date, "dd.MM.yyyy"),
-        createTime: format(date, "HH:mm"),
-        devStartTime: "В очереди",
-        endDate: "В очереди",
-        status: "В очереди",
-        subtasks: [],
-        comments: [],
-      });
-      updateFormValidation(true);
-      console.log(newTask);
 
+  function updateNewTask(key: string, value: string) {
+    let date = new Date();
+    setNewTask((prevState) => ({
+      ...prevState,
+      [key]: value,
+      task_id: (tasksAmount + 1).toString(),
+      task_number: (tasksAmount + 1).toString(),
+      createDate: format(date, "dd.MM.yyyy"),
+      createTime: format(date, "HH:mm"),
+    }));
+  }
+  function createNewTask() {
+    if (newTask.title === "" || newTask.description === "") {
+      updateFormIsValid(false);
+    } else {
+      updateFormIsValid(true);
+      dispatch(actionCreators.addTask(newTask));
       onClose();
     }
   }
 
-  useEffect(() => {
-    console.log(state[0]);
-  }, [state]);
+  // useEffect(() => {
+  //   console.log(newTask);
+  //   console.log(state[0]);
+  // }, [newTask, state]);
 
   return isOpen ? (
     <div className="container">
@@ -87,24 +75,24 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
           <label htmlFor="title" className={cn("new-task-modal__label")}>
             Добавьте название задачи
           </label>
-          <input
+          <Input
             id="title"
             type="text"
             className={cn("new-task-modal__input")}
             placeholder="Захватить мир.."
-            defaultValue={newTaskTitle}
-            onChange={taskCreateHandler}
+            defaultV={""}
+            onchange={(e) => updateNewTask("title", e.target.value)}
           />
           <label htmlFor="description" className={cn("new-task-modal__label")}>
             Добавьте описание задачи
           </label>
-          <input
+          <Input
             id="description"
             type="text"
             className={cn("new-task-modal__input")}
             placeholder="Первым делом нужно..."
-            defaultValue={newTaskDescription}
-            onChange={taskCreateHandler}
+            defaultV={""}
+            onchange={(e) => updateNewTask("description", e.target.value)}
           />
           <label
             htmlFor="priority"
@@ -112,7 +100,7 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
           ></label>
           Выберите приоритет задачи
           <select
-            onChange={(e) => updateNewTaskPriority(e.target.value)}
+            onChange={(e) => updateNewTask("priority", e.target.value)}
             name="priority"
             id="priority"
             className={cn("new-task-modal__input")}
@@ -121,7 +109,7 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
             <option value="Средний">Средний</option>
             <option value="Низкий">Низкий</option>
           </select>
-          {!formValidation && (
+          {!formIsValid && (
             <div className={cn("new-task-modal__error-message")}>
               Введите название и задайте описание задачи
             </div>

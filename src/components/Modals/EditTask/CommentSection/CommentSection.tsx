@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import cn from "classnames";
 
 import "./CommentSection.scss";
@@ -7,26 +7,40 @@ import Input from "../../../Inputs/Input/Input";
 import { IComment, ITask } from "../../../../assets/types/types";
 import { actionCreators, State } from "../../../../store";
 import { useDispatch, useSelector } from "react-redux";
+import { format, compareAsc } from "date-fns";
 
 const CommentSection: FC<ITask> = ({ ...currentTask }) => {
-  const state = useSelector((state: State) => state.projectData[1]);
+  const state = useSelector((state: State) => state.projectData[0]);
   const [addSubComment, setAddSubComment] = useState<boolean>(false);
-  const [newComment, updateNewComment] = useState<IComment>();
+  // const [newComment, setNewComment] = useState<Partial<IComment>>({});
+  const [newComment, setNewComment] = useState<IComment>({
+    project_id: currentTask.project_id,
+    task_id: currentTask.task_id,
+    commentId: (currentTask.comments.length + 1).toString(),
+    content: "",
+    createDate: "",
+  });
+
   const [newCommentContent, updateNewCommentContent] = useState<string>();
   const dispatch = useDispatch();
-  function postComment(value: string) {
-    updateNewComment({
-      project_id: currentTask.project_id as string,
+  function updateNewComment(key: string, value: string) {
+    let date = new Date();
+    setNewComment({
+      project_id: currentTask.project_id,
       task_id: currentTask.task_id,
-      commentId: (currentTask.comments.length + 1).toString(),
+      // commentId: (currentTask.comments.length + 1).toString(),
+      commentId: "1",
       content: value,
-      createDate: "",
+      createDate: format(date, "HH:mm"),
     });
-    dispatch(actionCreators.addComment); // не прыгает в редусер
     console.log(newComment);
-    console.log(state);
-    console.log("published");
   }
+  function postComment() {
+    dispatch(actionCreators.addComment(newComment)); // В редюсер уходит, однако редюсер сломан. Починить.
+  }
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
 
   return (
     <div className={cn("task-modal__comment-section")}>
@@ -68,12 +82,12 @@ const CommentSection: FC<ITask> = ({ ...currentTask }) => {
           type={"text"}
           placeholder={"Оставьте комментарий..."}
           defaultV={""}
-          onchange={(e) => updateNewCommentContent(e.target.value)}
+          onchange={(e) => updateNewComment("content", e.target.value)}
         />
         <Button
           title={"Опубликовать"}
           className={"button-light-blue"}
-          click={() => postComment(newCommentContent as string)}
+          click={() => postComment()}
         />
       </div>
     </div>

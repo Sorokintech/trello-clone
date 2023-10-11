@@ -17,19 +17,15 @@ const projectsDataReducer = (
       const comment = action.payload;
       return state.map((project) => {
         if (project.project_id === comment.project_id) {
-          // Найдите задачу с соответствующим ID
-          console.log("ok");
           const task = project.tasks.find(
             (task) => task.task_id === comment.task_id
           );
-
           if (task) {
-            // Обновите свойство comments в задаче
             const updatedTask = {
               ...task,
               comments: [...task.comments, comment],
             };
-            // Обновите массив задач в проекте и верните обновленный проект
+
             return {
               ...project,
               tasks: project.tasks.map((t) =>

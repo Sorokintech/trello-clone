@@ -19,8 +19,13 @@ export interface ITask {
   subtasks: ISubTask[];
   comments: IComment[];
 }
+export interface ITaskColumn {
+  title: string;
+  id: string;
+}
+
 export interface IComment {
-  project_id: string;
+  project_id: string | undefined;
   task_id: string;
   commentId: string;
   content: string;

@@ -20,7 +20,22 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
   const [newTaskTitle, updateNewTaskTitle] = useState<string>("");
   const [newTaskDescription, updateNewTaskDescription] = useState<string>("");
   const [newTaskPriority, updateNewTaskPriority] = useState<string>("Высокий");
-  const [newTask, updateNewTask] = useState<ITask>();
+  const [newTask, updateNewTask] = useState<ITask>({
+    project_id: "",
+    category: "",
+    task_id: "",
+    task_number: "",
+    title: "",
+    description: "",
+    priority: "",
+    createDate: "",
+    createTime: "",
+    devStartTime: "В очереди",
+    endDate: "В очереди",
+    status: "В очереди",
+    subtasks: [],
+    comments: [],
+  });
   const [formValidation, updateFormValidation] = useState<boolean>(true);
 
   const dispatch = useDispatch();
@@ -31,8 +46,8 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
       : updateNewTaskDescription(e.target.value);
   }
   const state = useSelector((state: State) => state.projectData);
-  const tasksAmount = state.filter((el) => el.projectId === project_id)[0].tasks
-    .length;
+  const tasksAmount = state.filter((el) => el.project_id === project_id)[0]
+    .tasks.length;
   function createNewTask() {
     if (newTaskTitle === "" || newTaskDescription === "") {
       updateFormValidation(false);
@@ -55,13 +70,15 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
         comments: [],
       });
       updateFormValidation(true);
+      console.log(newTask);
+
       onClose();
     }
   }
 
   useEffect(() => {
-    console.log(newTask);
-  }, [newTask]);
+    console.log(state[0]);
+  }, [state]);
 
   return isOpen ? (
     <div className="container">

@@ -9,11 +9,11 @@ export interface ISetProjectData {
   type: ActionType.setProjectsData;
   payload: IProject[];
 }
-export interface IAddTask {
-  type: ActionType.addTask;
-  payload: ITask;
-}
 export interface IAddComment {
   type: ActionType.addComment;
   payload: IComment;
+}
+export interface IAddTask {
+  type: ActionType.addTask;
+  payload: ITask;
 }

@@ -76,7 +76,7 @@ const EditTask: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
             name="priority"
             id="priority"
             className={cn("task-modal__priority")}
-            defaultValue={updatedTask.priority}
+            defaultValue={currentTask.priority}
           >
             <option value="Высокий">Высокий</option>
             <option value="Средний">Средний</option>

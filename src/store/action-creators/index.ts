@@ -24,18 +24,18 @@ export const setProjects = (payload: IProject[]) => {
     });
   };
 };
-export const addTask = (payload: ITask) => {
-  return (dispatch: Dispatch<IAddTask>) => {
-    dispatch({
-      type: ActionType.addTask,
-      payload: payload,
-    });
-  };
-};
 export const addComment = (payload: IComment) => {
   return (dispatch: Dispatch<IAddComment>) => {
     dispatch({
       type: ActionType.addComment,
+      payload: payload,
+    });
+  };
+};
+export const addTask = (payload: ITask) => {
+  return (dispatch: Dispatch<IAddTask>) => {
+    dispatch({
+      type: ActionType.addTask,
       payload: payload,
     });
   };

@@ -16,7 +16,10 @@ const Task: FC<ITask> = ({ ...props }) => {
   };
   const dispatch = useDispatch();
   return (
-    <div onClick={() => dispatch(actionCreators.editTask(data))}>
+    <div
+      key={props.task_id}
+      onClick={() => dispatch(actionCreators.editTask(data))}
+    >
       <div className={cn("task")} onClick={ToggleModal}>
         <div className={cn("task__number")}>#{props.task_number}</div>
         <h4 className={cn("task__title")}>{props.title}</h4>

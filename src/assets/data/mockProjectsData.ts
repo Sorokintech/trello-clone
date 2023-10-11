@@ -1,7 +1,7 @@
 export const mockProjectsData = [
   {
     title: "Project Alpha",
-    projectId: "1",
+    project_id: "1",
     tasks: [
       {
         project_id: "1",
@@ -104,7 +104,7 @@ export const mockProjectsData = [
   },
   {
     title: "Project Beta",
-    projectId: "2",
+    project_id: "2",
     tasks: [
       {
         project_id: "2",
@@ -121,17 +121,17 @@ export const mockProjectsData = [
         status: "В очереди",
         subtasks: [
           {
-            projectId: "2",
-            taskId: "1",
-            subTaskId: "1",
+            project_id: "2",
+            task_id: "1",
+            subtask_id: "1",
             content: "Wildberries тоже чекнуть",
             done: false,
           },
         ],
         comments: [
           {
-            projectId: "2",
-            taskId: "1",
+            project_id: "2",
+            task_id: "1",
             commentId: "1",
             content: "Шляпа полная, зачем делать такой коммент не понимаю",
           },

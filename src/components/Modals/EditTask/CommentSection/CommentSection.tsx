@@ -16,8 +16,8 @@ const CommentSection: FC<ITask> = ({ ...currentTask }) => {
   const dispatch = useDispatch();
   function postComment(value: string) {
     updateNewComment({
-      projectId: currentTask.project_id as string,
-      taskId: currentTask.task_id,
+      project_id: currentTask.project_id as string,
+      task_id: currentTask.task_id,
       commentId: (currentTask.comments.length + 1).toString(),
       content: value,
       createDate: "",
@@ -32,7 +32,10 @@ const CommentSection: FC<ITask> = ({ ...currentTask }) => {
     <div className={cn("task-modal__comment-section")}>
       Комментарии
       {currentTask?.comments.map((item) => (
-        <div className={cn("task-modal__comment-section__comment")}>
+        <div
+          key={item.commentId}
+          className={cn("task-modal__comment-section__comment")}
+        >
           <div
             className={cn("task-modal__comment-section__comment__content")}
             key={item.commentId}

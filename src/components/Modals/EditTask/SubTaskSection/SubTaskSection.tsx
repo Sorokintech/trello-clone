@@ -41,9 +41,12 @@ const SubTaskSection: FC<ITask> = ({ ...currentTask }) => {
         </div>
       )}
       {currentTask.subtasks.map((item) => (
-        <div className={cn("task-modal__sub-task-section__item")}>
+        <div
+          key={item.subtask_id}
+          className={cn("task-modal__sub-task-section__item")}
+        >
           <Input
-            id={item.subTaskId}
+            id={item.subtask_id}
             type={"text"}
             defaultV={item.content}
             className={cn(item.done ? "input-subtask-done" : "input-subtask")}

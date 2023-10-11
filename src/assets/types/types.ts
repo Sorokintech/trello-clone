@@ -1,6 +1,6 @@
 export interface IProject {
   title: string;
-  projectId: string;
+  project_id: string;
   tasks: ITask[];
 }
 export interface ITask {
@@ -20,16 +20,16 @@ export interface ITask {
   comments: IComment[];
 }
 export interface IComment {
-  projectId: string;
-  taskId: string;
+  project_id: string;
+  task_id: string;
   commentId: string;
   content: string;
   createDate?: string;
 }
 export interface ISubTask {
-  projectId: string;
-  taskId: string;
-  subTaskId: string;
+  project_id: string;
+  task_id: string;
+  subtask_id: string;
   content: string;
   createDate?: string;
   done: boolean;
@@ -39,7 +39,7 @@ export interface ISubTask {
 //   content: string;
 // }
 // export interface ISubTask {
-//   subTaskId: string;
+//   subtask_id: string;
 //   content: string;
 //   done: boolean;
 // }

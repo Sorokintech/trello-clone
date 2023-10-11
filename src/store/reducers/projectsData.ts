@@ -1,25 +1,26 @@
 import { IProject } from "../../assets/types/types";
 import { ActionType } from "../action-types";
-import { ISetProjectData, IAddComment } from "../actions/index";
+import { ISetProjectData, IAddComment, IAddTask } from "../actions/index";
 
 const initialState: IProject[] = [];
 
 const projectsDataReducer = (
   state = initialState,
-  action: ISetProjectData | IAddComment
+  action: ISetProjectData | IAddComment | IAddTask
 ) => {
   switch (action.type) {
     case ActionType.setProjectsData:
       const data = action.payload;
       return [...data];
+    // ADD COMMENT
     case ActionType.addComment:
       const comment = action.payload;
       return state.map((project) => {
-        if (project.projectId === comment.projectId) {
+        if (project.project_id === comment.project_id) {
           // Найдите задачу с соответствующим ID
           console.log("ok");
           const task = project.tasks.find(
-            (task) => task.task_id === comment.taskId
+            (task) => task.task_id === comment.task_id
           );
 
           if (task) {
@@ -36,6 +37,18 @@ const projectsDataReducer = (
               ),
             };
           }
+        }
+        return project;
+      });
+    // ADD TASK
+    case ActionType.addTask:
+      const task = action.payload;
+      return state.map((project) => {
+        if (project.project_id === task.project_id) {
+          return {
+            ...project,
+            tasks: [...project.tasks, task],
+          };
         }
         return project;
       });

@@ -20,7 +20,7 @@ const MainPage: FC = () => {
       <Header />
       <div className="main-page__project-container">
         {projects.map((p) => (
-          <ProjectTab {...p} />
+          <ProjectTab key={p.project_id} {...p} />
         ))}
       </div>
     </div>

@@ -11,9 +11,9 @@ const ProjectTab: FC<IProject> = ({ ...props }) => {
   const task = props.tasks;
   return (
     <div
-      id={props.projectId}
+      id={props.project_id}
       className={cn("project-tab")}
-      onClick={() => navigate(`/project-page/${props.projectId}`)}
+      onClick={() => navigate(`/project-page/${props.project_id}`)}
     >
       <img
         className={cn("project-tab__edit-image")}

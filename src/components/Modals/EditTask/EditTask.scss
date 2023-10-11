@@ -77,11 +77,27 @@
     grid-column: span 9;
     font-size: 0.825rem;
   }
+  // &__priority {
+  //   grid-column: span 18;
+  //   // color: $color-text-high-priority;
+  //   font-weight: 600;
+  //   font-size: 0.825rem;
+  // }
+  &__priority-label {
+    font-weight: 600;
+    font-size: 0.825rem;
+    padding-right: 0.325rem;
+  }
   &__priority {
-    grid-column: span 18;
+    grid-column: span 3;
     // color: $color-text-high-priority;
     font-weight: 600;
     font-size: 0.825rem;
+    border: transparent;
+    outline: none;
+    background-color: $color-bg-main-blue;
+    color: $color-text-light;
+    border-radius: 0.125rem;
   }
   &__status {
     grid-column: span 9;

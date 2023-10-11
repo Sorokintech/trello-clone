@@ -5,8 +5,9 @@
   outline: none;
   border: transparent;
   border-radius: 0.125rem;
-  padding: 0.325rem 1rem;
-  margin: 0.325rem;
+  padding: 0.325rem 0.625rem;
+  // padding: 0.325rem 1rem;
+  // margin: 0.325rem;
 }
 .input-title-edit {
   display: grid;
@@ -19,8 +20,6 @@
   text-align: start;
   outline: none;
   background-color: $color-bg-main;
-  padding-left: 0.325rem;
-  margin: 0.325rem;
   &:focus {
     background-color: $color-bg-main-blue;
     color: $color-text-light;
@@ -38,8 +37,6 @@
   grid-row: span 2;
   transition: 0.5s all;
   text-align: start;
-  padding: 1rem 1rem;
-  margin: 0.325rem;
   &:focus {
     background-color: $color-bg-main-blue;
     color: $color-text-light;
@@ -49,11 +46,17 @@
   width: 100%;
   border: transparent;
   border-radius: 0.125rem;
-  padding: 0.325rem;
-  padding-left: 1rem;
   font-size: 0.825rem;
-  // margin: 0.325rem 0;
   background-color: $color-bg-main-blue;
   color: $color-text-light;
-  margin: 0.325rem;
+  transition: 0.5s all;
+}
+.input-subtask-done {
+  width: 100%;
+  border: transparent;
+  border-radius: 0.125rem;
+  font-size: 0.825rem;
+  background-color: $color-bg-other;
+  color: $color-text-light;
+  text-decoration: line-through;
 }

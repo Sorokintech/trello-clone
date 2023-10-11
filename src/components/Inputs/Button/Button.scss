@@ -7,6 +7,7 @@
   cursor: pointer;
   transition: 0.5s all;
   min-width: 10rem;
+  box-sizing: border-box;
 }
 .button-light {
   background-color: $color-btn-hover;
@@ -15,6 +16,7 @@
     background-color: $color-btn-active;
     color: $color-text-light;
   }
+  box-sizing: border-box;
 }
 .button-dark {
   background-color: $color-btn-active;
@@ -23,6 +25,7 @@
     background-color: $color-btn-hover;
     color: $color-text-dark-blue;
   }
+  box-sizing: border-box;
 }
 .button-light-blue {
   background-color: $color-btn-hover;
@@ -31,4 +34,5 @@
     background-color: $color-btn-main;
     color: $color-text-light;
   }
+  box-sizing: border-box;
 }

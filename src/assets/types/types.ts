@@ -4,6 +4,7 @@ export interface IProject {
   tasks: ITask[];
 }
 export interface ITask {
+  project_id: string | undefined;
   category: string;
   task_id: string;
   task_number: string;
@@ -16,17 +17,32 @@ export interface ITask {
   endDate: string;
   status: string;
   subtasks: ISubTask[];
-  comments: ICommentSection[];
+  comments: IComment[];
 }
-export interface ICommentSection {
+export interface IComment {
+  projectId: string;
+  taskId: string;
   commentId: string;
   content: string;
+  createDate?: string;
 }
 export interface ISubTask {
+  projectId: string;
+  taskId: string;
   subTaskId: string;
   content: string;
+  createDate?: string;
   done: boolean;
 }
+// export interface ICommentSection {
+//   commentId: string;
+//   content: string;
+// }
+// export interface ISubTask {
+//   subTaskId: string;
+//   content: string;
+//   done: boolean;
+// }
 export interface IModalProps {
   id?: string;
   task_id?: string;

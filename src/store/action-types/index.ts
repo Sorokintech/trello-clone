@@ -1,6 +1,10 @@
 export enum ActionType {
-  ADD = "add",
-  SetCurrent = "setCurrent",
-  SetProjectsData = "setProjectsData",
+  setProjectsData = "setProjectsData",
+  setCurrentTask = "setCurrentTask",
+  updateTask = "updateTask",
   addTask = "addTask",
+  addComment = "addComment",
+  addSubComment = "addSubComment",
+  addSubTask = "addSubTask",
+  updateSubTask = "updateSubTask",
 }

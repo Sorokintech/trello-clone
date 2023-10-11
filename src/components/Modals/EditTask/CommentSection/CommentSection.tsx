@@ -4,11 +4,29 @@ import cn from "classnames";
 import "./CommentSection.scss";
 import Button from "../../../Inputs/Button/Button";
 import Input from "../../../Inputs/Input/Input";
-import { ITask } from "../../../../assets/types/types";
+import { IComment, ITask } from "../../../../assets/types/types";
+import { actionCreators, State } from "../../../../store";
+import { useDispatch, useSelector } from "react-redux";
 
 const CommentSection: FC<ITask> = ({ ...currentTask }) => {
+  const state = useSelector((state: State) => state.projectData[1]);
   const [addSubComment, setAddSubComment] = useState<boolean>(false);
-  const [newComment, updateNewComment] = useState<string>("");
+  const [newComment, updateNewComment] = useState<IComment>();
+  const [newCommentContent, updateNewCommentContent] = useState<string>();
+  const dispatch = useDispatch();
+  function postComment(value: string) {
+    updateNewComment({
+      projectId: currentTask.project_id as string,
+      taskId: currentTask.task_id,
+      commentId: (currentTask.comments.length + 1).toString(),
+      content: value,
+      createDate: "",
+    });
+    dispatch(actionCreators.addComment); // не прыгает в редусер
+    console.log(newComment);
+    console.log(state);
+    console.log("published");
+  }
 
   return (
     <div className={cn("task-modal__comment-section")}>
@@ -35,7 +53,7 @@ const CommentSection: FC<ITask> = ({ ...currentTask }) => {
             type={"text"}
             placeholder={"Дополните комментарий..."}
             defaultV={""}
-            // onchange={(e) => setSubComment(e.target.value)}
+            onchange={(e) => updateNewCommentContent(e.target.value)}
           />
           <Button title={"Дополнить"} className={"button-light-blue"} />
         </div>
@@ -46,10 +64,14 @@ const CommentSection: FC<ITask> = ({ ...currentTask }) => {
           id={"comment"}
           type={"text"}
           placeholder={"Оставьте комментарий..."}
-          defaultV={newComment}
-          onchange={(e) => updateNewComment(e.target.value)}
+          defaultV={""}
+          onchange={(e) => updateNewCommentContent(e.target.value)}
         />
-        <Button title={"Опубликовать"} className={"button-light-blue"} />
+        <Button
+          title={"Опубликовать"}
+          className={"button-light-blue"}
+          click={() => postComment(newCommentContent as string)}
+        />
       </div>
     </div>
   );

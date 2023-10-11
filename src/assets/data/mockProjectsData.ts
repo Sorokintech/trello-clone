@@ -4,6 +4,7 @@ export const mockProjectsData = [
     projectId: "1",
     tasks: [
       {
+        project_id: "1",
         category: "dev",
         task_id: "1",
         task_number: "1",
@@ -20,6 +21,7 @@ export const mockProjectsData = [
         comments: [],
       },
       {
+        project_id: "1",
         category: "dev",
         task_id: "2",
         task_number: "3",
@@ -35,6 +37,7 @@ export const mockProjectsData = [
         comments: [],
       },
       {
+        project_id: "1",
         category: "done",
         task_id: "1",
         task_number: "2",
@@ -50,6 +53,7 @@ export const mockProjectsData = [
         comments: [],
       },
       {
+        project_id: "1",
         category: "done",
         task_id: "2",
         task_number: "5",
@@ -65,6 +69,7 @@ export const mockProjectsData = [
         comments: [],
       },
       {
+        project_id: "1",
         category: "done",
         task_id: "3",
         task_number: "4",
@@ -80,6 +85,7 @@ export const mockProjectsData = [
         comments: [],
       },
       {
+        project_id: "1",
         category: "queue",
         task_id: "1",
         task_number: "6",
@@ -101,6 +107,7 @@ export const mockProjectsData = [
     projectId: "2",
     tasks: [
       {
+        project_id: "2",
         category: "queue",
         task_id: "1",
         task_number: "1",
@@ -113,16 +120,25 @@ export const mockProjectsData = [
         endDate: "В очереди",
         status: "В очереди",
         subtasks: [
-          { subTaskId: "1", content: "Wildberries тоже чекнуть", done: false },
+          {
+            projectId: "2",
+            taskId: "1",
+            subTaskId: "1",
+            content: "Wildberries тоже чекнуть",
+            done: false,
+          },
         ],
         comments: [
           {
+            projectId: "2",
+            taskId: "1",
             commentId: "1",
             content: "Шляпа полная, зачем делать такой коммент не понимаю",
           },
         ],
       },
       {
+        project_id: "2",
         category: "dev",
         task_id: "2",
         task_number: "3",
@@ -138,6 +154,7 @@ export const mockProjectsData = [
         comments: [],
       },
       {
+        project_id: "2",
         category: "dev",
         task_id: "1",
         task_number: "2",
@@ -153,6 +170,7 @@ export const mockProjectsData = [
         comments: [],
       },
       {
+        project_id: "2",
         category: "queue",
         task_id: "2",
         task_number: "5",
@@ -168,6 +186,7 @@ export const mockProjectsData = [
         comments: [],
       },
       {
+        project_id: "2",
         category: "done",
         task_id: "3",
         task_number: "4",
@@ -183,6 +202,7 @@ export const mockProjectsData = [
         comments: [],
       },
       {
+        project_id: "2",
         category: "queue",
         task_id: "1",
         task_number: "6",

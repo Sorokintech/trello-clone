@@ -3,6 +3,7 @@ import { ActionType } from "../action-types";
 import { ISetCurrentTaskAction } from "../actions/index";
 
 const initialState: ITask = {
+  project_id: "",
   category: "",
   createDate: "",
   createTime: "",
@@ -23,7 +24,7 @@ const currentTaskReducer = (
   action: ISetCurrentTaskAction
 ) => {
   switch (action.type) {
-    case ActionType.SetCurrent:
+    case ActionType.setCurrentTask:
       const data = action.payload;
       return {
         ...data,

@@ -1,10 +1,8 @@
 import { combineReducers } from "redux";
-import subTaskReducer from "./subtask";
-import currentTaskReducer from "./taskedit";
+import currentTaskReducer from "./setCurrentTask";
 import projectsDataReducer from "./projectsData";
 
 const reducers = combineReducers({
-  subtask: subTaskReducer,
   currentTask: currentTaskReducer,
   projectData: projectsDataReducer,
 });

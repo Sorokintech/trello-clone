@@ -39,6 +39,7 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
     } else {
       let date = new Date();
       updateNewTask({
+        project_id: project_id,
         category: "queue",
         task_id: (tasksAmount + 1).toString(),
         task_number: (tasksAmount + 1).toString(),

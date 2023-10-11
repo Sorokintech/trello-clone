@@ -29,9 +29,9 @@ const EditTask: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
     console.log(updatedTask);
   }
 
-  function hello() {
-    dispatch(actionCreators.addSubTask());
-  }
+  // function hello() {
+  //   dispatch(actionCreators.addSubTask());
+  // }
   function saveChanges() {
     onClose();
   }
@@ -46,12 +46,12 @@ const EditTask: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
       <div className="wrapper" ref={overlayRef} onClick={handleOverlayClick}>
         <div className={cn("task-modal")}>
           <div className={cn("task-modal__number")}>
-            #{updatedTask.task_number}
+            #{currentTask.task_number}
           </div>
           <Input
             id={"title"}
             type={"text"}
-            defaultV={updatedTask.title}
+            defaultV={currentTask.title}
             className={"input-title-edit"}
             onchange={(e) => updateCurrentTask("title", e.target.value)}
           />

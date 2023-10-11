@@ -4,6 +4,7 @@ import { ActionType } from "../action-types";
 import { IAddTask } from "../actions/index";
 
 const initialState: ITask = {
+  project_id: "",
   category: "",
   createDate: "",
   createTime: "",

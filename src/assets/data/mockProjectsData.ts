@@ -23,7 +23,7 @@ export const mockProjectsData = [
       {
         project_id: "1",
         category: "dev",
-        task_id: "2",
+        task_id: "3",
         task_number: "3",
         title: "Продать Диван",
         description: "Срочно продать диван, нужно платить за квартиру",
@@ -39,7 +39,7 @@ export const mockProjectsData = [
       {
         project_id: "1",
         category: "done",
-        task_id: "1",
+        task_id: "2",
         task_number: "2",
         title: "Приготовить Лазанью",
         description: "Сделать лазанью в лучших традициях Гарфилда",
@@ -55,7 +55,7 @@ export const mockProjectsData = [
       {
         project_id: "1",
         category: "done",
-        task_id: "2",
+        task_id: "5",
         task_number: "5",
         title: "Погладить кота",
         description: "Погладь пока, все просто",
@@ -71,7 +71,7 @@ export const mockProjectsData = [
       {
         project_id: "1",
         category: "done",
-        task_id: "3",
+        task_id: "4",
         task_number: "4",
         title: "Выключить утюг",
         description: "Выключи утюг, чтобы ни как в прошлый раз",
@@ -87,7 +87,7 @@ export const mockProjectsData = [
       {
         project_id: "1",
         category: "queue",
-        task_id: "1",
+        task_id: "6",
         task_number: "6",
         title: "Съесть лазанью",
         description: "Миссия: уничтожить",
@@ -140,7 +140,7 @@ export const mockProjectsData = [
       {
         project_id: "2",
         category: "dev",
-        task_id: "2",
+        task_id: "3",
         task_number: "3",
         title: "Постирать белье",
         description: "Белое и цветное отдельно",
@@ -156,7 +156,7 @@ export const mockProjectsData = [
       {
         project_id: "2",
         category: "dev",
-        task_id: "1",
+        task_id: "2",
         task_number: "2",
         title: "Сделать домашнее задание",
         description: "Сыну, не себе",
@@ -172,7 +172,7 @@ export const mockProjectsData = [
       {
         project_id: "2",
         category: "queue",
-        task_id: "2",
+        task_id: "5",
         task_number: "5",
         title: "Выполнить обещание",
         description: "Ну или завтра, как пойдет",
@@ -188,7 +188,7 @@ export const mockProjectsData = [
       {
         project_id: "2",
         category: "done",
-        task_id: "3",
+        task_id: "4",
         task_number: "4",
         title: "Помыть голову",
         description: "Не перепутать полотенце, пожалуйста",
@@ -204,7 +204,7 @@ export const mockProjectsData = [
       {
         project_id: "2",
         category: "queue",
-        task_id: "1",
+        task_id: "6",
         task_number: "6",
         title: "Попросить повышения",
         description: "Ты этого достойна - Loreal Paris",

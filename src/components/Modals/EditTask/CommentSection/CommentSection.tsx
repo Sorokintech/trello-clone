@@ -8,44 +8,50 @@ import { IComment, ITask } from "../../../../assets/types/types";
 import { actionCreators, State } from "../../../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { format, compareAsc } from "date-fns";
+import { useParams } from "react-router-dom";
 
-const CommentSection: FC<ITask> = ({ ...currentTask }) => {
-  const state = useSelector((state: State) => state.projectData[0]);
+const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
+  const { project_id } = useParams();
+  const state = useSelector((state: State) => state.projectData);
+  const task = state
+    .filter((el) => el.project_id === project_id)[0]
+    .tasks.filter((task) => task.task_id === task_id)[0];
+  // ^?
+  const commentsAmount = task.comments.length;
   const [addSubComment, setAddSubComment] = useState<boolean>(false);
-  // const [newComment, setNewComment] = useState<Partial<IComment>>({});
   const [newComment, setNewComment] = useState<IComment>({
-    project_id: currentTask.project_id,
-    task_id: currentTask.task_id,
-    commentId: (currentTask.comments.length + 1).toString(),
+    project_id: task.project_id,
+    task_id: task.task_id,
+    commentId: "",
     content: "",
     createDate: "",
   });
 
-  const [newCommentContent, updateNewCommentContent] = useState<string>();
   const dispatch = useDispatch();
   function updateNewComment(key: string, value: string) {
     let date = new Date();
-    setNewComment({
-      project_id: currentTask.project_id,
-      task_id: currentTask.task_id,
-      // commentId: (currentTask.comments.length + 1).toString(),
-      commentId: "1",
-      content: value,
+    setNewComment((prevState) => ({
+      ...prevState,
+      [key]: value,
       createDate: format(date, "HH:mm"),
-    });
+      commentId: (task.comments.length + 1).toString(),
+    }));
     console.log(newComment);
   }
   function postComment() {
-    dispatch(actionCreators.addComment(newComment)); // В редюсер уходит, однако редюсер сломан. Починить.
+    dispatch(actionCreators.addComment(newComment));
+    let lol = document.querySelector("#comment"); // инпут есть, придумать как удалять значение в нем
+    console.log(lol);
   }
   useEffect(() => {
     console.log(state);
+    console.log(commentsAmount);
   }, [state]);
 
   return (
     <div className={cn("task-modal__comment-section")}>
       Комментарии
-      {currentTask?.comments.map((item) => (
+      {task.comments.map((item) => (
         <div
           key={item.commentId}
           className={cn("task-modal__comment-section__comment")}
@@ -70,7 +76,7 @@ const CommentSection: FC<ITask> = ({ ...currentTask }) => {
             type={"text"}
             placeholder={"Дополните комментарий..."}
             defaultV={""}
-            onchange={(e) => updateNewCommentContent(e.target.value)}
+            // onchange={(e) => updateNewCommentContent(e.target.value)}
           />
           <Button title={"Дополнить"} className={"button-light-blue"} />
         </div>

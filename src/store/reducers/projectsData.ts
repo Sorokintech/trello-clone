@@ -1,41 +1,30 @@
 import { IProject } from "../../assets/types/types";
 import { ActionType } from "../action-types";
-import { ISetProjectData, IAddComment, IAddTask } from "../actions/index";
+import {
+  ISetProjectData,
+  IAddComment,
+  IAddTask,
+  IUpdateTask,
+  IAddSubTask,
+} from "../actions/index";
 
 const initialState: IProject[] = [];
 
 const projectsDataReducer = (
   state = initialState,
-  action: ISetProjectData | IAddComment | IAddTask
+  action:
+    | ISetProjectData
+    | IAddComment
+    | IAddTask
+    | IUpdateTask
+    | IUpdateTask
+    | IAddSubTask
 ) => {
   switch (action.type) {
+    // Initiate state
     case ActionType.setProjectsData:
       const data = action.payload;
       return [...data];
-    // ADD COMMENT
-    case ActionType.addComment:
-      const comment = action.payload;
-      return state.map((project) => {
-        if (project.project_id === comment.project_id) {
-          const task = project.tasks.find(
-            (task) => task.task_id === comment.task_id
-          );
-          if (task) {
-            const updatedTask = {
-              ...task,
-              comments: [...task.comments, comment],
-            };
-
-            return {
-              ...project,
-              tasks: project.tasks.map((t) =>
-                t.task_id === updatedTask.task_id ? updatedTask : t
-              ),
-            };
-          }
-        }
-        return project;
-      });
     // ADD TASK
     case ActionType.addTask:
       const task = action.payload;
@@ -44,6 +33,85 @@ const projectsDataReducer = (
           return {
             ...project,
             tasks: [...project.tasks, task],
+          };
+        }
+        return project;
+      });
+    // UPDATE TASK
+    case ActionType.updateTask:
+      const updatedTask = action.payload;
+      return state.map((project) => {
+        if (project.project_id === updatedTask.project_id) {
+          const updatedTasks = project.tasks.map((task) => {
+            if (task.task_id === updatedTask.task_id) {
+              return { ...task, ...updatedTask };
+            }
+            return task;
+          });
+          return { ...project, tasks: updatedTasks };
+        }
+        return project;
+      });
+    // ADD SUBTASK
+    case ActionType.addSubTask:
+      const subtask = action.payload;
+      return state.map((project) => {
+        if (project.project_id === subtask.project_id) {
+          const updatedTasks = project.tasks.map((task) => {
+            if (task.task_id === subtask.task_id) {
+              return {
+                ...task,
+                subtasks: [...task.subtasks, subtask],
+              };
+            }
+            return task;
+          });
+          return {
+            ...project,
+            tasks: updatedTasks,
+          };
+        }
+        return project;
+      });
+    // UPDATE SUBTASK
+    // case ActionType.addComment:
+    //   const comment = action.payload;
+    //   return state.map((project) => {
+    //     if (project.project_id === comment.project_id) {
+    //       const updatedTasks = project.tasks.map((task) => {
+    //         if (task.task_id === comment.task_id) {
+    //           return {
+    //             ...task,
+    //             comments: [...task.comments, comment],
+    //           };
+    //         }
+    //         return task;
+    //       });
+    //       return {
+    //         ...project,
+    //         tasks: updatedTasks,
+    //       };
+    //     }
+    //     return project;
+    //   });
+
+    // ADD COMMENT
+    case ActionType.addComment:
+      const comment = action.payload;
+      return state.map((project) => {
+        if (project.project_id === comment.project_id) {
+          const updatedTasks = project.tasks.map((task) => {
+            if (task.task_id === comment.task_id) {
+              return {
+                ...task,
+                comments: [...task.comments, comment],
+              };
+            }
+            return task;
+          });
+          return {
+            ...project,
+            tasks: updatedTasks,
           };
         }
         return project;

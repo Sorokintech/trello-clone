@@ -29,7 +29,7 @@ const TaskColumn: FC<ITaskColumn> = ({ title, id }) => {
       <h4 className={cn("task-column__header")}>{title}</h4>
       <div className={cn("task-column__content")}>
         {ColumnTasks.map((i) => (
-          <Task key={i.title} {...i} />
+          <Task key={i.title} task_id={i.task_id} />
         ))}
         {title === "В очереди" && (
           <Button

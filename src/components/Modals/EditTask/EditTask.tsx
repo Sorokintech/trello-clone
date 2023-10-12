@@ -9,8 +9,9 @@ import { IModalProps, ITask } from "../../../assets/types/types";
 import Input from "../../Inputs/Input/Input";
 import CommentSection from "./CommentSection/CommentSection";
 import SubTaskSection from "./SubTaskSection/SubTaskSection";
+import { useParams } from "react-router-dom";
 
-const EditTask: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
+const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
   // Ref and function for outside click close of modal
   const overlayRef = useRef(null);
   const handleOverlayClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -18,9 +19,14 @@ const EditTask: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
       onClose();
     }
   };
-  const currentTask = useSelector((state: State) => state.currentTask);
-  const [updatedTask, setUpdatedTask] = useState<ITask>(currentTask);
+
   const dispatch = useDispatch();
+  const { project_id } = useParams();
+  const state = useSelector((state: State) => state.projectData);
+  const task = state
+    .filter((el) => el.project_id === project_id)[0]
+    .tasks.filter((task) => task.task_id === task_id)[0];
+  const [updatedTask, setUpdatedTask] = useState<ITask>(task);
 
   // функцию ниже, нужно просто сделать через reducer updateTask
   function updateCurrentTask(key: string, value: string) {
@@ -35,25 +41,24 @@ const EditTask: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
   //   dispatch(actionCreators.addSubTask());
   // }
   function saveChanges() {
+    dispatch(actionCreators.updateTask(updatedTask));
     onClose();
   }
 
   useEffect(() => {
-    if (Object.keys(currentTask).length > 0) {
-      setUpdatedTask(currentTask);
+    if (Object.keys(task).length > 0) {
+      setUpdatedTask(task);
     }
-  }, [currentTask]);
+  }, [task]);
   return isOpen ? (
     <div className="container">
       <div className="wrapper" ref={overlayRef} onClick={handleOverlayClick}>
         <div className={cn("task-modal")}>
-          <div className={cn("task-modal__number")}>
-            #{currentTask.task_number}
-          </div>
+          <div className={cn("task-modal__number")}>#{task.task_number}</div>
           <Input
             id={"title"}
             type={"text"}
-            defaultV={currentTask.title}
+            defaultV={task.title}
             className={"input-title-edit"}
             onchange={(e) => updateCurrentTask("title", e.target.value)}
           />
@@ -63,7 +68,7 @@ const EditTask: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
           <Input
             id={"description"}
             type={"textarea"}
-            defaultV={currentTask.description}
+            defaultV={task.description}
             className={"input-description-edit"}
             onchange={(e) => updateCurrentTask("description", e.target.value)}
           />
@@ -78,7 +83,7 @@ const EditTask: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
             name="priority"
             id="priority"
             className={cn("task-modal__priority")}
-            defaultValue={currentTask.priority}
+            defaultValue={task.priority}
           >
             <option value="Высокий">Высокий</option>
             <option value="Средний">Средний</option>
@@ -91,8 +96,8 @@ const EditTask: FC<IModalProps> = ({ id, task_id, isOpen, onClose }) => {
             Закрыта: {updatedTask.endDate}
           </div>
           <div className={cn("task-modal__status")}>{updatedTask.status}</div>
-          <SubTaskSection {...currentTask} />
-          <CommentSection {...currentTask} />
+          <SubTaskSection task_id={task.task_id} />
+          <CommentSection task_id={task.task_id} />
           <div className={cn("task-modal__save-btn")}>
             <Button
               title={"Сохранить изменения"}

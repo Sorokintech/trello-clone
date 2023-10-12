@@ -32,7 +32,7 @@ export interface IComment {
   createDate?: string;
 }
 export interface ISubTask {
-  project_id: string;
+  project_id: string | undefined;
   task_id: string;
   subtask_id: string;
   content: string;
@@ -49,7 +49,6 @@ export interface ISubTask {
 //   done: boolean;
 // }
 export interface IModalProps {
-  id?: string;
   task_id?: string;
   isOpen: boolean;
   onClose: () => void;

@@ -1,4 +1,4 @@
-import { IProject, ITask, IComment } from "../../assets/types/types";
+import { IProject, ITask, IComment, ISubTask } from "../../assets/types/types";
 import { ActionType } from "../action-types";
 
 export interface ISetCurrentTaskAction {
@@ -16,4 +16,16 @@ export interface IAddComment {
 export interface IAddTask {
   type: ActionType.addTask;
   payload: ITask;
+}
+export interface IUpdateTask {
+  type: ActionType.updateTask;
+  payload: ITask;
+}
+export interface IAddSubTask {
+  type: ActionType.addSubTask;
+  payload: ISubTask;
+}
+export interface IUpdateSubTask {
+  type: ActionType.updateSubTask;
+  payload: ISubTask;
 }

@@ -42,6 +42,7 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
   // }
   function saveChanges() {
     dispatch(actionCreators.updateTask(updatedTask));
+
     onClose();
   }
 

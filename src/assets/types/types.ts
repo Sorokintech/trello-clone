@@ -27,7 +27,7 @@ export interface ITaskColumn {
 export interface IComment {
   project_id: string | undefined;
   task_id: string;
-  commentId: string;
+  comment_id: string;
   content: string;
   createDate?: string;
 }

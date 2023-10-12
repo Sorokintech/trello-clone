@@ -19,10 +19,11 @@ const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
   // ^?
   const commentsAmount = task.comments.length;
   const [addSubComment, setAddSubComment] = useState<boolean>(false);
+  const [inputDefaultValue, updateInputDefaultValue] = useState<string>("");
   const [newComment, setNewComment] = useState<IComment>({
     project_id: task.project_id,
     task_id: task.task_id,
-    commentId: "",
+    comment_id: "",
     content: "",
     createDate: "",
   });
@@ -34,31 +35,28 @@ const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
       ...prevState,
       [key]: value,
       createDate: format(date, "HH:mm"),
-      commentId: (task.comments.length + 1).toString(),
+      comment_id: (task.comments.length + 1).toString(),
     }));
     console.log(newComment);
   }
   function postComment() {
     dispatch(actionCreators.addComment(newComment));
-    let lol = document.querySelector("#comment"); // инпут есть, придумать как удалять значение в нем
-    console.log(lol);
   }
   useEffect(() => {
-    console.log(state);
-    console.log(commentsAmount);
-  }, [state]);
+    console.log(newComment);
+  }, [newComment]);
 
   return (
     <div className={cn("task-modal__comment-section")}>
       Комментарии
       {task.comments.map((item) => (
         <div
-          key={item.commentId}
+          key={item.comment_id}
           className={cn("task-modal__comment-section__comment")}
         >
           <div
             className={cn("task-modal__comment-section__comment__content")}
-            key={item.commentId}
+            key={item.comment_id}
           >
             {item.content}
           </div>
@@ -87,7 +85,7 @@ const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
           id={"comment"}
           type={"text"}
           placeholder={"Оставьте комментарий..."}
-          defaultV={""}
+          defaultV={newComment.content}
           onchange={(e) => updateNewComment("content", e.target.value)}
         />
         <Button

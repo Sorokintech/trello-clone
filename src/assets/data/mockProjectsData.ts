@@ -132,7 +132,7 @@ export const mockProjectsData = [
           {
             project_id: "2",
             task_id: "1",
-            commentId: "1",
+            comment_id: "1",
             content: "Шляпа полная, зачем делать такой коммент не понимаю",
           },
         ],

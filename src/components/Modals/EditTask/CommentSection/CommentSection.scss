@@ -1,0 +1,43 @@
+@use "../../../../assets/styles/colors.scss" as *;
+
+.comment-section {
+  grid-column: span 18;
+  grid-row: auto;
+  &__add-sub-comment {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.325rem;
+    margin-top: 0.325rem;
+  }
+  &__comment {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.325rem;
+    margin-bottom: 0.325rem;
+
+    &__content {
+      background-color: $color-bg-other;
+      border: transparent;
+      border-radius: 0.125rem;
+      padding: 0.325rem;
+      padding-left: 1rem;
+      color: $color-text-light;
+      font-size: 0.825rem;
+      width: 100%;
+      cursor: default;
+    }
+  }
+
+  &__add-comment {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.325rem;
+    &__input {
+      width: 100%;
+      outline: none;
+      border: transparent;
+      border-radius: 0.125rem;
+      padding: 0.325rem 1rem;
+    }
+  }
+}

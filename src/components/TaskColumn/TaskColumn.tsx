@@ -32,11 +32,7 @@ const TaskColumn: FC<ITaskColumn> = ({ title, id }) => {
           <Task key={i.title} task_id={i.task_id} />
         ))}
         {title === "В очереди" && (
-          <Button
-            title={"+ Добавить задачу"}
-            className={"button-light-blue"}
-            click={ToggleModal}
-          />
+          <Button title={"+ Добавить задачу"} click={ToggleModal} />
         )}
         <CreateTask isOpen={isModalOpen} onClose={ToggleModal} />
       </div>

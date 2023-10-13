@@ -58,6 +58,7 @@ export interface IInput {
   type: string;
   defaultV: string;
   className?: string;
+  createDate?: string;
   placeholder?: string;
   onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

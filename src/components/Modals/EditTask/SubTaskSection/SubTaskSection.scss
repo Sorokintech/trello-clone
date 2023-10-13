@@ -4,6 +4,7 @@
   padding-top: 0.325rem;
   grid-column: span 18;
   background: inherit;
+  position: relative;
   &__add-subtask {
     display: flex;
     justify-content: space-between;
@@ -12,8 +13,21 @@
   }
   &__item {
     display: flex;
-    justify-content: space-between;
+
+    // justify-content: space-between;
     gap: 0.325rem;
     margin: 0.325rem 0;
+  }
+  &__save-icon-default {
+    // display: none;
+    position: absolute;
+    width: 1.325rem;
+    height: auto;
+    right: 26%;
+    margin-top: 2.5%;
+    cursor: pointer;
+  }
+  &__save-icon-shown {
+    display: block;
   }
 }

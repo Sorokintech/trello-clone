@@ -42,33 +42,26 @@ const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
   function postComment() {
     dispatch(actionCreators.addComment(newComment));
   }
-  useEffect(() => {
-    console.log(newComment);
-  }, [newComment]);
+  // useEffect(() => {
+  //   console.log(newComment);
+  // }, [newComment]);
 
   return (
-    <div className={cn("task-modal__comment-section")}>
+    <div className={cn("comment-section")}>
       Комментарии
       {task.comments.map((item) => (
-        <div
-          key={item.comment_id}
-          className={cn("task-modal__comment-section__comment")}
-        >
+        <div key={item.comment_id} className={cn("comment-section__comment")}>
           <div
-            className={cn("task-modal__comment-section__comment__content")}
+            className={cn("comment-section__comment__content")}
             key={item.comment_id}
           >
             {item.content}
           </div>
-          <Button
-            title={"Ответить"}
-            className={"button-light-blue"}
-            click={() => setAddSubComment(true)}
-          />
+          <Button title={"Ответить"} click={() => setAddSubComment(true)} />
         </div>
       ))}
       {addSubComment && (
-        <div className={cn("task-modal__comment-section__add-sub-comment")}>
+        <div className={cn("comment-section__add-sub-comment")}>
           <Input
             id={"subtask-add"}
             type={"text"}
@@ -76,10 +69,10 @@ const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
             defaultV={""}
             // onchange={(e) => updateNewCommentContent(e.target.value)}
           />
-          <Button title={"Дополнить"} className={"button-light-blue"} />
+          <Button title={"Дополнить"} />
         </div>
       )}
-      <div className={cn("task-modal__comment-section__add-comment")}>
+      <div className={cn("comment-section__add-comment")}>
         {" "}
         <Input
           id={"comment"}
@@ -88,11 +81,7 @@ const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
           defaultV={newComment.content}
           onchange={(e) => updateNewComment("content", e.target.value)}
         />
-        <Button
-          title={"Опубликовать"}
-          className={"button-light-blue"}
-          click={() => postComment()}
-        />
+        <Button title={"Опубликовать"} click={() => postComment()} />
       </div>
     </div>
   );

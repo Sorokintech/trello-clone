@@ -1,5 +1,15 @@
 @use "../../../assets/styles/colors.scss" as *;
 
+.container {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 1;
+}
 .wrapper {
   width: 100vw;
   height: 100vh;
@@ -10,11 +20,6 @@
   position: fixed;
   background: rgba(49, 49, 49, 0.8);
   cursor: pointer;
-}
-.input-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.325rem;
 }
 .task-modal {
   margin: 10% 25%;
@@ -27,66 +32,33 @@
   display: grid;
   grid-template-columns: repeat(18, 1fr);
   row-gap: 0.325rem;
-  s &__number {
+  &__number {
     grid-column: span 1;
     font-size: 2rem;
     text-align: start;
   }
-  &__title {
-    grid-column: span 14;
-    font-size: 1.5rem;
-    border: transparent;
-    border-radius: 0.125rem;
-    color: $color-text-dark-blue;
-    transition: 0.5s all;
-    text-align: start;
-    outline: none;
-    background-color: $color-bg-main;
-    padding-left: 0.325rem;
-    &:focus {
-      font-size: 1.725rem;
-    }
-  }
-  // &__description {
-  //   color: $color-text-dark-blue;
-  //   outline: none;
-  //   background-color: inherit;
-  //   border: transparent;
-  //   border-radius: 0.125rem;
-  //   margin-top: 1rem;
-  //   grid-column: span 18;
-  //   grid-row: span 2;
-  //   transition: 0.5s all;
-  //   text-align: start;
-  //   padding: 1rem 1rem;
-  //   &:focus {
-  //     background-color: $color-bg-main;
-  //     color: $color-text-dark-blue;
-  //     font-size: 1rem;
-  //   }
-  // }
-  &__create-date {
-    grid-column: span 3;
-    text-align: end;
-    cursor: default;
-  }
   &__dev-time {
-    grid-column: span 18;
+    grid-column: span 11;
     font-size: 0.825rem;
+    text-align: center;
     cursor: default;
   }
   &__end-date {
-    grid-column: span 9;
+    grid-column: span 5;
+    text-align: end;
     font-size: 0.825rem;
     cursor: default;
   }
   &__priority-label {
+    grid-column: span 1;
     font-weight: 600;
     font-size: 0.825rem;
     padding-right: 0.325rem;
   }
+
   &__priority {
-    grid-column: span 3;
+    grid-column: span 1;
+    grid-column: span;
     font-weight: 600;
     font-size: 0.825rem;
     border: transparent;
@@ -101,49 +73,14 @@
     text-align: start;
     font-size: 0.825rem;
     border-top: 0.075rem solid $color-bg-other;
-    padding-bottom: 1.325rem;
     cursor: default;
   }
-  &__comment-section {
+  &__description-label {
+    padding-top: 0.625rem;
     grid-column: span 18;
-    grid-row: auto;
-    &__add-sub-comment {
-      display: flex;
-      justify-content: space-between;
-      gap: 0.325rem;
-      margin-top: 0.325rem;
-    }
-    &__comment {
-      display: flex;
-      justify-content: space-between;
-      gap: 0.325rem;
-      margin-bottom: 0.325rem;
-
-      &__content {
-        background-color: $color-bg-other;
-        border: transparent;
-        border-radius: 0.125rem;
-        padding: 0.325rem;
-        padding-left: 1rem;
-        color: $color-text-light;
-        font-size: 0.825rem;
-        width: 100%;
-        cursor: default;
-      }
-    }
-
-    &__add-comment {
-      display: flex;
-      justify-content: space-between;
-      gap: 0.325rem;
-      &__input {
-        width: 100%;
-        outline: none;
-        border: transparent;
-        border-radius: 0.125rem;
-        padding: 0.325rem 1rem;
-      }
-    }
+    font-weight: 600;
+    font-size: 1.125rem;
+    padding-right: 0.325rem;
   }
   &__save-btn {
     grid-column: span 18;
@@ -152,15 +89,4 @@
     justify-content: center;
     align-items: center;
   }
-}
-
-.container {
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: fixed;
-  z-index: 1;
 }

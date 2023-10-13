@@ -62,26 +62,14 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
             defaultV={task.title}
             className={"input-title-edit"}
             onchange={(e) => updateCurrentTask("title", e.target.value)}
+            createDate={task.createDate}
           />
-          <div className={cn("task-modal__create-date")}>
+          {/* <div className={cn("task-modal__create-date")}>
             от {updatedTask.createDate}
-          </div>
+          </div> */}
           <div className={cn("task-modal__status")}>
-            В колонке: {updatedTask.status}
+            В колонке: {task.status}
           </div>
-          <label
-            htmlFor="description"
-            className={cn("task-modal__description-label")}
-          >
-            Описание
-          </label>
-          <Input
-            id={"description"}
-            type={"text"}
-            defaultV={task.description}
-            className={"input-description-edit"}
-            onchange={(e) => updateCurrentTask("description", e.target.value)}
-          />
           <label
             htmlFor="priority"
             className={cn("task-modal__priority-label")}
@@ -105,15 +93,24 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
           <div className={cn("task-modal__end-date")}>
             Закрыта: {updatedTask.endDate}
           </div>
+          <label
+            htmlFor="description"
+            className={cn("task-modal__description-label")}
+          >
+            Описание
+          </label>
+          <Input
+            id={"description"}
+            type={"text"}
+            defaultV={task.description}
+            className={"input-description-edit"}
+            onchange={(e) => updateCurrentTask("description", e.target.value)}
+          />
 
           <SubTaskSection task_id={task.task_id} />
           <CommentSection task_id={task.task_id} />
           <div className={cn("task-modal__save-btn")}>
-            <Button
-              title={"Сохранить изменения"}
-              className={"button-light-blue"}
-              click={saveChanges}
-            />
+            <Button title={"Сохранить изменения"} click={saveChanges} />
           </div>
         </div>
       </div>

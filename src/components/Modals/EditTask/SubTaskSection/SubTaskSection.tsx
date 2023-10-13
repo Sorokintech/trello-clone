@@ -1,5 +1,7 @@
-import React, { FC, useState } from "react";
+import React, { Children, FC, useEffect, useState } from "react";
 import cn from "classnames";
+
+// import saveIcon from "../../../../assets/images/save-icon.png";
 
 import "./SubTaskSection.scss";
 import { ISubTask } from "../../../../assets/types/types";
@@ -25,7 +27,7 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
   // Use State
   const [taskDone, setTaskDone] = useState<boolean>(false);
   const [inputShown, setInputShown] = useState<boolean>(false);
-  const [subTask, setSubTask] = useState<ISubTask>({
+  const [newSubTask, setNewSubTask] = useState<ISubTask>({
     project_id: task.project_id,
     task_id: task.task_id,
     subtask_id: "",
@@ -33,32 +35,69 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
     createDate: "",
     done: false,
   });
-
+  const [updatedSubTask, setUpdatedSubTask] = useState<ISubTask>({
+    project_id: task.project_id,
+    task_id: task.task_id,
+    subtask_id: "",
+    content: "",
+    createDate: "",
+    done: false,
+  });
   // Function that updates the new sub-task
   function updateNewSubTask(key: string, value: string) {
     let date = new Date();
-    setSubTask((prevState) => ({
+    setNewSubTask((prevState) => ({
       ...prevState,
       [key]: value,
-      createDate: format(date, "HH:mm"),
+      createDate: format(date, "dd.MM.yyyy"),
       subtask_id: (subTaskAmount + 1).toString(),
     }));
   }
 
   // Function that dispatches the subtask to redux
   function addSubTask() {
-    if (subTask.content.length > 1) {
-      dispatch(actionCreators.addSubTask(subTask));
+    if (newSubTask.content.length > 1) {
+      dispatch(actionCreators.addSubTask(newSubTask));
       updateNewSubTask("content", "");
       setInputShown(false);
     }
   }
+  // Function that updates the specific sub-task
+  function updateSubTask(
+    key: string,
+    value: string | boolean,
+    date: string | undefined,
+    subtask_id: string
+  ) {
+    setUpdatedSubTask((prevState) => ({
+      ...prevState,
+      [key]: value,
+      createDate: date,
+      subtask_id: subtask_id,
+    }));
+  }
+  // Function that dispatches the subtask to redux
+  function dispatchUpdatedSubTask() {
+    dispatch(actionCreators.updateSubTask(updatedSubTask));
+  }
+  // function subTaskDoneToggleHandler(
+  //   key: string,
+  //   value: string | boolean,
+  //   date: string | undefined,
+  //   subtask_id: string
+  // ) {
+  //   updateSubTask(key, value, date, subtask_id);
+  //   dispatch(actionCreators.updateSubTask(updatedSubTask));
+  //   console.log("toggled");
+  // }
+  useEffect(() => {
+    console.log(state[0]);
+  }, [state]);
 
   return (
     <div className={cn("sub-task-section")}>
       <Button
         title={"+ Добавить подзадачу"}
-        className={"button-light-blue"}
         click={() => setInputShown(true)}
       />
       {inputShown && (
@@ -70,25 +109,52 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
             defaultV={""}
             onchange={(e) => updateNewSubTask("content", e.target.value)}
           />
-          <Button
-            title={"Добавить"}
-            className={"button-light-blue"}
-            click={() => addSubTask()}
-          />
+          <Button title={"Добавить"} click={() => addSubTask()} />
         </div>
       )}
-      {task.subtasks.map((item) => (
-        <div key={item.subtask_id} className={cn("sub-task-section__item")}>
-          <Input
-            id={item.subtask_id}
-            type={"textarea"}
-            defaultV={item.content}
-            className={cn(item.done ? "input-subtask-done" : "input-subtask")}
-            // onchange={(e) => updateCurrentSubTask(e.target.value)}
-          />
-          <Button title={"Выполнено"} className={"button-light-blue"} />
-        </div>
-      ))}
+      {task.subtasks
+        .sort((a, b) => +b.subtask_id - +a.subtask_id)
+        .map((item) => (
+          <div key={item.subtask_id} className={cn("sub-task-section__item")}>
+            <Input
+              id={item.subtask_id}
+              type={"textarea"}
+              defaultV={item.content}
+              createDate={item.createDate}
+              className={cn(item.done ? "input-subtask-done" : "input-subtask")}
+              onchange={(e) =>
+                updateSubTask(
+                  "content",
+                  e.target.value,
+                  item.createDate,
+                  item.subtask_id
+                )
+              }
+            />
+            <Button
+              title={"Выполнено"}
+              className={"button-subtask"}
+              // click={() =>
+              //   subTaskDoneToggleHandler(
+              //     "done",
+              //     true,
+              //     item.createDate,
+              //     item.subtask_id
+              //   )
+              // }
+            />
+            {/* <img
+            className={cn(
+              "sub-task-section__save-icon-default"
+              // "sub-task-section__save-icon-shown"
+            )}
+            src={saveIcon}
+            alt="save_icon"
+            onClick={() => dispatchUpdatedSubTask()}
+          /> */}
+            {/* <Button title={"Выполнено"} className={"button-light-blue"} /> */}
+          </div>
+        ))}
     </div>
   );
 };

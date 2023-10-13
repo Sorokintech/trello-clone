@@ -1,7 +1,11 @@
 @use "../../../assets/styles/colors.scss" as *;
 
-.input {
+.input-wrapper {
+  display: grid;
   width: 100%;
+  grid-column: span 18;
+}
+.input {
   outline: none;
   border: transparent;
   border-radius: 0.125rem;
@@ -11,15 +15,9 @@
 }
 .input-title-edit {
   padding: 0.325rem 0;
-  display: grid;
-  grid-column: span 14;
   font-size: 1.5rem;
-  border: transparent;
-  border-radius: 0.125rem;
   color: $color-text-dark-blue;
   transition: 0.5s all;
-  text-align: start;
-  outline: none;
   background-color: $color-bg-main;
 
   &:focus {
@@ -30,16 +28,9 @@
 }
 .input-description-edit {
   color: $color-text-dark-blue;
-  outline: none;
   background-color: inherit;
-  border-radius: 0.125rem;
-  grid-column: span 18;
-  grid-row: span 2;
   transition: 0.5s all;
-  // text-align: start;
   padding: 0.325rem 0;
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
   &:focus {
     background-color: $color-bg-main-blue;
     color: $color-text-light;
@@ -47,20 +38,25 @@
   }
 }
 .input-subtask {
-  width: 100%;
-  border: transparent;
-  border-radius: 0.125rem;
   font-size: 0.825rem;
-  background-color: $color-bg-main-blue;
-  color: $color-text-light;
+  background-color: $color-bg-main;
+  color: $color-text-dark-blue;
+  border-left: 0.325rem solid $color-bg-other;
   transition: 0.5s all;
+  &:focus {
+    background-color: $color-bg-main-blue;
+    color: $color-text-light;
+    padding: 0.325rem 0.625rem;
+    border-left: 0.325rem solid $color-bg-main-blue;
+  }
 }
 .input-subtask-done {
-  width: 100%;
-  border: transparent;
   border-radius: 0.125rem;
   font-size: 0.825rem;
   background-color: $color-bg-other;
   color: $color-text-light;
   text-decoration: line-through;
+}
+.label {
+  font-size: 0.625rem;
 }

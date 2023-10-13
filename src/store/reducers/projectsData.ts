@@ -6,6 +6,7 @@ import {
   IAddTask,
   IUpdateTask,
   IAddSubTask,
+  IUpdateSubTask,
 } from "../actions/index";
 
 const initialState: IProject[] = [];
@@ -19,6 +20,7 @@ const projectsDataReducer = (
     | IUpdateTask
     | IUpdateTask
     | IAddSubTask
+    | IUpdateSubTask
 ) => {
   switch (action.type) {
     // Initiate state
@@ -74,26 +76,35 @@ const projectsDataReducer = (
         return project;
       });
     // UPDATE SUBTASK
-    // case ActionType.addComment:
-    //   const comment = action.payload;
-    //   return state.map((project) => {
-    //     if (project.project_id === comment.project_id) {
-    //       const updatedTasks = project.tasks.map((task) => {
-    //         if (task.task_id === comment.task_id) {
-    //           return {
-    //             ...task,
-    //             comments: [...task.comments, comment],
-    //           };
-    //         }
-    //         return task;
-    //       });
-    //       return {
-    //         ...project,
-    //         tasks: updatedTasks,
-    //       };
-    //     }
-    //     return project;
-    //   });
+    case ActionType.updateSubTask:
+      const updatedSubTask = action.payload;
+      return state.map((project) => {
+        if (project.project_id === updatedSubTask.project_id) {
+          const updatedTasks = project.tasks.map((task) => {
+            if (task.task_id === updatedSubTask.task_id) {
+              const updatedSubtasks = task.subtasks.map((subtask) => {
+                if (subtask.subtask_id === updatedSubTask.subtask_id) {
+                  return {
+                    ...subtask,
+                    ...updatedSubTask,
+                  };
+                }
+                return subtask;
+              });
+              return {
+                ...task,
+                subtasks: updatedSubtasks,
+              };
+            }
+            return task;
+          });
+          return {
+            ...project,
+            tasks: updatedTasks,
+          };
+        }
+        return project;
+      });
 
     // ADD COMMENT
     case ActionType.addComment:

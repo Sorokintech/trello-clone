@@ -55,7 +55,7 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
     <div className="container">
       <div className="wrapper" ref={overlayRef} onClick={handleOverlayClick}>
         <div className={cn("task-modal")}>
-          <div className={cn("task-modal__number")}>#{task.task_number}</div>
+          {/* <div className={cn("task-modal__number")}>#{task.task_number}</div> */}
           <Input
             id={"title"}
             type={"text"}
@@ -66,9 +66,18 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
           <div className={cn("task-modal__create-date")}>
             от {updatedTask.createDate}
           </div>
+          <div className={cn("task-modal__status")}>
+            В колонке: {updatedTask.status}
+          </div>
+          <label
+            htmlFor="description"
+            className={cn("task-modal__description-label")}
+          >
+            Описание
+          </label>
           <Input
             id={"description"}
-            type={"textarea"}
+            type={"text"}
             defaultV={task.description}
             className={"input-description-edit"}
             onchange={(e) => updateCurrentTask("description", e.target.value)}
@@ -96,7 +105,7 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
           <div className={cn("task-modal__end-date")}>
             Закрыта: {updatedTask.endDate}
           </div>
-          <div className={cn("task-modal__status")}>{updatedTask.status}</div>
+
           <SubTaskSection task_id={task.task_id} />
           <CommentSection task_id={task.task_id} />
           <div className={cn("task-modal__save-btn")}>

@@ -2,22 +2,30 @@ import React, { FC, useState } from "react";
 import cn from "classnames";
 
 import "./SubTaskSection.scss";
-import { ISubTask, ITask } from "../../../../assets/types/types";
+import { ISubTask } from "../../../../assets/types/types";
 import Button from "../../../Inputs/Button/Button";
 import Input from "../../../Inputs/Input/Input";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State, actionCreators } from "../../../../store";
-import { format, compareAsc } from "date-fns";
+import { format } from "date-fns";
 
 const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
   const { project_id } = useParams();
+  const dispatch = useDispatch();
+
   const state = useSelector((state: State) => state.projectData);
+
+  // Redux data extract
   const task = state
     .filter((el) => el.project_id === project_id)[0]
     .tasks.filter((task) => task.task_id === task_id)[0];
   const subTaskAmount = task.subtasks.length;
-  const [subTask, updateSubTask] = useState<ISubTask>({
+
+  // Use State
+  const [taskDone, setTaskDone] = useState<boolean>(false);
+  const [inputShown, setInputShown] = useState<boolean>(false);
+  const [subTask, setSubTask] = useState<ISubTask>({
     project_id: task.project_id,
     task_id: task.task_id,
     subtask_id: "",
@@ -25,13 +33,11 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
     createDate: "",
     done: false,
   });
-  const dispatch = useDispatch();
-  const [taskDone, setTaskDone] = useState<boolean>(false);
-  const [inputShown, setInputShown] = useState<boolean>(false);
 
-  function fixSubTask(key: string, value: string) {
+  // Function that updates the new sub-task
+  function updateNewSubTask(key: string, value: string) {
     let date = new Date();
-    updateSubTask((prevState) => ({
+    setSubTask((prevState) => ({
       ...prevState,
       [key]: value,
       createDate: format(date, "HH:mm"),
@@ -39,29 +45,30 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
     }));
   }
 
+  // Function that dispatches the subtask to redux
   function addSubTask() {
     if (subTask.content.length > 1) {
       dispatch(actionCreators.addSubTask(subTask));
-      fixSubTask("content", "");
+      updateNewSubTask("content", "");
       setInputShown(false);
     }
-  } // надо подумать как делать update, при введение значений в input кнопка то все еще 'выполнено'
+  }
 
   return (
-    <div className={cn("task-modal__sub-task-section")}>
+    <div className={cn("sub-task-section")}>
       <Button
         title={"+ Добавить подзадачу"}
         className={"button-light-blue"}
         click={() => setInputShown(true)}
       />
       {inputShown && (
-        <div className={cn("task-modal__sub-task-section__add-subtask")}>
+        <div className={cn("sub-task-section__add-subtask")}>
           <Input
             id={"subtask-add"}
             type={"text"}
             placeholder={"Добавьте описание..."}
             defaultV={""}
-            onchange={(e) => fixSubTask("content", e.target.value)}
+            onchange={(e) => updateNewSubTask("content", e.target.value)}
           />
           <Button
             title={"Добавить"}
@@ -71,16 +78,13 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
         </div>
       )}
       {task.subtasks.map((item) => (
-        <div
-          key={item.subtask_id}
-          className={cn("task-modal__sub-task-section__item")}
-        >
+        <div key={item.subtask_id} className={cn("sub-task-section__item")}>
           <Input
             id={item.subtask_id}
-            type={"text"}
+            type={"textarea"}
             defaultV={item.content}
             className={cn(item.done ? "input-subtask-done" : "input-subtask")}
-            // onchange={(e) => updateSubTask(e.target.value)}
+            // onchange={(e) => updateCurrentSubTask(e.target.value)}
           />
           <Button title={"Выполнено"} className={"button-light-blue"} />
         </div>

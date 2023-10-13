@@ -27,7 +27,7 @@
   display: grid;
   grid-template-columns: repeat(18, 1fr);
   row-gap: 0.325rem;
-  &__number {
+  s &__number {
     grid-column: span 1;
     font-size: 2rem;
     text-align: start;
@@ -47,42 +47,39 @@
       font-size: 1.725rem;
     }
   }
-  &__description {
-    color: $color-text-dark-blue;
-    outline: none;
-    background-color: inherit;
-    border: transparent;
-    border-radius: 0.125rem;
-    margin-top: 1rem;
-    grid-column: span 18;
-    grid-row: span 2;
-    transition: 0.5s all;
-    text-align: start;
-    padding: 1rem 1rem;
-    &:focus {
-      background-color: $color-bg-main;
-      color: $color-text-dark-blue;
-      font-size: 1rem;
-    }
-  }
+  // &__description {
+  //   color: $color-text-dark-blue;
+  //   outline: none;
+  //   background-color: inherit;
+  //   border: transparent;
+  //   border-radius: 0.125rem;
+  //   margin-top: 1rem;
+  //   grid-column: span 18;
+  //   grid-row: span 2;
+  //   transition: 0.5s all;
+  //   text-align: start;
+  //   padding: 1rem 1rem;
+  //   &:focus {
+  //     background-color: $color-bg-main;
+  //     color: $color-text-dark-blue;
+  //     font-size: 1rem;
+  //   }
+  // }
   &__create-date {
     grid-column: span 3;
     text-align: end;
+    cursor: default;
   }
   &__dev-time {
     grid-column: span 18;
     font-size: 0.825rem;
+    cursor: default;
   }
   &__end-date {
     grid-column: span 9;
     font-size: 0.825rem;
+    cursor: default;
   }
-  // &__priority {
-  //   grid-column: span 18;
-  //   // color: $color-text-high-priority;
-  //   font-weight: 600;
-  //   font-size: 0.825rem;
-  // }
   &__priority-label {
     font-weight: 600;
     font-size: 0.825rem;
@@ -90,7 +87,6 @@
   }
   &__priority {
     grid-column: span 3;
-    // color: $color-text-high-priority;
     font-weight: 600;
     font-size: 0.825rem;
     border: transparent;
@@ -98,36 +94,15 @@
     background-color: $color-bg-main-blue;
     color: $color-text-light;
     border-radius: 0.125rem;
+    cursor: pointer;
   }
   &__status {
-    grid-column: span 9;
-    text-align: end;
-    font-size: 0.825rem;
-  }
-  &__sub-task-section {
     grid-column: span 18;
-    &__add-subtask {
-      display: flex;
-      justify-content: space-between;
-      gap: 0.325rem;
-      margin-top: 0.325rem;
-      &__input {
-        width: 100%;
-        outline: none;
-        border: transparent;
-        border-radius: 0.125rem;
-        padding: 0.125rem;
-      }
-    }
-    &__create-btn {
-      padding: 0.125rem 0.5rem;
-    }
-    &__item {
-      display: flex;
-      justify-content: space-between;
-      gap: 0.325rem;
-      margin: 0.325rem 0;
-    }
+    text-align: start;
+    font-size: 0.825rem;
+    border-top: 0.075rem solid $color-bg-other;
+    padding-bottom: 1.325rem;
+    cursor: default;
   }
   &__comment-section {
     grid-column: span 18;

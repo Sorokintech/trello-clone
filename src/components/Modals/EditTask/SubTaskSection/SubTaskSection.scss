@@ -1,0 +1,19 @@
+@use "../../../../assets/styles/colors.scss" as *;
+.sub-task-section {
+  border-top: 0.075rem solid $color-bg-other;
+  padding-top: 0.325rem;
+  grid-column: span 18;
+  background: inherit;
+  &__add-subtask {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.325rem;
+    margin-top: 0.325rem;
+  }
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.325rem;
+    margin: 0.325rem 0;
+  }
+}

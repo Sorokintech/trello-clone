@@ -93,23 +93,3 @@
     align-items: center;
   }
 }
-.mce-content-body {
-  color: $color-text-dark-blue;
-  background-color: inherit;
-  transition: 0.5s all;
-  padding: 0.325rem 0;
-  outline: none;
-  border: transparent;
-  border-radius: 0.125rem;
-}
-.mce-edit-focus {
-  background-color: $color-bg-main-blue;
-  color: $color-text-light;
-  padding: 0.325rem 0.625rem;
-}
-.tox-statusbar__branding {
-  display: none;
-}
-.tox-statusbar {
-  display: none !important;
-}

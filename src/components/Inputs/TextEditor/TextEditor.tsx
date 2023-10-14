@@ -1,37 +1,37 @@
 import React, { FC } from "react";
 
 import cn from "classnames";
-import "./Input.scss";
-import { IInput } from "../../../assets/types/types";
-import saveIcon from "../../../../assets/images/save-icon.png";
-import Button from "../Button/Button";
+import "./TextEditor.scss";
+import { ITextEditor } from "../../../assets/types/types";
+import { Editor } from "@tinymce/tinymce-react";
 
-const TextEditor: FC<IInput> = ({
+const TextEditor: FC<ITextEditor> = ({
   id,
-  type,
   defaultValue,
-  placeholder,
   onchange,
-  onfocus,
-  className,
   createDate,
+  endDate,
 }) => {
   return (
-    <div className={cn("input-wrapper")}>
+    <div key={id} className={cn("text-editor-wrapper")}>
       {createDate && (
         <label htmlFor={id} className={cn("label")}>
           Создана {createDate}
         </label>
       )}
-      <input
-        className={cn("input", `${className}`)}
-        id={id}
-        type={type}
-        defaultValue={defaultValue}
-        placeholder={placeholder}
-        onChange={onchange}
-        onFocus={onfocus}
-        autoComplete="off"
+      <Editor
+        apiKey="m7uepvaogzxawj28dhra4dvd1bj2b2cjtvydtxz1ceuxpdj6"
+        onEditorChange={onchange}
+        initialValue={defaultValue}
+        init={{
+          plugins: ["quickbars"],
+          toolbar: false,
+          menubar: false,
+          inline: true,
+          quicklink: true,
+          quickbars_insert_toolbar: false,
+          quickbars_selection_toolbar: "bold italic | forecolor | blockquote",
+        }}
       />
     </div>
   );

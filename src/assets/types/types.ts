@@ -1,3 +1,5 @@
+import { Editor } from "tinymce";
+
 export interface IProject {
   title: string;
   project_id: string;
@@ -74,6 +76,13 @@ export interface IInput {
   placeholder?: string;
   onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onfocus?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+export interface ITextEditor {
+  id: string;
+  defaultValue: string;
+  endDate?: string;
+  createDate?: string;
+  onchange?: (a: string, editor: Editor) => void;
 }
 export interface ITextArea {
   id: string;

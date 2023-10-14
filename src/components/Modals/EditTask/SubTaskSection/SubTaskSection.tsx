@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State, actionCreators } from "../../../../store";
 import { format } from "date-fns";
+import TextEditor from "../../../Inputs/TextEditor/TextEditor";
 
 const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
   const { project_id } = useParams();
@@ -94,38 +95,45 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
       />
       {inputShown && (
         <div className={cn("sub-task-section__add-subtask")}>
-          <Input
+          <TextEditor
+            id={"subtask-add"}
+            defaultValue={"123"}
+            onchange={(a, editor) => {
+              updateNewSubTask(
+                "content",
+                editor.getContent({ format: "html" })
+              );
+            }}
+          />
+          {/* <Input
             id={"subtask-add"}
             type={"text"}
             placeholder={"Добавьте описание..."}
             defaultValue={""}
             onchange={(e) => updateNewSubTask("content", e.target.value)}
-          />
+          /> */}
           <Button title={"Добавить"} click={() => addSubTask()} />
         </div>
       )}
+      {/* <div className={cn("sub-task-section__header")}>Текущие подзадачи</div> */}
       {task.subtasks
         .sort((a, b) => +b.subtask_id - +a.subtask_id)
         .map((item) => (
           <>
             <div key={item.content} className={cn("sub-task-section__item")}>
-              <Input
+              <TextEditor
                 id={item.subtask_id}
-                type={"textarea"}
                 defaultValue={item.content}
                 createDate={item.createDate}
-                className={cn(
-                  item.done ? "input-subtask-done" : "input-subtask"
-                )}
-                onchange={(e) =>
+                onchange={(a, editor) => {
                   updateSubTask(
-                    e.target.value,
+                    editor.getContent({ format: "html" }),
                     item.createDate,
                     item.subtask_id
-                  )
-                }
+                  );
+                }}
               />
-              <Button title={"Выполнено"} className={"button-subtask"} />
+              <Button title={"Выполнено"} className={"button-subtasks"} />
             </div>
             {/* {item.content !== updatedSubTask.content && (
               <div className={cn("sub-task-section__save-btn")}>

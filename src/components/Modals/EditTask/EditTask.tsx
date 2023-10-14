@@ -11,6 +11,7 @@ import CommentSection from "./CommentSection/CommentSection";
 import SubTaskSection from "./SubTaskSection/SubTaskSection";
 import { useParams } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
+import TextEditor from "../../Inputs/TextEditor/TextEditor";
 
 const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
   // Ref and function for outside click close of modal
@@ -65,9 +66,6 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
             onchange={(e) => updateCurrentTask("title", e.target.value)}
             createDate={task.createDate}
           />
-          {/* <div className={cn("task-modal__create-date")}>
-            от {updatedTask.createDate}
-          </div> */}
           <div className={cn("task-modal__status")}>
             В колонке: {task.status}
           </div>
@@ -100,35 +98,16 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
           >
             Описание
           </label>
-          <div className={cn("task-modal__description")}>
-            <Editor
-              apiKey="m7uepvaogzxawj28dhra4dvd1bj2b2cjtvydtxz1ceuxpdj6"
-              onEditorChange={(newValue, editor) => {
-                updateCurrentTask(
-                  "description",
-                  editor.getContent({ format: "html" })
-                );
-              }}
-              initialValue={task.description}
-              init={{
-                plugins: ["quickbars"],
-                toolbar: false,
-                menubar: false,
-                inline: true,
-                quicklink: true,
-                quickbars_insert_toolbar: false,
-                quickbars_selection_toolbar:
-                  "bold italic | forecolor | blockquote",
-              }}
-            />
-          </div>
-          {/* <Input
+          <TextEditor
             id={"description"}
-            type={"text"}
             defaultValue={task.description}
-            className={"input-description-edit"}
-            onchange={(e) => updateCurrentTask("description", e.target.value)}
-          /> */}
+            onchange={(a, editor) => {
+              updateCurrentTask(
+                "description",
+                editor.getContent({ format: "html" })
+              );
+            }}
+          />
 
           <SubTaskSection task_id={task.task_id} />
           <CommentSection task_id={task.task_id} />

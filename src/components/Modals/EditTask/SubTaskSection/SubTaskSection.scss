@@ -30,4 +30,8 @@
   &__save-icon-shown {
     display: block;
   }
+  &__save-btn {
+    display: flex;
+    justify-content: center;
+  }
 }

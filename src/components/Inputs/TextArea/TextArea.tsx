@@ -1,40 +1,37 @@
 import React, { FC } from "react";
 
 import cn from "classnames";
-import "./Input.scss";
-import { IInput } from "../../../assets/types/types";
-import saveIcon from "../../../../assets/images/save-icon.png";
-import Button from "../Button/Button";
+import "./TextArea.scss";
+import { ITextArea } from "../../../assets/types/types";
 
-const Input: FC<IInput> = ({
+const TextArea: FC<ITextArea> = ({
   id,
   type,
   defaultV,
   placeholder,
-  onchange,
+  oninput,
   onfocus,
   className,
   createDate,
 }) => {
   return (
-    <div className={cn("input-wrapper")}>
+    <div className={cn("text-area-wrapper")}>
       {createDate && (
         <label htmlFor={id} className={cn("label")}>
           Создана {createDate}
         </label>
       )}
-      <input
-        className={cn("input", `${className}`)}
+
+      <textarea
+        className={cn("text-area", `${className}`)}
         id={id}
-        type={type}
         defaultValue={defaultV}
         placeholder={placeholder}
-        onChange={onchange}
-        onFocus={onfocus}
         autoComplete="off"
-      />
+        onInput={oninput}
+      ></textarea>
     </div>
   );
 };
 
-export default Input;
+export default TextArea;

@@ -10,6 +10,7 @@ import Input from "../../Inputs/Input/Input";
 import CommentSection from "./CommentSection/CommentSection";
 import SubTaskSection from "./SubTaskSection/SubTaskSection";
 import { useParams } from "react-router-dom";
+import TextArea from "../../Inputs/TextArea/TextArea";
 
 const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
   // Ref and function for outside click close of modal
@@ -99,6 +100,12 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
           >
             Описание
           </label>
+          {/* <TextArea
+            id={"description"}
+            type={"text"}
+            defaultV={task.description}
+            oninput={(e) => updateCurrentTask("description", e.target.value)}
+          /> */}
           <Input
             id={"description"}
             type={"text"}

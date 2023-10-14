@@ -30,12 +30,23 @@ export interface IComment {
   comment_id: string;
   content: string;
   createDate?: string;
+  sub_comments?: ISubComment[];
+}
+export interface ISubComment {
+  project_id: string | undefined;
+  task_id: string;
+  comment_id: string;
+  sub_comment_id: string;
+  content: string;
+  createDate?: string;
+  sub_comments?: ISubComment[];
 }
 export interface ISubTask {
   project_id: string | undefined;
   task_id: string;
   subtask_id: string;
   content: string;
+  prevContent?: string;
   createDate?: string;
   done: boolean;
 }
@@ -61,6 +72,17 @@ export interface IInput {
   createDate?: string;
   placeholder?: string;
   onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onfocus?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+export interface ITextArea {
+  id: string;
+  type?: string;
+  defaultV: string;
+  className?: string;
+  createDate?: string;
+  placeholder?: string;
+  oninput?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onfocus?: (event: React.ChangeEventHandler<HTMLTextAreaElement>) => void;
 }
 export interface IButton {
   title: string;

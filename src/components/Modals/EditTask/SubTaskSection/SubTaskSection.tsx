@@ -64,14 +64,13 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
   }
   // Function that updates the specific sub-task
   function updateSubTask(
-    key: string,
-    value: string | boolean,
+    value: string,
     date: string | undefined,
     subtask_id: string
   ) {
     setUpdatedSubTask((prevState) => ({
       ...prevState,
-      [key]: value,
+      content: value,
       createDate: date,
       subtask_id: subtask_id,
     }));
@@ -80,15 +79,8 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
   function dispatchUpdatedSubTask() {
     dispatch(actionCreators.updateSubTask(updatedSubTask));
   }
-  // function subTaskDoneToggleHandler(
-  //   key: string,
-  //   value: string | boolean,
-  //   date: string | undefined,
-  //   subtask_id: string
-  // ) {
-  //   updateSubTask(key, value, date, subtask_id);
+  // function subTaskDoneToggleHandler() {
   //   dispatch(actionCreators.updateSubTask(updatedSubTask));
-  //   console.log("toggled");
   // }
   useEffect(() => {
     console.log(state[0]);
@@ -115,45 +107,36 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
       {task.subtasks
         .sort((a, b) => +b.subtask_id - +a.subtask_id)
         .map((item) => (
-          <div key={item.subtask_id} className={cn("sub-task-section__item")}>
-            <Input
-              id={item.subtask_id}
-              type={"textarea"}
-              defaultV={item.content}
-              createDate={item.createDate}
-              className={cn(item.done ? "input-subtask-done" : "input-subtask")}
-              onchange={(e) =>
-                updateSubTask(
-                  "content",
-                  e.target.value,
-                  item.createDate,
-                  item.subtask_id
-                )
-              }
-            />
-            <Button
-              title={"Выполнено"}
-              className={"button-subtask"}
-              // click={() =>
-              //   subTaskDoneToggleHandler(
-              //     "done",
-              //     true,
-              //     item.createDate,
-              //     item.subtask_id
-              //   )
-              // }
-            />
-            {/* <img
-            className={cn(
-              "sub-task-section__save-icon-default"
-              // "sub-task-section__save-icon-shown"
-            )}
-            src={saveIcon}
-            alt="save_icon"
-            onClick={() => dispatchUpdatedSubTask()}
-          /> */}
-            {/* <Button title={"Выполнено"} className={"button-light-blue"} /> */}
-          </div>
+          <>
+            <div key={item.content} className={cn("sub-task-section__item")}>
+              <Input
+                id={item.subtask_id}
+                type={"textarea"}
+                defaultV={item.content}
+                createDate={item.createDate}
+                className={cn(
+                  item.done ? "input-subtask-done" : "input-subtask"
+                )}
+                onchange={(e) =>
+                  updateSubTask(
+                    e.target.value,
+                    item.createDate,
+                    item.subtask_id
+                  )
+                }
+              />
+              <Button title={"Выполнено"} className={"button-subtask"} />
+            </div>
+            {/* {item.content !== updatedSubTask.content && (
+              <div className={cn("sub-task-section__save-btn")}>
+                <Button
+                  title={"Сохранить изменения"}
+                  className={"small"}
+                  click={() => dispatchUpdatedSubTask()}
+                />
+              </div>
+            )} */}
+          </>
         ))}
     </div>
   );

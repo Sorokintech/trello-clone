@@ -50,15 +50,25 @@ const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
     <div className={cn("comment-section")}>
       Комментарии
       {task.comments.map((item) => (
-        <div key={item.comment_id} className={cn("comment-section__comment")}>
-          <div
-            className={cn("comment-section__comment__content")}
-            key={item.comment_id}
-          >
-            {item.content}
+        <>
+          <div key={item.comment_id} className={cn("comment-section__comment")}>
+            <div
+              className={cn("comment-section__comment__content")}
+              key={item.comment_id}
+            >
+              {item.content}
+            </div>
+            <Button title={"Ответить"} click={() => setAddSubComment(true)} />
           </div>
-          <Button title={"Ответить"} click={() => setAddSubComment(true)} />
-        </div>
+          {item.sub_comments?.map((sub_comment) => (
+            <div
+              key={sub_comment.sub_comment_id}
+              className={cn("comment-section__sub-comment")}
+            >
+              {sub_comment.content}
+            </div>
+          ))}
+        </>
       ))}
       {addSubComment && (
         <div className={cn("comment-section__add-sub-comment")}>

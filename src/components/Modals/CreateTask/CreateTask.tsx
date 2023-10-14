@@ -80,7 +80,7 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
             type="text"
             className={cn("new-task-modal__input")}
             placeholder="Захватить мир.."
-            defaultV={""}
+            defaultValue={""}
             onchange={(e) => updateNewTask("title", e.target.value)}
           />
           <label htmlFor="description" className={cn("new-task-modal__label")}>
@@ -91,7 +91,7 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
             type="text"
             className={cn("new-task-modal__input")}
             placeholder="Первым делом нужно..."
-            defaultV={""}
+            defaultValue={""}
             onchange={(e) => updateNewTask("description", e.target.value)}
           />
           <label

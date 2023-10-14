@@ -10,7 +10,7 @@ import Input from "../../Inputs/Input/Input";
 import CommentSection from "./CommentSection/CommentSection";
 import SubTaskSection from "./SubTaskSection/SubTaskSection";
 import { useParams } from "react-router-dom";
-import TextArea from "../../Inputs/TextArea/TextArea";
+import { Editor } from "@tinymce/tinymce-react";
 
 const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
   // Ref and function for outside click close of modal
@@ -60,7 +60,7 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
           <Input
             id={"title"}
             type={"text"}
-            defaultV={task.title}
+            defaultValue={task.title}
             className={"input-title-edit"}
             onchange={(e) => updateCurrentTask("title", e.target.value)}
             createDate={task.createDate}
@@ -100,19 +100,35 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
           >
             Описание
           </label>
-          {/* <TextArea
+          <div className={cn("task-modal__description")}>
+            <Editor
+              apiKey="m7uepvaogzxawj28dhra4dvd1bj2b2cjtvydtxz1ceuxpdj6"
+              onEditorChange={(newValue, editor) => {
+                updateCurrentTask(
+                  "description",
+                  editor.getContent({ format: "html" })
+                );
+              }}
+              initialValue={task.description}
+              init={{
+                plugins: ["quickbars"],
+                toolbar: false,
+                menubar: false,
+                inline: true,
+                quicklink: true,
+                quickbars_insert_toolbar: false,
+                quickbars_selection_toolbar:
+                  "bold italic | forecolor | blockquote",
+              }}
+            />
+          </div>
+          {/* <Input
             id={"description"}
             type={"text"}
-            defaultV={task.description}
-            oninput={(e) => updateCurrentTask("description", e.target.value)}
-          /> */}
-          <Input
-            id={"description"}
-            type={"text"}
-            defaultV={task.description}
+            defaultValue={task.description}
             className={"input-description-edit"}
             onchange={(e) => updateCurrentTask("description", e.target.value)}
-          />
+          /> */}
 
           <SubTaskSection task_id={task.task_id} />
           <CommentSection task_id={task.task_id} />

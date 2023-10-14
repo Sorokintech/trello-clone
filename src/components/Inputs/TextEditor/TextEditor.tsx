@@ -6,7 +6,7 @@ import { IInput } from "../../../assets/types/types";
 import saveIcon from "../../../../assets/images/save-icon.png";
 import Button from "../Button/Button";
 
-const Input: FC<IInput> = ({
+const TextEditor: FC<IInput> = ({
   id,
   type,
   defaultValue,
@@ -37,4 +37,4 @@ const Input: FC<IInput> = ({
   );
 };
 
-export default Input;
+export default TextEditor;

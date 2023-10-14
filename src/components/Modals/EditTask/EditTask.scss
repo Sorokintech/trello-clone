@@ -82,6 +82,9 @@
     font-size: 1.125rem;
     padding-right: 0.325rem;
   }
+  &__description {
+    grid-column: span 18;
+  }
   &__save-btn {
     grid-column: span 18;
     padding: 1rem;
@@ -89,4 +92,24 @@
     justify-content: center;
     align-items: center;
   }
+}
+.mce-content-body {
+  color: $color-text-dark-blue;
+  background-color: inherit;
+  transition: 0.5s all;
+  padding: 0.325rem 0;
+  outline: none;
+  border: transparent;
+  border-radius: 0.125rem;
+}
+.mce-edit-focus {
+  background-color: $color-bg-main-blue;
+  color: $color-text-light;
+  padding: 0.325rem 0.625rem;
+}
+.tox-statusbar__branding {
+  display: none;
+}
+.tox-statusbar {
+  display: none !important;
 }

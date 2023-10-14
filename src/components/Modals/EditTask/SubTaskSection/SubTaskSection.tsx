@@ -98,7 +98,7 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
             id={"subtask-add"}
             type={"text"}
             placeholder={"Добавьте описание..."}
-            defaultV={""}
+            defaultValue={""}
             onchange={(e) => updateNewSubTask("content", e.target.value)}
           />
           <Button title={"Добавить"} click={() => addSubTask()} />
@@ -112,7 +112,7 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
               <Input
                 id={item.subtask_id}
                 type={"textarea"}
-                defaultV={item.content}
+                defaultValue={item.content}
                 createDate={item.createDate}
                 className={cn(
                   item.done ? "input-subtask-done" : "input-subtask"

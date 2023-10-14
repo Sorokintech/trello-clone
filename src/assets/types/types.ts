@@ -67,8 +67,9 @@ export interface IModalProps {
 export interface IInput {
   id: string;
   type: string;
-  defaultV: string;
+  defaultValue: string;
   className?: string;
+  endDate?: string;
   createDate?: string;
   placeholder?: string;
   onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -77,7 +78,7 @@ export interface IInput {
 export interface ITextArea {
   id: string;
   type?: string;
-  defaultV: string;
+  defaultValue: string;
   className?: string;
   createDate?: string;
   placeholder?: string;

@@ -1,0 +1,62 @@
+@use "../../../assets/styles/colors.scss" as *;
+
+.input-wrapper {
+  display: grid;
+  width: 100%;
+  grid-column: span 18;
+}
+.input {
+  outline: none;
+  border: transparent;
+  border-radius: 0.125rem;
+  padding: 0.325rem 0.625rem;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+.input-title-edit {
+  padding: 0.325rem 0;
+  font-size: 1.5rem;
+  color: $color-text-dark-blue;
+  transition: 0.5s all;
+  background-color: $color-bg-main;
+
+  &:focus {
+    background-color: $color-bg-main-blue;
+    color: $color-text-light;
+    padding: 0.325rem 0.625rem;
+  }
+}
+.input-description-edit {
+  color: $color-text-dark-blue;
+  background-color: inherit;
+  transition: 0.5s all;
+  padding: 0.325rem 0;
+  &:focus {
+    background-color: $color-bg-main-blue;
+    color: $color-text-light;
+    padding: 0.325rem 0.625rem;
+  }
+}
+.input-subtask {
+  font-size: 0.825rem;
+  background-color: $color-bg-main;
+  color: $color-text-dark-blue;
+  border-left: 0.325rem solid $color-bg-other;
+  transition: 0.5s all;
+  &:focus {
+    background-color: $color-bg-main-blue;
+    color: $color-text-light;
+    padding: 0.325rem 0.625rem;
+    border-left: 0.325rem solid $color-bg-main-blue;
+  }
+}
+.input-subtask-done {
+  border-radius: 0.125rem;
+  font-size: 0.825rem;
+  background-color: $color-bg-other;
+  color: $color-text-light;
+  text-decoration: line-through;
+}
+.label {
+  font-size: 0.625rem;
+}

@@ -76,7 +76,7 @@ const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
             id={"subtask-add"}
             type={"text"}
             placeholder={"Дополните комментарий..."}
-            defaultV={""}
+            defaultValue={""}
             // onchange={(e) => updateNewCommentContent(e.target.value)}
           />
           <Button title={"Дополнить"} />
@@ -88,7 +88,7 @@ const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
           id={"comment"}
           type={"text"}
           placeholder={"Оставьте комментарий..."}
-          defaultV={newComment.content}
+          defaultValue={newComment.content}
           onchange={(e) => updateNewComment("content", e.target.value)}
         />
         <Button title={"Опубликовать"} click={() => postComment()} />

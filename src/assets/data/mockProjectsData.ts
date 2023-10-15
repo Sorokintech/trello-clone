@@ -125,6 +125,7 @@ export const mockProjectsData = [
             task_id: "1",
             subtask_id: "1",
             createDate: "30.09.2023",
+            endDate: false,
             content: "Wildberries тоже чекнуть",
             done: false,
           },

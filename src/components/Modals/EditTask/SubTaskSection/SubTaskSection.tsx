@@ -34,6 +34,7 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
     subtask_id: "",
     content: "",
     createDate: "",
+    endDate: false,
     done: false,
   });
   const [updatedSubTask, setUpdatedSubTask] = useState<ISubTask>({
@@ -41,7 +42,7 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
     task_id: task.task_id,
     subtask_id: "",
     content: "",
-    createDate: "",
+    endDate: false,
     done: false,
   });
   // Function that updates the new sub-task
@@ -67,15 +68,17 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
   async function updateSubTask(
     key: string,
     value: string,
-    date: string | undefined,
     subtask_id: string,
-    isDone: boolean
+    isDone: boolean,
+    endDate: string | boolean
   ) {
+    let date: string | boolean;
+    endDate ? (date = format(new Date(), "dd.MM.yyyy")) : (date = false);
     setUpdatedSubTask((prevState) => ({
       ...prevState,
       [key]: value,
-      createDate: date,
       subtask_id: subtask_id,
+      endDate: date,
       done: isDone,
     }));
   }
@@ -122,6 +125,9 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
             <div key={item.content} className={cn("sub-task-section__item")}>
               <div className={cn("sub-task-section__item__editor")}>
                 <TextEditor
+                  project_id={item.project_id}
+                  task_id={item.task_id}
+                  subtask_id={item.subtask_id}
                   id={item.subtask_id}
                   defaultValue={item.content}
                   createDate={item.createDate}
@@ -130,8 +136,8 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
                     updateSubTask(
                       "content",
                       editor.getContent({ format: "html" }),
-                      item.createDate,
                       item.subtask_id,
+                      false,
                       false
                     );
                   }}
@@ -148,20 +154,39 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
                 />
               ) : (
                 <Button
-                  title={"☑"}
+                  title={!item.endDate ? "☑" : "↺"}
                   className={"button-subtasks"}
-                  click={async () => {
-                    await updateSubTask(
-                      "content",
-                      item.content,
-                      item.createDate,
-                      item.subtask_id,
-                      true
-                    ).then(() => {
-                      console.log(updatedSubTask);
-                      dispatch(actionCreators.updateSubTask(updatedSubTask));
-                    });
-                  }}
+                  click={
+                    !item.endDate
+                      ? () => {
+                          updateSubTask(
+                            "content",
+                            item.content,
+                            item.subtask_id,
+                            true,
+                            true
+                          ).then(() => {
+                            console.log(updatedSubTask);
+                            dispatch(
+                              actionCreators.updateSubTask(updatedSubTask)
+                            );
+                          });
+                        }
+                      : () => {
+                          updateSubTask(
+                            "content",
+                            item.content,
+                            item.subtask_id,
+                            false,
+                            false
+                          ).then(() => {
+                            console.log(updatedSubTask);
+                            dispatch(
+                              actionCreators.updateSubTask(updatedSubTask)
+                            );
+                          });
+                        }
+                  }
                 />
               )}
             </div>

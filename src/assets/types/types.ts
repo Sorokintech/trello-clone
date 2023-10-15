@@ -48,9 +48,9 @@ export interface ISubTask {
   task_id: string;
   subtask_id: string;
   content: string;
-  prevContent?: string;
   createDate?: string;
-  done: boolean;
+  endDate: string | boolean;
+  done?: boolean;
 }
 // export interface ICommentSection {
 //   commentId: string;
@@ -78,10 +78,13 @@ export interface IInput {
   onfocus?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 export interface ITextEditor {
+  project_id?: string | undefined;
+  task_id?: string;
+  subtask_id?: string;
   id: string;
   defaultValue: string;
-  endDate?: string;
   createDate?: string;
+  endDate?: string;
   done?: boolean;
   onchange?: (a: string, editor: Editor) => void;
 }
@@ -92,6 +95,7 @@ export interface ITextArea {
   className?: string;
   createDate?: string;
   placeholder?: string;
+  endDate?: string;
   oninput?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onfocus?: (event: React.ChangeEventHandler<HTMLTextAreaElement>) => void;
 }

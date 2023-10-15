@@ -5,6 +5,11 @@
 }
 .label {
   font-size: 0.825rem;
+  font-weight: 600;
+}
+.label-done {
+  font-size: 0.825rem;
+  font-weight: 600;
   color: #14b40a;
 }
 .mce-content-body {
@@ -15,6 +20,7 @@
   outline: none;
   border: transparent;
   border-radius: 0.125rem;
+  font-size: 0.825rem;
   & > ol {
     margin-left: 1.5rem;
   }

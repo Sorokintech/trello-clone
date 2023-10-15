@@ -112,6 +112,7 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
           <SubTaskSection task_id={task.task_id} />
           <CommentSection task_id={task.task_id} />
           <div className={cn("task-modal__save-btn")}>
+            {/* тут нужно сравнить 2 объекта на идентичность полей */}
             <Button title={"Сохранить изменения"} click={saveChanges} />
           </div>
         </div>

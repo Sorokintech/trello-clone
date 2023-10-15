@@ -76,7 +76,8 @@
     cursor: default;
   }
   &__description-label {
-    padding-top: 0.625rem;
+    border-top: 0.075rem solid $color-bg-other;
+    margin-top: 0.625rem;
     grid-column: span 18;
     font-weight: 600;
     font-size: 1.125rem;

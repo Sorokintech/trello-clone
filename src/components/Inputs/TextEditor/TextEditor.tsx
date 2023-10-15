@@ -10,21 +10,28 @@ const TextEditor: FC<ITextEditor> = ({
   defaultValue,
   onchange,
   createDate,
+  done,
   endDate,
 }) => {
   return (
     <div key={id} className={cn("text-editor-wrapper")}>
       {createDate && (
         <label htmlFor={id} className={cn("label")}>
-          Создана {createDate}
+          Подзадача №{id} закрыта {createDate}
         </label>
       )}
       <Editor
         apiKey="m7uepvaogzxawj28dhra4dvd1bj2b2cjtvydtxz1ceuxpdj6"
         onEditorChange={onchange}
         initialValue={defaultValue}
+        disabled={done}
         init={{
           plugins: ["quickbars"],
+          placeholder: "Добавьте описание...",
+          content_style: `.mce-content-body[data-mce-placeholder]:not(.mce-visualblocks)::before {
+          color: #274c77;
+          margin-left: 0.625rem;
+          }`,
           toolbar: false,
           menubar: false,
           inline: true,

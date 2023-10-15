@@ -82,6 +82,7 @@ export interface ITextEditor {
   defaultValue: string;
   endDate?: string;
   createDate?: string;
+  done?: boolean;
   onchange?: (a: string, editor: Editor) => void;
 }
 export interface ITextArea {

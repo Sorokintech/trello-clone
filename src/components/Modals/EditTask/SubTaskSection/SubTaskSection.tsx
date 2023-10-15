@@ -64,16 +64,19 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
     }
   }
   // Function that updates the specific sub-task
-  function updateSubTask(
+  async function updateSubTask(
+    key: string,
     value: string,
     date: string | undefined,
-    subtask_id: string
+    subtask_id: string,
+    isDone: boolean
   ) {
     setUpdatedSubTask((prevState) => ({
       ...prevState,
-      content: value,
+      [key]: value,
       createDate: date,
       subtask_id: subtask_id,
+      done: isDone,
     }));
   }
   // Function that dispatches the subtask to redux
@@ -84,63 +87,90 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
   //   dispatch(actionCreators.updateSubTask(updatedSubTask));
   // }
   useEffect(() => {
-    console.log(state[0]);
+    console.log(state[0].tasks);
   }, [state]);
 
   return (
     <div className={cn("sub-task-section")}>
+      <div className={cn("sub-task-section__header")}>Текущие подзадачи</div>
       <Button
         title={"+ Добавить подзадачу"}
         click={() => setInputShown(true)}
       />
       {inputShown && (
         <div className={cn("sub-task-section__add-subtask")}>
-          <TextEditor
-            id={"subtask-add"}
-            defaultValue={"123"}
-            onchange={(a, editor) => {
-              updateNewSubTask(
-                "content",
-                editor.getContent({ format: "html" })
-              );
-            }}
-          />
-          {/* <Input
-            id={"subtask-add"}
-            type={"text"}
-            placeholder={"Добавьте описание..."}
-            defaultValue={""}
-            onchange={(e) => updateNewSubTask("content", e.target.value)}
-          /> */}
+          <div className={cn("sub-task-section__add-subtask__editor")}>
+            <TextEditor
+              id={"subtask-add"}
+              defaultValue={""}
+              onchange={(a, editor) => {
+                updateNewSubTask(
+                  "content",
+                  editor.getContent({ format: "html" })
+                );
+              }}
+            />
+          </div>
           <Button title={"Добавить"} click={() => addSubTask()} />
         </div>
       )}
-      {/* <div className={cn("sub-task-section__header")}>Текущие подзадачи</div> */}
+
       {task.subtasks
         .sort((a, b) => +b.subtask_id - +a.subtask_id)
         .map((item) => (
           <>
             <div key={item.content} className={cn("sub-task-section__item")}>
-              <TextEditor
-                id={item.subtask_id}
-                defaultValue={item.content}
-                createDate={item.createDate}
-                onchange={(a, editor) => {
-                  updateSubTask(
-                    editor.getContent({ format: "html" }),
-                    item.createDate,
-                    item.subtask_id
-                  );
-                }}
-              />
-              <Button title={"Выполнено"} className={"button-subtasks"} />
+              <div className={cn("sub-task-section__item__editor")}>
+                <TextEditor
+                  id={item.subtask_id}
+                  defaultValue={item.content}
+                  createDate={item.createDate}
+                  done={item.done}
+                  onchange={(a, editor) => {
+                    updateSubTask(
+                      "content",
+                      editor.getContent({ format: "html" }),
+                      item.createDate,
+                      item.subtask_id,
+                      false
+                    );
+                  }}
+                />
+              </div>
+              {item.subtask_id === updatedSubTask.subtask_id &&
+              updatedSubTask.content !== item.content ? (
+                <Button
+                  title={"✎"}
+                  className={"button-subtasks"}
+                  click={() =>
+                    dispatch(actionCreators.updateSubTask(updatedSubTask))
+                  }
+                />
+              ) : (
+                <Button
+                  title={"☑"}
+                  className={"button-subtasks"}
+                  click={async () => {
+                    await updateSubTask(
+                      "content",
+                      item.content,
+                      item.createDate,
+                      item.subtask_id,
+                      true
+                    ).then(() => {
+                      console.log(updatedSubTask);
+                      dispatch(actionCreators.updateSubTask(updatedSubTask));
+                    });
+                  }}
+                />
+              )}
             </div>
             {/* {item.content !== updatedSubTask.content && (
               <div className={cn("sub-task-section__save-btn")}>
                 <Button
                   title={"Сохранить изменения"}
                   className={"small"}
-                  click={() => dispatchUpdatedSubTask()}
+                  // click={() => }
                 />
               </div>
             )} */}

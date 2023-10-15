@@ -4,7 +4,8 @@
   grid-column: span 18;
 }
 .label {
-  font-size: 0.625rem;
+  font-size: 0.825rem;
+  color: #14b40a;
 }
 .mce-content-body {
   color: $color-text-dark-blue;
@@ -19,8 +20,10 @@
   }
 }
 .mce-edit-focus {
-  background-color: $color-bg-main-blue;
-  color: $color-text-light;
+  background-color: #fff;
+  color: $color-text-dark-blue;
+  // background-color: $color-bg-main-blue;
+  // color: $color-text-light;
   padding: 0.325rem 0.625rem;
 }
 .tox-statusbar__branding {

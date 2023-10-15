@@ -1,15 +1,14 @@
 @use "../../../assets/styles/colors.scss" as *;
 
 .button {
+  width: 12rem;
   border: transparent;
   border-radius: 0.125rem;
-  cursor: pointer;
-  transition: 0.5s all;
-  padding: 0.125rem 0.625rem;
-  min-width: 10rem;
-  box-sizing: border-box;
+  padding: 0.325rem 0.625rem;
   background-color: $color-btn-hover;
   color: $color-text-dark-blue;
+  cursor: pointer;
+  transition: 0.5s all;
   &:hover {
     background-color: $color-btn-main;
     color: $color-text-light;
@@ -31,8 +30,18 @@
     color: $color-text-dark-blue;
   }
 }
-.button-subtask {
-  margin-top: 0.84rem;
+.button-subtasks {
+  width: 4rem;
+  font-size: 2rem;
+
+  margin: 0;
+  &:hover {
+    // background-color: #14b40a;
+    background-color: inherit;
+    color: #14b40a;
+    padding: 0.325;
+    // font-size: 2.5rem;
+  }
 }
 .small {
   background-color: $color-btn-main;

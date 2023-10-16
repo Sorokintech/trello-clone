@@ -1,1 +1,36 @@
 @use "../../../assets/styles/colors.scss" as *;
+.select-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.625rem 0;
+  &__label {
+    text-align: center;
+    padding-bottom: 0.325rem;
+    font-size: 1.125rem;
+  }
+  &__select {
+    width: 100%;
+    padding: 0.325rem;
+    font-weight: 600;
+    font-size: 0.825rem;
+    font-size: 1rem;
+    border: transparent;
+    outline: none;
+    background-color: $color-bg-main-blue;
+    color: $color-text-light;
+    border-radius: 0.125rem;
+    cursor: pointer;
+  }
+}
+// background-color: $color-bg-main;
+// grid-column: span 1;
+// grid-column: span;
+// font-weight: 600;
+// font-size: 0.825rem;
+// border: transparent;
+// outline: none;
+// background-color: $color-bg-main-blue;
+// color: $color-text-light;
+// border-radius: 0.125rem;
+// cursor: pointer;

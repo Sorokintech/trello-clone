@@ -15,9 +15,10 @@ export interface ITask {
   priority: string;
   createDate: string;
   createTime: string;
-  devStartTime: string;
-  endDate: string;
+  devStartTime: string | boolean;
+  endDate: string | boolean;
   status: string;
+  attached?: string;
   subtasks: ISubTask[];
   comments: IComment[];
 }
@@ -71,11 +72,17 @@ export interface IInput {
   type: string;
   defaultValue: string;
   className?: string;
-  endDate?: string;
+  endDate?: string | boolean;
   createDate?: string;
   placeholder?: string;
+  labelValue?: string;
   onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onfocus?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+export interface ISelect {
+  labelValue: string;
+  defaultValue?: string;
+  onchange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 export interface ITextEditor {
   project_id?: string | undefined;
@@ -84,7 +91,7 @@ export interface ITextEditor {
   id: string;
   defaultValue: string;
   createDate?: string;
-  endDate?: string;
+  endDate?: string | boolean;
   done?: boolean;
   onchange?: (a: string, editor: Editor) => void;
 }
@@ -95,7 +102,7 @@ export interface ITextArea {
   className?: string;
   createDate?: string;
   placeholder?: string;
-  endDate?: string;
+  endDate?: string | boolean;
   oninput?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onfocus?: (event: React.ChangeEventHandler<HTMLTextAreaElement>) => void;
 }

@@ -1,33 +1,17 @@
 @use "../../../assets/styles/colors.scss" as *;
-.new-task-modal {
-  margin: 10% 30%;
+
+.create-task-modal {
+  margin: 10% 25%;
   z-index: 1;
   padding: 1rem 2rem;
   border: transparent;
   border-radius: 0.625rem;
-  background-color: $color-bg-other;
-  color: $color-text-light;
+  background-color: $color-bg-main;
+  color: $color-text-dark-blue;
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: 0.5s all;
-
-  &__label {
-    margin-bottom: 0.325rem;
-  }
-  &__input {
-    width: 100%;
-    padding: 0.325rem;
-    outline: none;
-    border: transparent;
-    border-radius: 0.325rem;
-    background-color: $color-bg-main;
-  }
-  &__btn-container {
-    padding: 1rem;
-    display: flex;
-    justify-content: center;
-  }
   &__error-message {
     padding-top: 0.325rem;
     font-size: 0.825rem;

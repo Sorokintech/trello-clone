@@ -74,7 +74,7 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
   ) {
     let date: string | boolean;
     endDate ? (date = format(new Date(), "dd.MM.yyyy")) : (date = false);
-    setUpdatedSubTask((prevState) => ({
+    return setUpdatedSubTask((prevState) => ({
       ...prevState,
       [key]: value,
       subtask_id: subtask_id,
@@ -96,10 +96,12 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
   return (
     <div className={cn("sub-task-section")}>
       <div className={cn("sub-task-section__header")}>Текущие подзадачи</div>
-      <Button
-        title={"+ Добавить подзадачу"}
-        click={() => setInputShown(true)}
-      />
+      {!inputShown && (
+        <Button
+          title={"+ Добавить подзадачу"}
+          click={() => setInputShown(true)}
+        />
+      )}
       {inputShown && (
         <div className={cn("sub-task-section__add-subtask")}>
           <div className={cn("sub-task-section__add-subtask__editor")}>
@@ -165,8 +167,8 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
                             item.subtask_id,
                             true,
                             true
-                          ).then(() => {
-                            console.log(updatedSubTask);
+                          ).then((data) => {
+                            console.log(data);
                             dispatch(
                               actionCreators.updateSubTask(updatedSubTask)
                             );
@@ -179,8 +181,8 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
                             item.subtask_id,
                             false,
                             false
-                          ).then(() => {
-                            console.log(updatedSubTask);
+                          ).then((data) => {
+                            console.log(data);
                             dispatch(
                               actionCreators.updateSubTask(updatedSubTask)
                             );

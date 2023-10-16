@@ -24,7 +24,6 @@ const TextEditor: FC<ITextEditor> = ({
     ?.subtasks.filter(
       (subtask) => subtask.subtask_id === subtask_id
     )[0].endDate;
-  console.log(endDate);
   return (
     <div key={id} className={cn("text-editor-wrapper")}>
       {!endDate

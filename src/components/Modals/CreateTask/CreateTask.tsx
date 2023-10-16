@@ -9,6 +9,8 @@ import Button from "../../Inputs/Button/Button";
 import { actionCreators, State } from "../../../store";
 import { format, compareAsc } from "date-fns";
 import Input from "../../Inputs/Input/Input";
+import Select from "../../Inputs/Select/Select";
+import { defaultTask } from "../../../assets/data/mockDefaultData";
 
 const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
   const { project_id } = useParams();
@@ -18,35 +20,23 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
       onClose();
     }
   };
-  const [newTask, setNewTask] = useState<ITask>({
-    project_id: project_id,
-    category: "queue",
-    task_id: "",
-    task_number: "",
-    title: "",
-    description: "",
-    priority: "",
-    createDate: "",
-    createTime: "",
-    devStartTime: "В очереди",
-    endDate: "В очереди",
-    status: "В очереди",
-    subtasks: [],
-    comments: [],
-  });
+  const [newTask, setNewTask] = useState<ITask>(defaultTask);
   const [formIsValid, updateFormIsValid] = useState<boolean>(true);
 
   const dispatch = useDispatch();
 
-  const state = useSelector((state: State) => state.projectData);
-  const tasksAmount = state.filter((el) => el.project_id === project_id)[0]
-    .tasks.length;
+  const tasksAmount = useSelector(
+    (state: State) =>
+      state.projectData.filter((el) => el.project_id === project_id)[0].tasks
+        .length
+  );
 
   function updateNewTask(key: string, value: string) {
     let date = new Date();
     setNewTask((prevState) => ({
       ...prevState,
       [key]: value,
+      project_id: project_id,
       task_id: (tasksAmount + 1).toString(),
       task_number: (tasksAmount + 1).toString(),
       createDate: format(date, "dd.MM.yyyy"),
@@ -63,64 +53,40 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
     }
   }
 
-  // useEffect(() => {
-  //   console.log(newTask);
-  //   console.log(state[0]);
-  // }, [newTask, state]);
-
   return isOpen ? (
     <div className="container">
       <div className="wrapper" ref={overlayRef} onClick={handleOverlayClick}>
-        <div className={cn("new-task-modal")}>
-          <label htmlFor="title" className={cn("new-task-modal__label")}>
-            Добавьте название задачи
-          </label>
+        <div className={cn("create-task-modal")}>
           <Input
             id="title"
             type="text"
-            className={cn("new-task-modal__input")}
+            labelValue="Добавьте название задачи"
             placeholder="Захватить мир.."
             defaultValue={""}
             onchange={(e) => updateNewTask("title", e.target.value)}
           />
-          <label htmlFor="description" className={cn("new-task-modal__label")}>
-            Добавьте описание задачи
-          </label>
           <Input
             id="description"
+            labelValue="Добавьте описание задачи"
             type="text"
-            className={cn("new-task-modal__input")}
             placeholder="Первым делом нужно..."
             defaultValue={""}
             onchange={(e) => updateNewTask("description", e.target.value)}
           />
-          <label
-            htmlFor="priority"
-            className={cn("new-task-modal__label")}
-          ></label>
-          Выберите приоритет задачи
-          <select
-            onChange={(e) => updateNewTask("priority", e.target.value)}
-            name="priority"
-            id="priority"
-            className={cn("new-task-modal__input")}
-          >
-            <option value="Высокий">Высокий</option>
-            <option value="Средний">Средний</option>
-            <option value="Низкий">Низкий</option>
-          </select>
+          <Select
+            labelValue="Задайте приоритет задачи"
+            onchange={(e) => updateNewTask("priority", e.target.value)}
+          />
           {!formIsValid && (
-            <div className={cn("new-task-modal__error-message")}>
+            <span className={cn("create-task-modal__error-message")}>
               Введите название и задайте описание задачи
-            </div>
+            </span>
           )}
-          <div className={cn("new-task-modal__btn-container")}>
-            <Button
-              title={"Создать задачу"}
-              className={"button-dark"}
-              click={() => createNewTask()}
-            />
-          </div>
+          <Button
+            title={"Создать задачу"}
+            className={"button-dark"}
+            click={() => createNewTask()}
+          />
         </div>
       </div>
     </div>

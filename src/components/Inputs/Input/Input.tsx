@@ -15,16 +15,20 @@ const Input: FC<IInput> = ({
   onfocus,
   className,
   createDate,
+  labelValue,
 }) => {
   return (
-    <div className={cn("input-wrapper")}>
+    <div className={cn("input-container")}>
+      <label htmlFor={id} className={cn("input-container__label")}>
+        {labelValue}
+      </label>
       {createDate && (
-        <label htmlFor={id} className={cn("label")}>
+        <div className={cn("input-container__date-label")}>
           Создана {createDate}
-        </label>
+        </div>
       )}
       <input
-        className={cn("input", `${className}`)}
+        className={cn("input-container__input", `${className}`)}
         id={id}
         type={type}
         defaultValue={defaultValue}

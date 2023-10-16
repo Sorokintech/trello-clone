@@ -2,12 +2,12 @@
 
 .text-editor {
   grid-column: span 18;
+  cursor: auto;
   &__label {
     text-align: center;
     padding-bottom: 0.325rem;
     font-weight: 600;
     font-size: 1rem;
-    cursor: default;
   }
   &__date-label {
     font-size: 0.825rem;
@@ -38,6 +38,7 @@
   // background-color: $color-bg-main-blue;
   // color: $color-text-light;
   padding: 0.325rem 0.625rem;
+  cursor: cursor;
 }
 .tox-statusbar__branding {
   display: none;

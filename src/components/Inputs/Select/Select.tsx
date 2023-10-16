@@ -4,9 +4,14 @@ import cn from "classnames";
 import "./Select.scss";
 import { ISelect } from "../../../assets/types/types";
 
-const Select: FC<ISelect> = ({ labelValue, defaultValue, onchange }) => {
+const Select: FC<ISelect> = ({
+  labelValue,
+  defaultValue,
+  onchange,
+  className,
+}) => {
   return (
-    <div className={cn("select-input")}>
+    <div className={cn("select-input", `${className ? className : ""}`)}>
       {labelValue && (
         <label htmlFor="priority" className={cn("select-input__label")}>
           {labelValue}

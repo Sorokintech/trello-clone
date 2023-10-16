@@ -4,21 +4,19 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-
   width: 100%;
   padding: 0.625rem 0;
   gap: 0.125rem;
   transition: 0.5s all;
-  border-bottom: 0.075rem solid $color-bg-other;
   &__label {
     text-align: center;
-    padding-bottom: 0.325rem;
     font-size: 1rem;
     font-weight: 600;
   }
   &__select {
     width: 90%;
     align-self: center;
+    margin-top: 0.2rem;
     text-align: center;
     padding: 0.325rem;
     font-weight: 600;
@@ -39,6 +37,9 @@
       color: $color-text-light;
     }
   }
+}
+.select-border {
+  border-bottom: 0.075rem solid $color-bg-other;
 }
 // background-color: $color-bg-main;
 // grid-column: span 1;

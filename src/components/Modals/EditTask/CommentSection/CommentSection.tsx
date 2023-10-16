@@ -77,6 +77,7 @@ const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
             type={"text"}
             placeholder={"Дополните комментарий..."}
             defaultValue={""}
+            className="input"
             // onchange={(e) => updateNewCommentContent(e.target.value)}
           />
           <Button title={"Дополнить"} />
@@ -88,6 +89,7 @@ const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
           id={"comment"}
           type={"text"}
           placeholder={"Оставьте комментарий..."}
+          className="input"
           defaultValue={newComment.content}
           onchange={(e) => updateNewComment("content", e.target.value)}
         />

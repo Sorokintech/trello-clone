@@ -4,7 +4,6 @@
   display: grid;
   width: 100%;
   grid-column: span 16;
-
   &__label {
     font-size: 1rem;
     padding: 0.125rem;
@@ -12,6 +11,7 @@
     font-weight: 600;
   }
   &__date-label {
+    align-self: end;
     font-size: 0.625rem;
   }
   &__input {
@@ -19,8 +19,6 @@
     border: transparent;
     border-radius: 0.125rem;
     padding: 0.325rem 0.625rem;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
     font-size: 1rem;
   }
   &__input-title {
@@ -29,8 +27,6 @@
     border: transparent;
     border-radius: 0.125rem;
     padding: 0.325rem 0;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
     font-size: 1rem;
     background-color: inherit;
     color: $color-text-dark-blue;

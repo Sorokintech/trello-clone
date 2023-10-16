@@ -47,11 +47,11 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
     onClose();
   }
 
-  // useEffect(() => {
-  //   if (Object.keys(task).length > 0) {
-  //     setUpdatedTask(task);
-  //   }
-  // }, [task]);
+  useEffect(() => {
+    if (Object.keys(task).length > 0) {
+      setUpdatedTask(task);
+    }
+  }, [task]);
   return isOpen ? (
     <div className="container">
       <div className="wrapper" ref={overlayRef} onClick={handleOverlayClick}>
@@ -65,9 +65,10 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
             createDate={task.createDate}
           />
           <Select
-            labelValue="Приоритет"
+            // labelValue="Приоритет"
             onchange={(e) => updateCurrentTask("priority", e.target.value)}
             defaultValue={task.priority}
+            className={"select-border"}
           />
           <div className={cn("edit-task-modal__status")}>
             В колонке: {task.status}
@@ -83,6 +84,7 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
               Закрыта: {task.endDate}
             </div>
           )}
+
           <TextEditor
             id={"description"}
             defaultValue={task.description}

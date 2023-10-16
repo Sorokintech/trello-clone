@@ -63,7 +63,7 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
           <Input
             id="title"
             type="text"
-            labelValue="Добавьте название задачи"
+            labelValue="Добавьте название"
             placeholder="Захватить мир.."
             className={"input"}
             defaultValue={""}
@@ -71,7 +71,7 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
           />
           <Input
             id="description"
-            labelValue="Добавьте описание задачи"
+            labelValue="Добавьте описание"
             type="text"
             placeholder="Первым делом нужно..."
             className={"input"}
@@ -79,7 +79,7 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
             onchange={(e) => updateNewTask("description", e.target.value)}
           />
           <Select
-            labelValue="Задайте приоритет задачи"
+            labelValue="Задайте приоритет"
             onchange={(e) => updateNewTask("priority", e.target.value)}
           />
           {!formIsValid && (

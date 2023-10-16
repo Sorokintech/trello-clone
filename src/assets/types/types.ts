@@ -82,6 +82,7 @@ export interface IInput {
 export interface ISelect {
   labelValue?: string;
   defaultValue?: string;
+  className?: string;
   onchange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 export interface ITextEditor {

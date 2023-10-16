@@ -80,7 +80,7 @@ export interface IInput {
   onfocus?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 export interface ISelect {
-  labelValue: string;
+  labelValue?: string;
   defaultValue?: string;
   onchange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
@@ -90,6 +90,7 @@ export interface ITextEditor {
   subtask_id?: string;
   id: string;
   defaultValue: string;
+  labelValue?: string;
   createDate?: string;
   endDate?: string | boolean;
   done?: boolean;

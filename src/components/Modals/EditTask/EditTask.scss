@@ -22,7 +22,7 @@
   cursor: pointer;
   overflow: auto;
 }
-.task-modal {
+.edit-task-modal {
   margin: 5% 20%;
   z-index: 1;
   padding: 1rem 2rem;
@@ -32,61 +32,35 @@
   color: $color-text-dark-blue;
   display: grid;
   grid-template-columns: repeat(18, 1fr);
+
   row-gap: 0.325rem;
   &__number {
     grid-column: span 1;
     font-size: 2rem;
     text-align: start;
   }
+  &__status {
+    grid-column: span 6;
+    text-align: start;
+    font-size: 0.825rem;
+    // border-top: 0.075rem solid $color-bg-other;
+    cursor: default;
+  }
   &__dev-time {
-    grid-column: span 11;
+    grid-column: span 6;
     font-size: 0.825rem;
     text-align: center;
+    // align-self: center;
     cursor: default;
   }
   &__end-date {
-    grid-column: span 5;
+    grid-column: span 6;
+    text-align: end;
     text-align: end;
     font-size: 0.825rem;
     cursor: default;
   }
-  &__priority-label {
-    grid-column: span 1;
-    font-weight: 600;
-    font-size: 0.825rem;
-    padding-right: 0.325rem;
-  }
 
-  &__priority {
-    grid-column: span 1;
-    grid-column: span;
-    font-weight: 600;
-    font-size: 0.825rem;
-    border: transparent;
-    outline: none;
-    background-color: $color-bg-main-blue;
-    color: $color-text-light;
-    border-radius: 0.125rem;
-    cursor: pointer;
-  }
-  &__status {
-    grid-column: span 18;
-    text-align: start;
-    font-size: 0.825rem;
-    border-top: 0.075rem solid $color-bg-other;
-    cursor: default;
-  }
-  &__description-label {
-    border-top: 0.075rem solid $color-bg-other;
-    margin-top: 0.625rem;
-    grid-column: span 18;
-    font-weight: 600;
-    font-size: 1.125rem;
-    padding-right: 0.325rem;
-  }
-  &__description {
-    grid-column: span 18;
-  }
   &__save-btn {
     grid-column: span 18;
     padding: 1rem;

@@ -13,6 +13,7 @@ const TextEditor: FC<ITextEditor> = ({
   subtask_id,
   id,
   defaultValue,
+  labelValue,
   onchange,
   createDate,
   done,
@@ -25,17 +26,22 @@ const TextEditor: FC<ITextEditor> = ({
       (subtask) => subtask.subtask_id === subtask_id
     )[0].endDate;
   return (
-    <div key={id} className={cn("text-editor-wrapper")}>
+    <div key={id} className={cn("text-editor")}>
+      {labelValue && (
+        <label htmlFor={id} className={cn("text-editor__label")}>
+          {labelValue}
+        </label>
+      )}
       {!endDate
         ? createDate && (
-            <label htmlFor={id} className={cn("label")}>
+            <div className={cn("text-editor__date-label")}>
               Подзадача №{id} создана {createDate}
-            </label>
+            </div>
           )
         : endDate && (
-            <label htmlFor={id} className={cn("label-done")}>
+            <div className={cn("text-editor__date-label-done")}>
               Подзадача №{id} закрыта {endDate}
-            </label>
+            </div>
           )}
 
       <Editor

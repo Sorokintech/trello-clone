@@ -18,6 +18,8 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
   const handleOverlayClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     if (e.target === overlayRef.current) {
       onClose();
+      updateFormIsValid(true);
+      setNewTask(defaultTask);
     }
   };
   const [newTask, setNewTask] = useState<ITask>(defaultTask);
@@ -44,11 +46,12 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
     }));
   }
   function createNewTask() {
-    if (newTask.title === "" || newTask.description === "") {
+    if (newTask.title === "") {
       updateFormIsValid(false);
     } else {
       updateFormIsValid(true);
       dispatch(actionCreators.addTask(newTask));
+      setNewTask(defaultTask);
       onClose();
     }
   }
@@ -62,6 +65,7 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
             type="text"
             labelValue="Добавьте название задачи"
             placeholder="Захватить мир.."
+            className={"input"}
             defaultValue={""}
             onchange={(e) => updateNewTask("title", e.target.value)}
           />
@@ -70,6 +74,7 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
             labelValue="Добавьте описание задачи"
             type="text"
             placeholder="Первым делом нужно..."
+            className={"input"}
             defaultValue={""}
             onchange={(e) => updateNewTask("description", e.target.value)}
           />
@@ -79,12 +84,12 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
           />
           {!formIsValid && (
             <span className={cn("create-task-modal__error-message")}>
-              Введите название и задайте описание задачи
+              Пожалуйста, задайте название задачи
             </span>
           )}
           <Button
             title={"Создать задачу"}
-            className={"button-dark"}
+            // className={"button-dark"}
             click={() => createNewTask()}
           />
         </div>

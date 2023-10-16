@@ -7,9 +7,11 @@ import { ISelect } from "../../../assets/types/types";
 const Select: FC<ISelect> = ({ labelValue, defaultValue, onchange }) => {
   return (
     <div className={cn("select-input")}>
-      <label htmlFor="priority" className={cn("select-input__label")}>
-        {labelValue}
-      </label>
+      {labelValue && (
+        <label htmlFor="priority" className={cn("select-input__label")}>
+          {labelValue}
+        </label>
+      )}
       <select
         onChange={onchange}
         name="priority"

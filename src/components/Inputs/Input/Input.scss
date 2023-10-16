@@ -3,11 +3,13 @@
 .input-container {
   display: grid;
   width: 100%;
-  grid-column: span 18;
+  grid-column: span 16;
+
   &__label {
-    font-size: 1.125rem;
+    font-size: 1rem;
     padding: 0.125rem;
     text-align: center;
+    font-weight: 600;
   }
   &__date-label {
     font-size: 0.625rem;
@@ -20,6 +22,25 @@
     white-space: pre-wrap;
     overflow-wrap: break-word;
     font-size: 1rem;
+  }
+  &__input-title {
+    transition: 0.5s all;
+    outline: none;
+    border: transparent;
+    border-radius: 0.125rem;
+    padding: 0.325rem 0;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    font-size: 1rem;
+    background-color: inherit;
+    color: $color-text-dark-blue;
+    font-size: 1.5rem;
+    border-bottom: 0.075rem solid $color-bg-other;
+    &:focus {
+      background-color: #fff;
+      color: $color-text-dark-blue;
+      padding: 0.325rem 0.625rem;
+    }
   }
 }
 

@@ -1,26 +1,43 @@
 @use "../../../assets/styles/colors.scss" as *;
 .select-input {
+  grid-column: span 2;
+  align-items: center;
   display: flex;
   flex-direction: column;
+
   width: 100%;
   padding: 0.625rem 0;
+  gap: 0.125rem;
+  transition: 0.5s all;
+  border-bottom: 0.075rem solid $color-bg-other;
   &__label {
     text-align: center;
     padding-bottom: 0.325rem;
-    font-size: 1.125rem;
+    font-size: 1rem;
+    font-weight: 600;
   }
   &__select {
-    width: 100%;
+    width: 90%;
+    align-self: center;
+    text-align: center;
     padding: 0.325rem;
     font-weight: 600;
     font-size: 0.825rem;
     font-size: 1rem;
     border: transparent;
     outline: none;
-    background-color: $color-bg-main-blue;
-    color: $color-text-light;
+    background-color: $color-bg-main;
+    // background-color: $color-bg-main-blue;
+    color: $color-text-dark-blue;
+    // border-bottom: 0.075rem solid $color-bg-other;
     border-radius: 0.125rem;
     cursor: pointer;
+    appearance: none;
+    transition: 0.5s all;
+    &:hover {
+      background-color: $color-bg-main-blue;
+      color: $color-text-light;
+    }
   }
 }
 // background-color: $color-bg-main;

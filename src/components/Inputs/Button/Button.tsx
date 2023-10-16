@@ -6,7 +6,10 @@ import { IButton } from "../../../assets/types/types";
 
 const Button: FC<IButton> = ({ title, className, click }) => {
   return (
-    <button className={cn(`button ${className}`)} onClick={click}>
+    <button
+      className={cn("button", `${className ? className : ""}`)}
+      onClick={click}
+    >
       {title}
     </button>
   );

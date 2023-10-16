@@ -157,7 +157,7 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
               ) : (
                 <Button
                   title={!item.endDate ? "☑" : "↺"}
-                  className={"button-subtasks"}
+                  className={"button__icon"}
                   click={
                     !item.endDate
                       ? () => {
@@ -192,15 +192,6 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
                 />
               )}
             </div>
-            {/* {item.content !== updatedSubTask.content && (
-              <div className={cn("sub-task-section__save-btn")}>
-                <Button
-                  title={"Сохранить изменения"}
-                  className={"small"}
-                  // click={() => }
-                />
-              </div>
-            )} */}
           </>
         ))}
     </div>

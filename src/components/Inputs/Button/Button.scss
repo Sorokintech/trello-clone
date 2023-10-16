@@ -9,47 +9,19 @@
   color: $color-text-dark-blue;
   cursor: pointer;
   transition: 0.5s all;
+  align-self: center;
   &:hover {
     background-color: $color-btn-main;
     color: $color-text-light;
   }
 }
-.button-light {
-  background-color: $color-btn-hover;
-  color: $color-text-dark-blue;
-  &:hover {
-    background-color: $color-btn-active;
-    color: $color-text-light;
-  }
-}
-.button-dark {
-  background-color: $color-btn-active;
-  color: $color-text-light;
-  &:hover {
-    background-color: $color-btn-hover;
-    color: $color-text-dark-blue;
-  }
-}
-.button-subtasks {
+.button__icon {
   width: 4rem;
   font-size: 2rem;
-
   margin: 0;
   &:hover {
-    // background-color: #14b40a;
     background-color: inherit;
     color: #14b40a;
     padding: 0.325;
-    // font-size: 2.5rem;
-  }
-}
-.small {
-  background-color: $color-btn-main;
-  color: $color-text-light;
-  padding: 0;
-  font-size: 0.625rem;
-  &:hover {
-    background-color: $color-btn-save;
-    color: $color-text-dark-blue;
   }
 }

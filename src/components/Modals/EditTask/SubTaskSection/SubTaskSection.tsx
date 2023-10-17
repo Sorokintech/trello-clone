@@ -1,10 +1,10 @@
-import React, { Children, FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import cn from "classnames";
 
 // import saveIcon from "../../../../assets/images/save-icon.png";
 
 import "./SubTaskSection.scss";
-import { ISubTask } from "../../../../assets/types/types";
+import { ISubTask, ITask } from "../../../../assets/types/types";
 import Button from "../../../Inputs/Button/Button";
 import Input from "../../../Inputs/Input/Input";
 import { useParams } from "react-router-dom";
@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { State, actionCreators } from "../../../../store";
 import { format } from "date-fns";
 import TextEditor from "../../../Inputs/TextEditor/TextEditor";
+import { defaultSubTask } from "../../../../assets/data/mockDefaultData";
+import isThisMinute from "date-fns/isThisMinute/index";
 
 const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
   const { project_id } = useParams();
@@ -28,24 +30,11 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
   // Use State
   const [taskDone, setTaskDone] = useState<boolean>(false);
   const [inputShown, setInputShown] = useState<boolean>(false);
-  const [newSubTask, setNewSubTask] = useState<ISubTask>({
-    project_id: task.project_id,
-    task_id: task.task_id,
-    subtask_id: "",
-    content: "",
-    createDate: "",
-    endDate: false,
-    done: false,
-  });
-  const [updatedSubTask, setUpdatedSubTask] = useState<ISubTask>({
-    project_id: task.project_id,
-    task_id: task.task_id,
-    subtask_id: "",
-    content: "",
-    endDate: false,
-    done: false,
-  });
-  // Function that updates the new sub-task
+  const [newSubTask, setNewSubTask] = useState<ISubTask>(defaultSubTask);
+  const [updatedSubTask, setUpdatedSubTask] =
+    useState<ISubTask>(defaultSubTask);
+
+  // Function that updates the new subtask
   function updateNewSubTask(
     key: string,
     value: string,
@@ -63,7 +52,7 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
     }));
   }
 
-  // Function that dispatches the subtask to redux
+  // Function that dispatches the new subtask to redux
   function addSubTask() {
     if (newSubTask.content.length > 1) {
       dispatch(actionCreators.addSubTask(newSubTask));
@@ -71,41 +60,44 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
       setInputShown(false);
     }
   }
-  // Function that updates the specific sub-task
+  // Function that updates the existing subtask
   const updateSubTask = useCallback(
     (
       key: string,
       value: string,
-      subtask_id: string,
       isDone: boolean,
       endDate: string | boolean,
-      project_id: string | undefined,
-      task_id: string
+      item: ISubTask
     ) => {
       let date: string | boolean;
       endDate ? (date = format(new Date(), "dd.MM.yyyy")) : (date = false);
-      setUpdatedSubTask((prevState) => ({
-        ...prevState,
+      const newUpdatedSubTask = {
+        ...item,
         [key]: value,
-        subtask_id: subtask_id,
+        subtask_id: item.subtask_id,
         endDate: date,
         done: isDone,
-        project_id: project_id,
-        task_id: task_id,
-      }));
+      };
+      setUpdatedSubTask(newUpdatedSubTask);
+      if (isDone !== item.done) {
+        console.log(newUpdatedSubTask);
+        console.log(item);
+        dispatch(actionCreators.updateSubTask(newUpdatedSubTask));
+      }
     },
     []
   );
-  // Function that dispatches the subtask to redux
-  useEffect(() => {
-    if (
-      updatedSubTask.done !==
-      task?.subtasks.filter(
-        (item) => item.subtask_id === updatedSubTask.subtask_id
-      )[0]?.done
-    )
-      dispatch(actionCreators.updateSubTask(updatedSubTask));
-  }, [updatedSubTask]);
+
+  // UseEffect dispatches the updatedTask to redux once the subtask is done/undone
+  // useEffect(() => {
+  //   if (
+  //     updatedSubTask.done !==
+  //     task?.subtasks.filter(
+  //       (item) => item.subtask_id === updatedSubTask.subtask_id
+  //     )[0]?.done
+  //   )
+  //     dispatch(actionCreators.updateSubTask(updatedSubTask));
+  // }, [updatedSubTask]);
 
   return (
     <div className={cn("sub-task-section")}>
@@ -154,16 +146,15 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
                     updateSubTask(
                       "content",
                       editor.getContent({ format: "html" }),
-                      item.subtask_id,
                       false,
                       false,
-                      task.project_id,
-                      task.task_id
+                      item
                     );
                     setInputShown(false);
                   }}
                 />
               </div>
+
               {item.subtask_id === updatedSubTask.subtask_id &&
               updatedSubTask.content !== item.content ? (
                 <Button
@@ -181,11 +172,9 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
                     updateSubTask(
                       "content",
                       item.content,
-                      item.subtask_id,
                       !item.endDate ? true : false,
                       !item.endDate ? true : false,
-                      task.project_id,
-                      task.task_id
+                      item
                     );
                   }}
                 />

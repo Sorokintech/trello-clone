@@ -35,13 +35,12 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
 
   // функцию ниже, нужно просто сделать через reducer updateTask
   function updateCurrentTask(key: string, value: string) {
-    setUpdatedTask((prevState) => ({
-      ...prevState,
+    setUpdatedTask({
+      ...task,
       [key]: value,
-    }));
-    console.log(updatedTask);
+    });
   }
-
+  // Save Changes to Use CallBack with task dependency
   function saveChanges() {
     dispatch(actionCreators.updateTask(updatedTask));
     onClose();

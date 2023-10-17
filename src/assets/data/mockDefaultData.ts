@@ -18,8 +18,10 @@ export const defaultTask = {
 
 export const defaultSubTask = {
   project_id: "",
-  category: "queue",
   task_id: "",
+  subtask_id: "",
+  category: "queue",
+  content: "",
   task_number: "",
   title: "",
   description: "",
@@ -27,6 +29,7 @@ export const defaultSubTask = {
   createDate: "",
   createTime: "",
   devStartTime: false,
+  done: false,
   endDate: false,
   status: "В очереди",
   attached: "",

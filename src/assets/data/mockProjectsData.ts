@@ -126,7 +126,7 @@ export const mockProjectsData = [
             subtask_id: "1",
             createDate: "30.09.2023",
             endDate: false,
-            content: "Wildberries тоже чекнуть",
+            content: "<p>Wildberries тоже чекнуть</p>",
             done: false,
           },
         ],
@@ -146,6 +146,25 @@ export const mockProjectsData = [
                 createDate: "30.09.2023",
                 content: "Ааа! ",
                 sub_comments: [
+                  {
+                    project_id: "2",
+                    task_id: "1",
+                    comment_id: "1",
+                    sub_comment_id: "1",
+                    createDate: "30.09.2023",
+                    content: "А я думала Сова! ",
+                    sub_comments: [
+                      {
+                        project_id: "2",
+                        task_id: "1",
+                        comment_id: "9",
+                        sub_comment_id: "1",
+                        createDate: "30.09.2023",
+                        content: "А я думала Сова! ",
+                        sub_comments: [],
+                      },
+                    ],
+                  },
                   {
                     project_id: "2",
                     task_id: "1",

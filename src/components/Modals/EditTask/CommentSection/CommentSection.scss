@@ -9,25 +9,6 @@
     align-items: start;
     gap: 0.325rem;
     margin-top: 0.325rem;
-    padding-left: 0.625rem;
-    &__line {
-      // background-color: $color-bg-other;
-      width: 1.5rem;
-      height: 1rem;
-      content: "";
-      display: flex;
-      border-bottom: 0.125rem solid $color-bg-other;
-      border-left: 0.125rem solid $color-bg-other;
-      // &__vertical {
-      //   display: inline-block;
-      //   align-self: start;
-      //   justify-self: start;
-      //   background-color: $color-bg-other;
-      //   width: 1.5rem;
-      //   height: 0.075rem;
-      //   transform: rotate(90deg);
-      // }
-    }
   }
   &__comment {
     display: flex;

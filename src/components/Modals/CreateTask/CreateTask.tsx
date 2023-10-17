@@ -84,7 +84,7 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
           />
           {!formIsValid && (
             <span className={cn("create-task-modal__error-message")}>
-              Пожалуйста, задайте название задачи
+              Пожалуйста, добавьте название задачи
             </span>
           )}
           <Button

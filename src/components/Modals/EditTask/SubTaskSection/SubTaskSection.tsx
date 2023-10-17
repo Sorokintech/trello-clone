@@ -89,9 +89,9 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
   // function subTaskDoneToggleHandler() {
   //   dispatch(actionCreators.updateSubTask(updatedSubTask));
   // }
-  useEffect(() => {
-    console.log(state[0].tasks);
-  }, [state]);
+  // useEffect(() => {
+  //   console.log(state[0].tasks);
+  // }, [state]);
 
   return (
     <div className={cn("sub-task-section")}>
@@ -149,7 +149,7 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
               updatedSubTask.content !== item.content ? (
                 <Button
                   title={"✎"}
-                  className={"button-subtasks"}
+                  className={"button__icon"}
                   click={() =>
                     dispatch(actionCreators.updateSubTask(updatedSubTask))
                   }

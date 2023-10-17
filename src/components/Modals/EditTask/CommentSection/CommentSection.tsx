@@ -12,13 +12,14 @@ import { useParams } from "react-router-dom";
 
 const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
   const { project_id } = useParams();
-  const state = useSelector((state: State) => state.projectData);
-  const task = state
-    .filter((el) => el.project_id === project_id)[0]
-    .tasks.filter((task) => task.task_id === task_id)[0];
-  // ^?
+  const task = useSelector(
+    (state: State) =>
+      state.projectData
+        .filter((el) => el.project_id === project_id)[0]
+        .tasks.filter((task) => task.task_id === task_id)[0]
+  );
   const commentsAmount = task.comments.length;
-  const [addSubComment, setAddSubComment] = useState<boolean>(false);
+  const [addSubComment, setAddSubComment] = useState<boolean>(true);
   const [inputDefaultValue, updateInputDefaultValue] = useState<string>("");
   const [newComment, setNewComment] = useState<IComment>({
     project_id: task.project_id,
@@ -37,10 +38,12 @@ const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
       createDate: format(date, "HH:mm"),
       comment_id: (task.comments.length + 1).toString(),
     }));
-    console.log(newComment);
   }
   function postComment() {
-    dispatch(actionCreators.addComment(newComment));
+    if (newComment.content.length > 0) {
+      dispatch(actionCreators.addComment(newComment));
+      updateNewComment("content", "");
+    }
   }
   // useEffect(() => {
   //   console.log(newComment);
@@ -58,25 +61,39 @@ const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
             >
               {item.content}
             </div>
-            <Button title={"Ответить"} click={() => setAddSubComment(true)} />
+            {/* <Button title={"Ответить"} click={() => setAddSubComment(true)} /> */}
           </div>
+
           {item.sub_comments?.map((sub_comment) => (
-            <div
-              key={sub_comment.sub_comment_id}
-              className={cn("comment-section__sub-comment")}
-            >
-              {sub_comment.content}
-            </div>
+            <>
+              <Button
+                title={"+ показать комментарии"}
+                // click={() => setInputShown(true)}
+              />
+              <div
+                key={sub_comment.sub_comment_id}
+                className={cn("comment-section__sub-comment")}
+              >
+                {sub_comment.content}
+              </div>
+            </>
           ))}
         </>
       ))}
       {addSubComment && (
         <div className={cn("comment-section__add-sub-comment")}>
+          <div className={cn("comment-section__add-sub-comment__line")}>
+            {/* <span
+                  className={cn(
+                    "comment-section__add-sub-comment__line__vertical"
+                  )}
+                ></span> */}
+          </div>
           <Input
             id={"subtask-add"}
             type={"text"}
             placeholder={"Дополните комментарий..."}
-            defaultValue={""}
+            defaultValue={newComment.content}
             className="input"
             // onchange={(e) => updateNewCommentContent(e.target.value)}
           />

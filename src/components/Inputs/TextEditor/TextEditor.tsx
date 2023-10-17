@@ -18,13 +18,14 @@ const TextEditor: FC<ITextEditor> = ({
   createDate,
   done,
 }) => {
-  const state = useSelector((state: State) => state.projectData);
-  const endDate = state
-    .filter((project) => project.project_id === project_id)[0]
-    ?.tasks.filter((task) => task.task_id === task_id)[0]
-    ?.subtasks.filter(
-      (subtask) => subtask.subtask_id === subtask_id
-    )[0].endDate;
+  const endDate = useSelector(
+    (state: State) =>
+      state.projectData
+        .filter((project) => project.project_id === project_id)[0]
+        ?.tasks.filter((task) => task.task_id === task_id)[0]
+        ?.subtasks.filter((subtask) => subtask.subtask_id === subtask_id)[0]
+        .endDate
+  );
   return (
     <div key={id} className={cn("text-editor")}>
       {labelValue && (

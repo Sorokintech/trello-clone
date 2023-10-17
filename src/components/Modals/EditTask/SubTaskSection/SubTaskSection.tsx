@@ -1,4 +1,4 @@
-import React, { Children, FC, useEffect, useState } from "react";
+import React, { Children, FC, useCallback, useEffect, useState } from "react";
 import cn from "classnames";
 
 // import saveIcon from "../../../../assets/images/save-icon.png";
@@ -46,13 +46,20 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
     done: false,
   });
   // Function that updates the new sub-task
-  function updateNewSubTask(key: string, value: string) {
+  function updateNewSubTask(
+    key: string,
+    value: string,
+    project_id: string | undefined,
+    task_id: string
+  ) {
     let date = new Date();
     setNewSubTask((prevState) => ({
       ...prevState,
       [key]: value,
       createDate: format(date, "dd.MM.yyyy"),
       subtask_id: (subTaskAmount + 1).toString(),
+      project_id: project_id,
+      task_id: task_id,
     }));
   }
 
@@ -60,38 +67,45 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
   function addSubTask() {
     if (newSubTask.content.length > 1) {
       dispatch(actionCreators.addSubTask(newSubTask));
-      updateNewSubTask("content", "");
+      updateNewSubTask("content", "", task.project_id, task.task_id);
       setInputShown(false);
     }
   }
   // Function that updates the specific sub-task
-  async function updateSubTask(
-    key: string,
-    value: string,
-    subtask_id: string,
-    isDone: boolean,
-    endDate: string | boolean
-  ) {
-    let date: string | boolean;
-    endDate ? (date = format(new Date(), "dd.MM.yyyy")) : (date = false);
-    return setUpdatedSubTask((prevState) => ({
-      ...prevState,
-      [key]: value,
-      subtask_id: subtask_id,
-      endDate: date,
-      done: isDone,
-    }));
-  }
+  const updateSubTask = useCallback(
+    (
+      key: string,
+      value: string,
+      subtask_id: string,
+      isDone: boolean,
+      endDate: string | boolean,
+      project_id: string | undefined,
+      task_id: string
+    ) => {
+      let date: string | boolean;
+      endDate ? (date = format(new Date(), "dd.MM.yyyy")) : (date = false);
+      setUpdatedSubTask((prevState) => ({
+        ...prevState,
+        [key]: value,
+        subtask_id: subtask_id,
+        endDate: date,
+        done: isDone,
+        project_id: project_id,
+        task_id: task_id,
+      }));
+    },
+    []
+  );
   // Function that dispatches the subtask to redux
-  function dispatchUpdatedSubTask() {
-    dispatch(actionCreators.updateSubTask(updatedSubTask));
-  }
-  // function subTaskDoneToggleHandler() {
-  //   dispatch(actionCreators.updateSubTask(updatedSubTask));
-  // }
-  // useEffect(() => {
-  //   console.log(state[0].tasks);
-  // }, [state]);
+  useEffect(() => {
+    if (
+      updatedSubTask.done !==
+      task?.subtasks.filter(
+        (item) => item.subtask_id === updatedSubTask.subtask_id
+      )[0]?.done
+    )
+      dispatch(actionCreators.updateSubTask(updatedSubTask));
+  }, [updatedSubTask]);
 
   return (
     <div className={cn("sub-task-section")}>
@@ -111,7 +125,9 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
               onchange={(a, editor) => {
                 updateNewSubTask(
                   "content",
-                  editor.getContent({ format: "html" })
+                  editor.getContent({ format: "html" }),
+                  task.project_id,
+                  task.task_id
                 );
               }}
             />
@@ -140,8 +156,11 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
                       editor.getContent({ format: "html" }),
                       item.subtask_id,
                       false,
-                      false
+                      false,
+                      task.project_id,
+                      task.task_id
                     );
+                    setInputShown(false);
                   }}
                 />
               </div>
@@ -158,37 +177,17 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
                 <Button
                   title={!item.endDate ? "☑" : "↺"}
                   className={"button__icon"}
-                  click={
-                    !item.endDate
-                      ? () => {
-                          updateSubTask(
-                            "content",
-                            item.content,
-                            item.subtask_id,
-                            true,
-                            true
-                          ).then((data) => {
-                            console.log(data);
-                            dispatch(
-                              actionCreators.updateSubTask(updatedSubTask)
-                            );
-                          });
-                        }
-                      : () => {
-                          updateSubTask(
-                            "content",
-                            item.content,
-                            item.subtask_id,
-                            false,
-                            false
-                          ).then((data) => {
-                            console.log(data);
-                            dispatch(
-                              actionCreators.updateSubTask(updatedSubTask)
-                            );
-                          });
-                        }
-                  }
+                  click={() => {
+                    updateSubTask(
+                      "content",
+                      item.content,
+                      item.subtask_id,
+                      !item.endDate ? true : false,
+                      !item.endDate ? true : false,
+                      task.project_id,
+                      task.task_id
+                    );
+                  }}
                 />
               )}
             </div>

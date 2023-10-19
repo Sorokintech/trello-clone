@@ -9,7 +9,11 @@ import { useParams } from "react-router-dom";
 import { DraggableProvided } from "react-beautiful-dnd";
 // export type TaskRef = HTMLDivElement;
 
-const Task: FC<{ task_id: string; provided: DraggableProvided }> =
+const Task: FC<{
+  task_id: string;
+  category_id: string | undefined;
+  provided: DraggableProvided;
+}> =
   //                                ^?
   (props) => {
     //^?
@@ -18,6 +22,9 @@ const Task: FC<{ task_id: string; provided: DraggableProvided }> =
       (state: State) =>
         state.projectData
           .filter((el) => el.project_id === project_id)[0]
+          .categories.filter(
+            (category) => category.category_id === props.category_id
+          )[0]
           .tasks.filter((task) => task.task_id === props.task_id)[0]
     );
     const [isModalOpen, setModalState] = useState(false);
@@ -46,6 +53,7 @@ const Task: FC<{ task_id: string; provided: DraggableProvided }> =
         </div>
         <EditTask
           task_id={task.task_id}
+          category_id={task.category_id}
           isOpen={isModalOpen}
           onClose={ToggleModal}
         />

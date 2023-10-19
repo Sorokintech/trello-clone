@@ -14,7 +14,12 @@ import { Editor } from "@tinymce/tinymce-react";
 import TextEditor from "../../Inputs/TextEditor/TextEditor";
 import Select from "../../Inputs/Select/Select";
 
-const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
+const EditTask: FC<IModalProps> = ({
+  task_id,
+  category_id,
+  isOpen,
+  onClose,
+}) => {
   const { project_id } = useParams();
   // Ref and function for outside click close of modal
   const overlayRef = useRef(null);
@@ -29,6 +34,9 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
     (state: State) =>
       state.projectData
         .filter((el) => el.project_id === project_id)[0]
+        .categories.filter(
+          (category) => category.category_id === category_id
+        )[0]
         .tasks.filter((task) => task.task_id === task_id)[0]
   );
   const [updatedTask, setUpdatedTask] = useState<ITask>(task);
@@ -95,8 +103,8 @@ const EditTask: FC<IModalProps> = ({ task_id, isOpen, onClose }) => {
               );
             }}
           />
-          <SubTaskSection task_id={task.task_id} />
-          <CommentSection task_id={task.task_id} />
+          <SubTaskSection task_id={task.task_id} category_id={category_id} />
+          <CommentSection task_id={task.task_id} category_id={category_id} />
           <div className={cn("edit-task-modal__save-btn")}>
             {/* тут нужно сравнить 2 объекта на идентичность полей */}
             <Button title={"Сохранить изменения"} click={saveChanges} />

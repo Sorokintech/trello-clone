@@ -4,7 +4,7 @@ import cn from "classnames";
 import "./CreateTask.scss";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { IModalProps, ITask } from "../../../assets/types/types";
+import { ICategory, IModalProps, ITask } from "../../../assets/types/types";
 import Button from "../../Inputs/Button/Button";
 import { actionCreators, State } from "../../../store";
 import { format, compareAsc } from "date-fns";
@@ -12,7 +12,7 @@ import Input from "../../Inputs/Input/Input";
 import Select from "../../Inputs/Select/Select";
 import { defaultTask } from "../../../assets/data/mockDefaultData";
 
-const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
+const CreateTask: FC<IModalProps> = ({ category_id, isOpen, onClose }) => {
   const { project_id } = useParams();
   const overlayRef = useRef(null);
   const handleOverlayClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -27,10 +27,10 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
 
   const dispatch = useDispatch();
 
-  const tasksAmount = useSelector(
-    (state: State) =>
-      state.projectData.filter((el) => el.project_id === project_id)[0].tasks
-        .length
+  const tasksAmount = useSelector((state: State) =>
+    state.projectData
+      .filter((el) => el.project_id === project_id)[0]
+      .categories.reduce((total, category) => total + category.tasks.length, 0)
   );
 
   function updateNewTask(key: string, value: string) {
@@ -39,6 +39,7 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
       ...prevState,
       [key]: value,
       project_id: project_id,
+      category_id: category_id,
       task_id: (tasksAmount + 1).toString(),
       task_number: (tasksAmount + 1).toString(),
       createDate: format(date, "dd.MM.yyyy"),
@@ -49,6 +50,7 @@ const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
     if (newTask.title === "") {
       updateFormIsValid(false);
     } else {
+      console.log(newTask);
       updateFormIsValid(true);
       dispatch(actionCreators.addTask(newTask));
       setNewTask(defaultTask);

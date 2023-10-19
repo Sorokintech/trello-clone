@@ -10,12 +10,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { format, compareAsc } from "date-fns";
 import { useParams } from "react-router-dom";
 
-const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
+const CommentSection: FC<{
+  task_id: string;
+  category_id: string | undefined;
+}> = ({ task_id, category_id }) => {
   const { project_id } = useParams();
   const task = useSelector(
     (state: State) =>
       state.projectData
         .filter((el) => el.project_id === project_id)[0]
+        .categories.filter(
+          (category) => category.category_id === category_id
+        )[0]
         .tasks.filter((task) => task.task_id === task_id)[0]
   );
   const commentsAmount = task.comments.length;
@@ -24,6 +30,7 @@ const CommentSection: FC<{ task_id: string }> = ({ task_id }) => {
   const [inputDefaultValue, updateInputDefaultValue] = useState<string>("");
   const [newComment, setNewComment] = useState<IComment>({
     project_id: task.project_id,
+    category_id: task.category_id,
     task_id: task.task_id,
     comment_id: "",
     content: "",

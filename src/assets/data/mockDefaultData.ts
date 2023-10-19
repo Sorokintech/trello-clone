@@ -1,5 +1,6 @@
 export const defaultTask = {
   project_id: "",
+  category_id: "",
   category: "queue",
   task_id: "",
   task_number: "",
@@ -18,6 +19,7 @@ export const defaultTask = {
 
 export const defaultSubTask = {
   project_id: "",
+  category_id: "",
   task_id: "",
   subtask_id: "",
   category: "queue",
@@ -39,6 +41,7 @@ export const defaultSubTask = {
 
 export const defaultComment = {
   project_id: "",
+  category_id: "",
   category: "queue",
   task_id: "",
   task_number: "",
@@ -56,6 +59,7 @@ export const defaultComment = {
 };
 export const defaultSubComment = {
   project_id: "",
+  category_id: "",
   category: "queue",
   task_id: "",
   task_number: "",

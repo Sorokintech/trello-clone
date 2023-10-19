@@ -8,7 +8,7 @@ import { IProject } from "../../assets/types/types";
 
 const ProjectTab: FC<IProject> = ({ ...props }) => {
   const navigate = useNavigate();
-  const task = props.tasks;
+  const category = props.categories;
   return (
     <div
       id={props.project_id}
@@ -24,21 +24,15 @@ const ProjectTab: FC<IProject> = ({ ...props }) => {
       <div className={cn("project-tab__content")}>
         <div className={cn("project-tab__content__item")}>
           В работе :{" "}
-          <span>
-            {props.tasks.filter((el) => el.category === "dev").length}
-          </span>
+          <span>{category.filter((el) => el.title === "dev").length}</span>
         </div>
         <div className={cn("project-tab__content__item")}>
           В очереди:{" "}
-          <span>
-            {props.tasks.filter((el) => el.category === "queue").length}
-          </span>
+          <span>{category.filter((el) => el.title === "queue").length}</span>
         </div>
         <div className={cn("project-tab__content__item")}>
           Выполнено :{" "}
-          <span>
-            {props.tasks.filter((el) => el.category === "done").length}
-          </span>
+          <span>{category.filter((el) => el.title === "done").length}</span>
         </div>
       </div>
     </div>

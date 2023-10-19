@@ -15,7 +15,10 @@ import TextEditor from "../../../Inputs/TextEditor/TextEditor";
 import { defaultSubTask } from "../../../../assets/data/mockDefaultData";
 import isThisMinute from "date-fns/isThisMinute/index";
 
-const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
+const SubTaskSection: FC<{
+  task_id: string;
+  category_id: string | undefined;
+}> = ({ task_id, category_id }) => {
   const { project_id } = useParams();
   const dispatch = useDispatch();
 
@@ -24,6 +27,7 @@ const SubTaskSection: FC<{ task_id: string }> = ({ task_id }) => {
   // Redux data extract
   const task = state
     .filter((el) => el.project_id === project_id)[0]
+    .categories.filter((category) => category.category_id === category_id)[0]
     .tasks.filter((task) => task.task_id === task_id)[0];
   const subTaskAmount = task.subtasks.length;
 

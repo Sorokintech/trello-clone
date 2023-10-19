@@ -1,13 +1,21 @@
+import { DroppableProvided } from "react-beautiful-dnd";
 import { Editor } from "tinymce";
 
 export interface IProject {
   title: string;
   project_id: string;
+  categories: ICategory[];
+}
+export interface ICategory {
+  project_id: string;
+  category_id: string;
+  title: string;
   tasks: ITask[];
 }
 export interface ITask {
   project_id: string | undefined;
   category: string;
+  category_id: string | undefined;
   task_id: string;
   task_number: string;
   title: string;
@@ -24,11 +32,13 @@ export interface ITask {
 }
 export interface ITaskColumn {
   title: string;
-  id: string;
+  category_id: string;
+  provided: DroppableProvided;
 }
 
 export interface IComment {
   project_id: string | undefined;
+  category_id: string | undefined;
   task_id: string;
   comment_id: string;
   content: string;
@@ -37,6 +47,7 @@ export interface IComment {
 }
 export interface ISubComment {
   project_id: string | undefined;
+  category_id: string | undefined;
   task_id: string;
   comment_id: string;
   sub_comment_id: string;
@@ -46,6 +57,7 @@ export interface ISubComment {
 }
 export interface ISubTask {
   project_id: string | undefined;
+  category_id: string | undefined;
   task_id: string;
   subtask_id: string;
   content: string;
@@ -64,6 +76,7 @@ export interface ISubTask {
 // }
 export interface IModalProps {
   task_id?: string;
+  category_id?: string;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -88,6 +101,7 @@ export interface ISelect {
 export interface ITextEditor {
   project_id?: string | undefined;
   task_id?: string;
+  category_id?: string;
   subtask_id?: string;
   id: string;
   defaultValue: string;

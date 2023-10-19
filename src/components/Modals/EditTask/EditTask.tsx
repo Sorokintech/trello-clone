@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 
 import "./EditTask.scss";
@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 import TextEditor from "../../Inputs/TextEditor/TextEditor";
 import Select from "../../Inputs/Select/Select";
+import { differenceInHours, parse } from "date-fns";
 
 const EditTask: FC<IModalProps> = ({
   task_id,
@@ -41,13 +42,13 @@ const EditTask: FC<IModalProps> = ({
   );
   const [updatedTask, setUpdatedTask] = useState<ITask>(task);
 
-  // функцию ниже, нужно просто сделать через reducer updateTask
-  function updateCurrentTask(key: string, value: string) {
-    setUpdatedTask({
-      ...task,
+  const updateCurrentTask = useCallback((key: string, value: string) => {
+    setUpdatedTask((prevTask) => ({
+      ...prevTask,
       [key]: value,
-    });
-  }
+    }));
+  }, []);
+
   // Save Changes to Use CallBack with task dependency
   function saveChanges() {
     dispatch(actionCreators.updateTask(updatedTask));
@@ -83,7 +84,15 @@ const EditTask: FC<IModalProps> = ({
 
           {task.devStartTime && (
             <div className={cn("edit-task-modal__dev-time")}>
-              В работе: {task.devStartTime}
+              Часов в работе:{" "}
+              {differenceInHours(
+                new Date(),
+                parse(
+                  task.devStartTime.toString(),
+                  "dd.MM.yyyy HH:mm",
+                  new Date()
+                )
+              )}
             </div>
           )}
           {task.endDate && (
@@ -93,7 +102,7 @@ const EditTask: FC<IModalProps> = ({
           )}
 
           <TextEditor
-            id={"description"}
+            task_id={"description"}
             defaultValue={task.description}
             labelValue="Описание"
             onchange={(a, editor) => {

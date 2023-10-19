@@ -103,7 +103,6 @@ export interface ITextEditor {
   task_id?: string;
   category_id?: string;
   subtask_id?: string;
-  id: string;
   defaultValue: string;
   labelValue?: string;
   createDate?: string;

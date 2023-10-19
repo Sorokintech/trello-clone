@@ -24,15 +24,19 @@ const ProjectTab: FC<IProject> = ({ ...props }) => {
       <div className={cn("project-tab__content")}>
         <div className={cn("project-tab__content__item")}>
           В работе :{" "}
-          <span>{category.filter((el) => el.title === "dev").length}</span>
+          <span>{category.find((el) => el.title === "dev")?.tasks.length}</span>
         </div>
         <div className={cn("project-tab__content__item")}>
           В очереди:{" "}
-          <span>{category.filter((el) => el.title === "queue").length}</span>
+          <span>
+            {category.find((el) => el.title === "queue")?.tasks.length}
+          </span>
         </div>
         <div className={cn("project-tab__content__item")}>
           Выполнено :{" "}
-          <span>{category.filter((el) => el.title === "done").length}</span>
+          <span>
+            {category.find((el) => el.title === "done")?.tasks.length}
+          </span>
         </div>
       </div>
     </div>

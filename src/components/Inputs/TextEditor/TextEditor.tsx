@@ -8,53 +8,51 @@ import { useSelector } from "react-redux";
 import { State } from "../../../store";
 
 const TextEditor: FC<ITextEditor> = ({
-  project_id,
-  category_id,
-  task_id,
-  subtask_id,
-  id,
-  defaultValue,
-  labelValue,
-  onchange,
-  createDate,
-  done,
+  ...props
+  // project_id,
+  // category_id,
+  // task_id,
+  // subtask_id,
+  // id,
+  // defaultValue,
+  // labelValue,
+  // onchange,
+  // createDate,
+  // done,
 }) => {
   const endDate = useSelector(
     (state: State) =>
       state.projectData
-        .filter((project) => project.project_id === project_id)[0]
-        //           ^?
-        ?.categories.filter(
-          (category) => category.category_id === category_id
-        )[0]
-        ?.tasks.filter((task) => task.task_id === task_id)[0]
-        ?.subtasks.filter((subtask) => subtask.subtask_id === subtask_id)[0]
-        .endDate
+        .find((project) => project.project_id === props.project_id)
+        ?.categories.find((cat) => cat.category_id === props.category_id)
+        ?.tasks.find((task) => task.task_id === props.task_id)
+        ?.subtasks.find((subtask) => subtask.subtask_id === props.subtask_id)
+        ?.endDate
   );
   return (
-    <div key={id} className={cn("text-editor")}>
-      {labelValue && (
-        <label htmlFor={id} className={cn("text-editor__label")}>
-          {labelValue}
+    <div key={props.subtask_id} className={cn("text-editor")}>
+      {props.labelValue && (
+        <label htmlFor={props.subtask_id} className={cn("text-editor__label")}>
+          {props.labelValue}
         </label>
       )}
       {!endDate
-        ? createDate && (
+        ? props.createDate && (
             <div className={cn("text-editor__date-label")}>
-              Подзадача №{id} создана {createDate}
+              Подзадача №{props.subtask_id} создана {props.createDate}
             </div>
           )
         : endDate && (
             <div className={cn("text-editor__date-label-done")}>
-              Подзадача №{id} закрыта {endDate}
+              Подзадача №{props.subtask_id} закрыта {endDate}
             </div>
           )}
 
       <Editor
         apiKey="m7uepvaogzxawj28dhra4dvd1bj2b2cjtvydtxz1ceuxpdj6"
-        onEditorChange={onchange}
-        initialValue={defaultValue}
-        disabled={done}
+        onEditorChange={props.onchange}
+        initialValue={props.defaultValue}
+        disabled={props.done}
         init={{
           plugins: ["quickbars"],
           placeholder: "Добавьте описание...",

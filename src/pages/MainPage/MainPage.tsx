@@ -11,7 +11,6 @@ import { IProject } from "../../assets/types/types";
 const MainPage: FC = () => {
   const dispatch = useDispatch();
   const projects = useSelector((state: State) => state.projectData); //=>
-  console.log(projects);
   useEffect(() => {
     dispatch(actionCreators.setProjects(mockProjectsData));
   }, []);

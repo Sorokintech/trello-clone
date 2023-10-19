@@ -13,7 +13,6 @@ import { State, actionCreators } from "../../../../store";
 import { format } from "date-fns";
 import TextEditor from "../../../Inputs/TextEditor/TextEditor";
 import { defaultSubTask } from "../../../../assets/data/mockDefaultData";
-import isThisMinute from "date-fns/isThisMinute/index";
 
 const SubTaskSection: FC<{
   task_id: string;
@@ -52,6 +51,7 @@ const SubTaskSection: FC<{
       createDate: format(date, "dd.MM.yyyy"),
       subtask_id: (subTaskAmount + 1).toString(),
       project_id: project_id,
+      category_id: category_id,
       task_id: task_id,
     }));
   }
@@ -84,8 +84,7 @@ const SubTaskSection: FC<{
       };
       setUpdatedSubTask(newUpdatedSubTask);
       if (isDone !== item.done) {
-        console.log(newUpdatedSubTask);
-        console.log(item);
+        // console.log(newUpdatedSubTask);
         dispatch(actionCreators.updateSubTask(newUpdatedSubTask));
       }
     },
@@ -116,7 +115,7 @@ const SubTaskSection: FC<{
         <div className={cn("sub-task-section__add-subtask")}>
           <div className={cn("sub-task-section__add-subtask__editor")}>
             <TextEditor
-              id={"subtask-add"}
+              subtask_id={"subtask-add"}
               defaultValue={""}
               onchange={(a, editor) => {
                 updateNewSubTask(
@@ -141,8 +140,8 @@ const SubTaskSection: FC<{
                 <TextEditor
                   project_id={item.project_id}
                   task_id={item.task_id}
+                  category_id={item.category_id}
                   subtask_id={item.subtask_id}
-                  id={item.subtask_id}
                   defaultValue={item.content}
                   createDate={item.createDate}
                   done={item.done}

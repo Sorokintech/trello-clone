@@ -4,6 +4,8 @@ import cn from "classnames";
 import "./CommentSection.scss";
 import Button from "../../../Inputs/Button/Button";
 import Input from "../../../Inputs/Input/Input";
+import CommentLightIcon from "../../../../assets/images/comment-icon-light.png";
+import CommentDarkIcon from "../../../../assets/images/comment-icon-dark.png";
 import { IComment, ISubComment, ITask } from "../../../../assets/types/types";
 import { actionCreators, State } from "../../../../store";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,6 +37,7 @@ const CommentSection: FC<{
     comment_id: "",
     content: "",
     createDate: "",
+    sub_comments: [],
   });
 
   const dispatch = useDispatch();
@@ -58,23 +61,32 @@ const CommentSection: FC<{
     (offset: number) =>
     (item: IComment): ReactNode => {
       console.log(offset);
+      const commentStyle = {
+        marginLeft: `${offset * 1}rem`, //задайте нужное значение с учетом вложенности (offset)
+      };
       return (
         <>
           <div
             key={item.comment_id}
             className={cn("comment-section__sub-comment")}
+            style={commentStyle}
           >
-            {new Array(offset).fill("--").join("")}
+            {/* {new Array(offset).fill("---").join("")} */}
             {item.content}
+            <img
+              className={cn("comment-section__sub-comment__icon")}
+              src={CommentDarkIcon}
+              alt="comment-icon"
+              onClick={() => setAddSubComment(!addSubComment)}
+            />
           </div>
-          <Button title={"Дополнить"} />
           {item.sub_comments?.map(renderComment(offset + 1))}
         </>
       );
     };
-  // useEffect(() => {
-  //   console.log(newComment);
-  // }, [newComment]);
+  useEffect(() => {
+    console.log(task);
+  }, [newComment]);
 
   return (
     <div className={cn("comment-section")}>
@@ -82,46 +94,49 @@ const CommentSection: FC<{
       {task.comments.map((item) => (
         <>
           <div key={item.comment_id} className={cn("comment-section__comment")}>
-            <div
-              className={cn("comment-section__comment__content")}
-              key={item.comment_id}
-            >
-              {item.content}
-            </div>
-            {!addSubComment && (
+            <>
+              <div
+                className={cn("comment-section__comment__content")}
+                key={item.comment_id}
+              >
+                {item.content}
+              </div>
+              <img
+                className={cn("comment-section__comment__icon")}
+                src={CommentLightIcon}
+                alt="comment-icon"
+                onClick={() => setAddSubComment(!addSubComment)}
+              />
+            </>
+            {/* {!addSubComment && (
               <Button
                 title={"+ Ответить"}
                 click={() => setAddSubComment(!addSubComment)}
               />
-            )}
-          </div>
-
-          {renderComment(0)(item)}
-
-          {/* {item.sub_comments?.map((sub_comment) => (
+            )} */}
             <>
-              <div
-                key={sub_comment.sub_comment_id}
-                className={cn("comment-section__sub-comment")}
-              >
-                {sub_comment.content}
-              </div>
+              {addSubComment && (
+                <div className={cn("comment-section__add-sub-comment")}>
+                  <Input
+                    id={"subtask-add"}
+                    type={"text"}
+                    placeholder={"Дополните комментарий..."}
+                    defaultValue={newComment.content}
+                    className="input"
+                    // onchange={(e) => updateNewCommentContent(e.target.value)}
+                  />
+                  <img
+                    className={cn("comment-section__comment__icon")}
+                    src={CommentDarkIcon}
+                    alt="comment-icon"
+                    onClick={() => setAddSubComment(!addSubComment)}
+                  />
+                </div>
+              )}
             </>
-          ))} */}
-
-          {addSubComment && (
-            <div className={cn("comment-section__add-sub-comment")}>
-              <Input
-                id={"subtask-add"}
-                type={"text"}
-                placeholder={"Дополните комментарий..."}
-                defaultValue={newComment.content}
-                className="input"
-                // onchange={(e) => updateNewCommentContent(e.target.value)}
-              />
-              <Button title={"Дополнить"} />
-            </div>
-          )}
+          </div>
+          {item.sub_comments?.map((item) => renderComment(0)(item))}
+          {/* {renderComment(0)(item)} */}
         </>
       ))}
 

@@ -5,32 +5,46 @@
   grid-row: auto;
   cursor: default;
   transition: 0.5s all;
-
-  &__add-sub-comment {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    gap: 0.325rem;
-    margin-top: 0.325rem;
+  &__header {
+    padding-bottom: 0.125rem;
+    font-weight: 600;
   }
+
+  // &__add-sub-comment {
+  //   display: flex;
+  //   justify-content: space-between;
+  //   align-items: center;
+  //   position: relative;
+  //   gap: 0.325rem;
+  //   margin-top: 0.125rem;
+  //   &__icon {
+  //     transition: 0.5s all;
+  //     width: 0rem;
+  //     height: auto;
+  //     position: absolute;
+  //     right: -1rem;
+  //     cursor: pointer;
+  //   }
+  //   &:hover {
+  //     .comment-section__add-sub-comment__icon {
+  //       width: 1.5rem;
+  //       right: 1rem;
+  //     }
+  //   }
+  // }
   &__comment {
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
     justify-content: center;
-    gap: 0.325rem;
     margin-bottom: 0.325rem;
+    margin-top: 0.325rem;
     position: relative;
-    &:hover {
-      .comment-section__comment__icon {
-        width: 1.325rem;
-        right: 1rem;
-      }
-    }
 
     &__content {
       background-color: $color-bg-other;
       border: transparent;
+      display: flex;
+      align-items: center;
       border-radius: 0.125rem;
       padding: 0.325rem;
       padding-left: 1rem;
@@ -38,6 +52,12 @@
       font-size: 1rem;
       width: 100%;
       cursor: default;
+      &:hover {
+        .comment-section__comment__icon {
+          width: 1.5rem;
+          right: 1rem;
+        }
+      }
     }
     &__icon {
       transition: 0.5s all;
@@ -51,9 +71,11 @@
   }
 
   &__add-comment {
-    margin-top: 0.625rem;
+    margin-top: 0.325rem;
     display: flex;
-    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    position: relative;
     gap: 0.325rem;
     &__input {
       width: 100%;
@@ -62,21 +84,41 @@
       border-radius: 0.125rem;
       padding: 0.325rem 1rem;
     }
+    &__icon {
+      transition: 0.5s all;
+      width: 0rem;
+      height: auto;
+      position: absolute;
+      right: -1rem;
+      cursor: pointer;
+    }
+    &:hover {
+      .comment-section__add-comment__icon {
+        width: 1.5rem;
+        right: 1rem;
+      }
+    }
   }
   &__sub-comment {
     margin-left: 2rem;
     font-size: 0.825rem;
+    position: relative;
     background-color: #fff;
     width: 90%;
     padding: 0.325rem 1rem;
+    padding-right: 3rem;
     margin-bottom: 0.325rem;
+    margin-top: 0.325rem;
     position: relative;
+    display: flex;
+    align-items: center;
     &:hover {
       .comment-section__sub-comment__icon {
-        width: 1.325rem;
+        width: 1.5rem;
         right: 1rem;
       }
     }
+
     &__icon {
       transition: 0.5s all;
       width: 0rem;

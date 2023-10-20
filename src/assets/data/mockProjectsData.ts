@@ -144,6 +144,7 @@ export const mockProjectsData = [
                 category_id: "queue",
                 task_id: "01.10.2023 09:05:00",
                 comment_id: "01.10.2023 09:05:01",
+                parent_id: "01.10.2023 09:05:00",
                 content: "Lorem ipsum dolor sit amet.",
                 comments: [
                   {
@@ -151,6 +152,7 @@ export const mockProjectsData = [
                     category_id: "queue",
                     task_id: "01.10.2023 09:05:00",
                     comment_id: "01.10.2023 09:05:02",
+                    parent_id: "01.10.2023 09:05:01",
                     content:
                       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, assumenda.",
                     comments: [
@@ -159,6 +161,7 @@ export const mockProjectsData = [
                         category_id: "queue",
                         task_id: "01.10.2023 09:05:00",
                         comment_id: "01.10.2023 09:05:03",
+                        parent_id: "01.10.2023 09:05:02",
                         content:
                           "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum, expedita maiores porro temporibus, qui quasi eum exercitationem, dicta sint error quas eligendi magnam quidem at officia sit amet quos nam!",
                         comments: [
@@ -167,6 +170,7 @@ export const mockProjectsData = [
                             category_id: "queue",
                             task_id: "01.10.2023 09:05:00",
                             comment_id: "01.10.2023 09:05:04",
+                            parent_id: "01.10.2023 09:05:03",
                             content:
                               "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem libero, at voluptate ipsam beatae dolores enim corporis totam ullam necessitatibus dolor cupiditate ipsum unde! Dicta nulla ipsam, illo cum consequatur natus. Commodi consequatur ipsum tenetur ipsam minima vel blanditiis itaque! Sint delectus minus necessitatibus et accusantium tenetur sed maxime quisquam!",
                             comments: [],
@@ -178,6 +182,7 @@ export const mockProjectsData = [
                         category_id: "queue",
                         task_id: "01.10.2023 09:05:00",
                         comment_id: "01.10.2023 09:05:05",
+                        parent_id: "01.10.2023 09:05:02",
                         content:
                           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis quidem debitis quod dolorum voluptas recusandae.",
                         sub_comments: [],

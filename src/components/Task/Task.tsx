@@ -13,6 +13,7 @@ const Task: FC<{
   task_id: string;
   category_id: string | undefined;
   provided: DraggableProvided;
+  setDraggable: () => void;
 }> = (props) => {
   const { project_id } = useParams();
   const category = useSelector(
@@ -35,6 +36,7 @@ const Task: FC<{
   };
   const ToggleModal = () => {
     setModalState(!isModalOpen);
+    props.setDraggable();
   };
 
   return (

@@ -59,6 +59,7 @@ const TextEditor: FC<ITextEditor> = ({ ...props }) => {
           font-size: 0.825rem;
           }`,
           toolbar: false,
+          auto_focus: props.defaultValue === "" ? true : "false",
           menubar: false,
           inline: true,
           quicklink: true,

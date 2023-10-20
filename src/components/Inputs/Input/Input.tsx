@@ -29,6 +29,7 @@ const Input: FC<IInput> = ({
       <input
         className={cn(`input-container__${className}`)}
         id={id}
+        autoFocus={`${defaultValue}` === "" ? true : false}
         type={type}
         defaultValue={defaultValue}
         placeholder={placeholder}

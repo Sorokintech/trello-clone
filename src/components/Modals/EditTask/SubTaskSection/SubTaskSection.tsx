@@ -63,7 +63,7 @@ const SubTaskSection: FC<{
       setInputShown(false);
     }
   }
-  console.log(format(new Date(), "dd.MM.yyyy HH:mm:ss"));
+  // console.log(format(new Date(), "dd.MM.yyyy HH:mm:ss"));
   // Function that updates the existing subtask
   const updateSubTask = useCallback(
     (

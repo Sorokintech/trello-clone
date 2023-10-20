@@ -1,24 +1,16 @@
 import { ActionType } from "../action-types";
 import { Dispatch } from "redux";
 import {
-  ISetCurrentTaskAction,
   ISetProjectData,
   IAddTask,
   IAddComment,
+  IAddSubComment,
   IUpdateTask,
   IUpdateSubTask,
   IAddSubTask,
 } from "../actions";
 import { ITask, IComment, IProject, ISubTask } from "../../assets/types/types";
 
-export const editTask = (payload: ITask) => {
-  return (dispatch: Dispatch<ISetCurrentTaskAction>) => {
-    dispatch({
-      type: ActionType.setCurrentTask,
-      payload: payload,
-    });
-  };
-};
 export const setProjects = (payload: IProject[]) => {
   return (dispatch: Dispatch<ISetProjectData>) => {
     dispatch({
@@ -31,6 +23,14 @@ export const addComment = (payload: IComment) => {
   return (dispatch: Dispatch<IAddComment>) => {
     dispatch({
       type: ActionType.addComment,
+      payload: payload,
+    });
+  };
+};
+export const addSubComment = (payload: IComment) => {
+  return (dispatch: Dispatch<IAddSubComment>) => {
+    dispatch({
+      type: ActionType.addSubComment,
       payload: payload,
     });
   };

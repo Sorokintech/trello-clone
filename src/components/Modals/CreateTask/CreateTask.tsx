@@ -70,7 +70,7 @@ const CreateTask: FC<IModalProps> = ({ category_id, isOpen, onClose }) => {
             defaultValue={""}
             onchange={(e) => updateNewTask("title", e.target.value)}
           />
-          <Input
+          {/* <Input
             id="description"
             labelValue="Добавьте описание"
             type="text"
@@ -78,7 +78,7 @@ const CreateTask: FC<IModalProps> = ({ category_id, isOpen, onClose }) => {
             className={"input"}
             defaultValue={""}
             onchange={(e) => updateNewTask("description", e.target.value)}
-          />
+          /> */}
           <Select
             labelValue="Задайте приоритет"
             onchange={(e) => updateNewTask("priority", e.target.value)}

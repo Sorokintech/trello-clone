@@ -6,7 +6,7 @@ import Button from "../../../Inputs/Button/Button";
 import Input from "../../../Inputs/Input/Input";
 import CommentLightIcon from "../../../../assets/images/comment-icon-light.png";
 import CommentDarkIcon from "../../../../assets/images/comment-icon-dark.png";
-import { IComment, ISubComment, ITask } from "../../../../assets/types/types";
+import { IComment, ITask } from "../../../../assets/types/types";
 import { actionCreators, State } from "../../../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { format, compareAsc } from "date-fns";
@@ -36,8 +36,7 @@ const CommentSection: FC<{
     task_id: task.task_id,
     comment_id: "",
     content: "",
-    createDate: "",
-    sub_comments: [],
+    comments: [],
   });
 
   const dispatch = useDispatch();
@@ -46,7 +45,6 @@ const CommentSection: FC<{
     setNewComment((prevState) => ({
       ...prevState,
       [key]: value,
-      createDate: format(date, "HH:mm"),
       comment_id: (task.comments.length + 1).toString(),
     }));
   }
@@ -71,6 +69,9 @@ const CommentSection: FC<{
             className={cn("comment-section__sub-comment")}
             style={commentStyle}
           >
+            
+            
+            
             {/* {new Array(offset).fill("---").join("")} */}
             {item.content}
             <img
@@ -80,13 +81,13 @@ const CommentSection: FC<{
               onClick={() => setAddSubComment(!addSubComment)}
             />
           </div>
-          {item.sub_comments?.map(renderComment(offset + 1))}
+          {item.comments?.map(renderComment(offset + 1))}
         </>
       );
     };
-  useEffect(() => {
-    console.log(task);
-  }, [newComment]);
+  // useEffect(() => {
+  //   console.log(task);
+  // }, [newComment]);
 
   return (
     <div className={cn("comment-section")}>
@@ -135,7 +136,7 @@ const CommentSection: FC<{
               )}
             </>
           </div>
-          {item.sub_comments?.map((item) => renderComment(0)(item))}
+          {item.comments?.map((item) => renderComment(0)(item))}
           {/* {renderComment(0)(item)} */}
         </>
       ))}

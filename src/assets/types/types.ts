@@ -4,6 +4,7 @@ import { Editor } from "tinymce";
 export interface IProject {
   title: string;
   project_id: string;
+  endDate: string | boolean;
   categories: ICategory[];
 }
 export interface ICategory {
@@ -14,18 +15,14 @@ export interface ICategory {
 }
 export interface ITask {
   project_id: string | undefined;
-  category: string;
   category_id: string | undefined;
   task_id: string;
   task_number: string;
   title: string;
   description: string;
   priority: string;
-  createDate: string;
-  createTime: string;
   devStartTime: string | boolean;
   endDate: string | boolean;
-  status: string;
   attached?: string;
   subtasks: ISubTask[];
   comments: IComment[];
@@ -42,26 +39,15 @@ export interface IComment {
   task_id: string;
   comment_id: string;
   content: string;
-  createDate?: string;
-  sub_comments?: ISubComment[];
-}
-export interface ISubComment {
-  project_id: string | undefined;
-  category_id: string | undefined;
-  task_id: string;
-  comment_id: string;
-  sub_comment_id: string;
-  content: string;
-  createDate?: string;
-  sub_comments?: ISubComment[];
+  comments?: IComment[];
 }
 export interface ISubTask {
   project_id: string | undefined;
   category_id: string | undefined;
   task_id: string;
   subtask_id: string;
+  subtask_number: string;
   content: string;
-  createDate?: string;
   endDate: string | boolean;
   done?: boolean;
 }
@@ -86,7 +72,6 @@ export interface IInput {
   defaultValue: string;
   className?: string;
   endDate?: string | boolean;
-  createDate?: string;
   placeholder?: string;
   labelValue?: string;
   onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -103,9 +88,9 @@ export interface ITextEditor {
   task_id?: string;
   category_id?: string;
   subtask_id?: string;
+  subtask_number?: string;
   defaultValue: string;
   labelValue?: string;
-  createDate?: string;
   endDate?: string | boolean;
   done?: boolean;
   onchange?: (a: string, editor: Editor) => void;
@@ -115,7 +100,6 @@ export interface ITextArea {
   type?: string;
   defaultValue: string;
   className?: string;
-  createDate?: string;
   placeholder?: string;
   endDate?: string | boolean;
   oninput?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;

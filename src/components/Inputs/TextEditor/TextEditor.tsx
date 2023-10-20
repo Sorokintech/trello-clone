@@ -6,20 +6,9 @@ import { ISubTask, ITextEditor } from "../../../assets/types/types";
 import { Editor } from "@tinymce/tinymce-react";
 import { useSelector } from "react-redux";
 import { State } from "../../../store";
+import { format, parse } from "date-fns/esm";
 
-const TextEditor: FC<ITextEditor> = ({
-  ...props
-  // project_id,
-  // category_id,
-  // task_id,
-  // subtask_id,
-  // id,
-  // defaultValue,
-  // labelValue,
-  // onchange,
-  // createDate,
-  // done,
-}) => {
+const TextEditor: FC<ITextEditor> = ({ ...props }) => {
   const endDate = useSelector(
     (state: State) =>
       state.projectData
@@ -37,14 +26,22 @@ const TextEditor: FC<ITextEditor> = ({
         </label>
       )}
       {!endDate
-        ? props.createDate && (
+        ? props?.subtask_id && (
             <div className={cn("text-editor__date-label")}>
-              Подзадача №{props.subtask_id} создана {props.createDate}
+              Подзадача №{props.subtask_number} создана{" "}
+              {format(
+                parse(props.subtask_id, "dd.MM.yyyy HH:mm:ss", new Date()),
+                "dd.MM.yyyy"
+              )}
             </div>
           )
         : endDate && (
             <div className={cn("text-editor__date-label-done")}>
-              Подзадача №{props.subtask_id} закрыта {endDate}
+              Подзадача №{props.subtask_number} закрыта{" "}
+              {format(
+                parse(endDate.toString(), "dd.MM.yyyy HH:mm:ss", new Date()),
+                "dd.MM.yyyy"
+              )}
             </div>
           )}
 

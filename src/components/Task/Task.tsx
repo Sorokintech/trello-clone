@@ -15,15 +15,17 @@ const Task: FC<{
   provided: DraggableProvided;
 }> = (props) => {
   const { project_id } = useParams();
-  const task = useSelector(
+  const category = useSelector(
     (state: State) =>
       state.projectData
         .filter((el) => el.project_id === project_id)[0]
         .categories.filter(
           (category) => category.category_id === props.category_id
         )[0]
-        .tasks.filter((task) => task.task_id === props.task_id)[0]
   );
+  const task = category.tasks.filter(
+    (task) => task.task_id === props.task_id
+  )[0];
 
   const [isModalOpen, setModalState] = useState(false);
   const handleDrag = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -50,13 +52,13 @@ const Task: FC<{
         <div className={cn("task__number")}>#{task.task_number}</div>
         <h4 className={cn("task__title")}>{task.title}</h4>
         <div className={cn("task__priority")}>{task.priority}</div>
-        <div className={cn("task__create-date")}>от {task.createDate}</div>
+        {/* <div className={cn("task__create-date")}>от {task.createDate}</div> */}
         <div className={cn("task__dev-time")}>
           В работе: {task.devStartTime}
         </div>
 
         <div className={cn("task__end-date")}>готово {task.endDate}</div>
-        <div className={cn("task__status")}>{task.status}</div>
+        <div className={cn("task__status")}>{category.title}</div>
       </div>
       <EditTask
         task_id={task.task_id}

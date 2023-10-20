@@ -44,15 +44,14 @@ const SubTaskSection: FC<{
     project_id: string | undefined,
     task_id: string
   ) {
-    let date = new Date();
     setNewSubTask((prevState) => ({
       ...prevState,
       [key]: value,
-      createDate: format(date, "dd.MM.yyyy"),
-      subtask_id: (subTaskAmount + 1).toString(),
       project_id: project_id,
       category_id: category_id,
       task_id: task_id,
+      subtask_id: format(new Date(), "dd.MM.yyyy HH:mm:ss"),
+      subtask_number: (subTaskAmount + 1).toString(),
     }));
   }
 
@@ -64,6 +63,7 @@ const SubTaskSection: FC<{
       setInputShown(false);
     }
   }
+  console.log(format(new Date(), "dd.MM.yyyy HH:mm:ss"));
   // Function that updates the existing subtask
   const updateSubTask = useCallback(
     (
@@ -74,7 +74,9 @@ const SubTaskSection: FC<{
       item: ISubTask
     ) => {
       let date: string | boolean;
-      endDate ? (date = format(new Date(), "dd.MM.yyyy")) : (date = false);
+      endDate
+        ? (date = format(new Date(), "dd.MM.yyyy HH:mm:ss"))
+        : (date = false);
       const newUpdatedSubTask = {
         ...item,
         [key]: value,
@@ -115,7 +117,7 @@ const SubTaskSection: FC<{
         <div className={cn("sub-task-section__add-subtask")}>
           <div className={cn("sub-task-section__add-subtask__editor")}>
             <TextEditor
-              subtask_id={"subtask-add"}
+              subtask_number={(subTaskAmount + 1).toString()}
               defaultValue={""}
               onchange={(a, editor) => {
                 updateNewSubTask(
@@ -135,15 +137,15 @@ const SubTaskSection: FC<{
         .sort((a, b) => +b.subtask_id - +a.subtask_id)
         .map((item) => (
           <>
-            <div key={item.content} className={cn("sub-task-section__item")}>
+            <div key={item.subtask_id} className={cn("sub-task-section__item")}>
               <div className={cn("sub-task-section__item__editor")}>
                 <TextEditor
                   project_id={item.project_id}
                   task_id={item.task_id}
                   category_id={item.category_id}
                   subtask_id={item.subtask_id}
+                  subtask_number={item.subtask_number}
                   defaultValue={item.content}
-                  createDate={item.createDate}
                   done={item.done}
                   onchange={(a, editor) => {
                     updateSubTask(

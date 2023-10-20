@@ -13,7 +13,8 @@ import { useParams } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 import TextEditor from "../../Inputs/TextEditor/TextEditor";
 import Select from "../../Inputs/Select/Select";
-import { differenceInHours, parse } from "date-fns";
+// import { differenceInHours } from "date-fns";
+import { format, parse, differenceInHours } from "date-fns/esm";
 
 const EditTask: FC<IModalProps> = ({
   task_id,
@@ -31,15 +32,15 @@ const EditTask: FC<IModalProps> = ({
   };
 
   const dispatch = useDispatch();
-  const task = useSelector(
+  const category = useSelector(
     (state: State) =>
       state.projectData
         .filter((el) => el.project_id === project_id)[0]
         .categories.filter(
           (category) => category.category_id === category_id
         )[0]
-        .tasks.filter((task) => task.task_id === task_id)[0]
   );
+  const task = category.tasks.filter((task) => task.task_id === task_id)[0];
   const [updatedTask, setUpdatedTask] = useState<ITask>(task);
 
   const updateCurrentTask = useCallback((key: string, value: string) => {
@@ -70,7 +71,6 @@ const EditTask: FC<IModalProps> = ({
             defaultValue={task.title}
             className={"input-title"}
             onchange={(e) => updateCurrentTask("title", e.target.value)}
-            createDate={task.createDate}
           />
           <Select
             // labelValue="Приоритет"
@@ -79,25 +79,46 @@ const EditTask: FC<IModalProps> = ({
             className={"select-border"}
           />
           <div className={cn("edit-task-modal__status")}>
-            В колонке: {task.status}
+            В колонке: {category.title}
           </div>
 
           {task.devStartTime && (
             <div className={cn("edit-task-modal__dev-time")}>
               Часов в работе:{" "}
-              {differenceInHours(
-                new Date(),
-                parse(
-                  task.devStartTime.toString(),
-                  "dd.MM.yyyy HH:mm",
-                  new Date()
-                )
-              )}
+              {!task.endDate
+                ? differenceInHours(
+                    new Date(),
+                    parse(
+                      task.devStartTime.toString(),
+                      "dd.MM.yyyy HH:mm:ss",
+                      new Date()
+                    )
+                  )
+                : differenceInHours(
+                    parse(
+                      task.endDate.toString(),
+                      "dd.MM.yyyy HH:mm:ss",
+                      new Date()
+                    ),
+                    parse(
+                      task.devStartTime.toString(),
+                      "dd.MM.yyyy HH:mm:ss",
+                      new Date()
+                    )
+                  )}
             </div>
           )}
           {task.endDate && (
             <div className={cn("edit-task-modal__end-date")}>
-              Закрыта: {task.endDate}
+              Закрыта:{" "}
+              {format(
+                parse(
+                  task.endDate.toString(),
+                  "dd.MM.yyyy HH:mm:ss",
+                  new Date()
+                ),
+                "dd.MM.yyyy"
+              )}
             </div>
           )}
 

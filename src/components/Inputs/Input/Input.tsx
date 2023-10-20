@@ -12,7 +12,6 @@ const Input: FC<IInput> = ({
   onchange,
   onfocus,
   className,
-  createDate,
   labelValue,
 }) => {
   return (
@@ -22,11 +21,11 @@ const Input: FC<IInput> = ({
           {labelValue}
         </label>
       )}
-      {createDate && (
+      {/* {createDate && (
         <div className={cn("input-container__date-label")}>
           Создана {createDate}
         </div>
-      )}
+      )} */}
       <input
         className={cn(`input-container__${className}`)}
         id={id}

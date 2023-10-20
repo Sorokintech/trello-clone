@@ -50,7 +50,6 @@ const CreateTask: FC<IModalProps> = ({ category_id, isOpen, onClose }) => {
     if (newTask.title === "") {
       updateFormIsValid(false);
     } else {
-      console.log(newTask);
       updateFormIsValid(true);
       dispatch(actionCreators.addTask(newTask));
       setNewTask(defaultTask);

@@ -78,6 +78,7 @@ const TaskColumn: FC<{
           category_id={props.category_id}
         />
       </div>
+      {props.provided.placeholder}
     </div>
   );
 };

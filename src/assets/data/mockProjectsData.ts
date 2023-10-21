@@ -193,6 +193,7 @@ export const mockProjectsData = [
               },
             ],
           },
+
           {
             project_id: "01.10.2023 09:00:00",
             category_id: "queue",

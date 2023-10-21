@@ -105,7 +105,7 @@ const SubTaskSection: FC<{
   // }, [updatedSubTask]);
 
   return (
-    <div className={cn("sub-task-section")}>
+    <div className={cn("sub-task-section")} key={task_id}>
       <div className={cn("sub-task-section__header")}>Текущие подзадачи</div>
       {!inputShown && (
         <Button

@@ -120,7 +120,7 @@ const CommentSection: FC<{
   // }, [newComment]);
 
   return (
-    <div className={cn("comment-section")}>
+    <div className={cn("comment-section")} key={task_id}>
       <div className={cn("comment-section__header")}>Комментарии</div>
       {task.comments.map((item) => (
         <>
@@ -141,7 +141,10 @@ const CommentSection: FC<{
             </>
             <>
               {item.comment_id === selectedComment && addComment && (
-                <div className={cn("comment-section__add-comment")}>
+                <div
+                  className={cn("comment-section__add-comment")}
+                  key={item.comment_id}
+                >
                   <Input
                     id={"subtask-add"}
                     type={"text"}

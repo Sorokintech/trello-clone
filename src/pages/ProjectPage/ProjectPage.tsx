@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { Dispatch, FC, SetStateAction, useState } from "react";
 import { useParams } from "react-router-dom";
 import cn from "classnames";
 
@@ -8,6 +8,7 @@ import "./ProjectPage.scss";
 import TaskColumn from "../../components/TaskColumn/TaskColumn";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import { useSelector } from "react-redux";
+import { ICategory } from "../../assets/types/types";
 
 const ProjectPage: FC = () => {
   const { project_id } = useParams();
@@ -16,14 +17,34 @@ const ProjectPage: FC = () => {
       state.projectData.filter((el) => el.project_id === project_id)[0]
         .categories
   );
-
+  const [columns, setColumns] = useState<ICategory[]>(categories);
   const onDragEnd = (
-    result: DropResult
-    // , columns, setColumns
+    result: DropResult,
+    columns: ICategory[],
+    setColumns: Dispatch<SetStateAction<ICategory[]>>
   ) => {
-    // if (!result.destination) return;
-    // const { source, destination } = result;
-    console.log(result);
+    // console.log(result);
+    if (!result.destination) return;
+    const { source, destination } = result;
+    const column = columns.find(
+      (column) => column.category_id === source.droppableId
+    );
+    if (column !== undefined) {
+      const copiedTasks = [...column.tasks];
+      console.log(copiedTasks);
+      const [removed] = copiedTasks.splice(source.index, 1);
+      console.log([removed]);
+      copiedTasks.splice(destination.index, 0, removed);
+
+      setColumns({
+        ...columns,
+        [source.droppableId]: {
+          ...column,
+          tasks: copiedTasks,
+        },
+      });
+      console.log(copiedTasks);
+    }
 
     // if (source.droppableId !== destination.droppableId) {
     //   const sourceColumn = columns[source.droppableId];
@@ -60,9 +81,11 @@ const ProjectPage: FC = () => {
   return (
     <div className={cn("project-page")}>
       <Header />
-      <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
+      <DragDropContext
+        onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+      >
         <div className={cn("project-page__task-container")}>
-          {categories.map((category) => (
+          {columns.map((category) => (
             <Droppable
               droppableId={category.category_id}
               key={category.category_id}

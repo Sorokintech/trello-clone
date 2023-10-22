@@ -40,9 +40,6 @@ const TaskColumn: FC<{
   const ToggleModal = () => {
     setModalState(!isModalOpen);
   };
-  // useEffect(() => {
-  //   console.log(isDraggable);
-  // }, [isDraggable]);
   return (
     <div
       className={cn("task-column")}

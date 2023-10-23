@@ -33,13 +33,14 @@ const ProjectPage: FC = () => {
       const copiedTasks = [...column.tasks];
       const [removed] = copiedTasks.splice(source.index, 1);
       copiedTasks.splice(destination.index, 0, removed);
-      setColumns({
+      setColumns((prevState) => ({
+        prevState,
         ...columns,
         [source.droppableId]: {
           ...column,
           tasks: copiedTasks,
         },
-      });
+      }));
       console.log(copiedTasks);
     }
   };

@@ -1,4 +1,10 @@
-import React, { Dispatch, FC, SetStateAction, useState } from "react";
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { useParams } from "react-router-dom";
 import cn from "classnames";
 
@@ -30,20 +36,34 @@ const ProjectPage: FC = () => {
       (column) => column.category_id === source.droppableId
     );
     if (column !== undefined) {
-      const copiedTasks = [...column.tasks];
-      const [removed] = copiedTasks.splice(source.index, 1);
-      copiedTasks.splice(destination.index, 0, removed);
-      setColumns((prevState) => ({
-        prevState,
-        ...columns,
-        [source.droppableId]: {
-          ...column,
-          tasks: copiedTasks,
-        },
-      }));
-      console.log(copiedTasks);
+      setColumns((prevState) => {
+        return prevState.map((column) => {
+          if (column.category_id === source.droppableId) {
+            const copiedTasks = [...column.tasks];
+            const [removed] = copiedTasks.splice(source.index, 1);
+            copiedTasks.splice(destination.index, 0, removed);
+
+            return {
+              ...column,
+              tasks: copiedTasks,
+            };
+          } else {
+            return column;
+          }
+        });
+      });
+      // setColumns((prevState) => ({
+      //   ...prevState,
+      //   column: {
+      //     ...column,
+      //     tasks: copiedTasks,
+      //   },
+      // }));
     }
   };
+  // useEffect(() => {
+  //   console.log(columns);
+  // }, [columns]);
   return (
     <div className={cn("project-page")}>
       <Header />

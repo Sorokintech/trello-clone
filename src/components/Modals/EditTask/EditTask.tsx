@@ -50,7 +50,6 @@ const EditTask: FC<IModalProps> = ({
     }));
   }, []);
 
-  // Save Changes to Use CallBack with task dependency
   function saveChanges() {
     dispatch(actionCreators.updateTask(updatedTask));
     onClose();
@@ -133,6 +132,20 @@ const EditTask: FC<IModalProps> = ({
               );
             }}
           />
+          <div className={cn("edit-task-modal__file")}>
+            <input
+              id="file"
+              type="file"
+              accept="image/*"
+              className={cn("edit-task-modal__file__input")}
+            />
+            <label
+              htmlFor="file"
+              className={cn("edit-task-modal__file__label")}
+            >
+              + Прикрепить файл
+            </label>
+          </div>
           <SubTaskSection task_id={task.task_id} category_id={category_id} />
           <CommentSection task_id={task.task_id} category_id={category_id} />
           <div className={cn("edit-task-modal__save-btn")}>

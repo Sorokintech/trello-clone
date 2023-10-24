@@ -38,7 +38,7 @@ export interface IComment {
   category_id: string | undefined;
   task_id: string;
   comment_id: string;
-  parent_id: string;
+  parent_id: string | null;
   content: string;
   comments?: IComment[];
 }

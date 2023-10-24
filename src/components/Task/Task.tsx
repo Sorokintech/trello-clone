@@ -51,7 +51,7 @@ const Task: FC<{
         onClick={ToggleModal}
         onMouseDown={handleDrag}
       >
-        <div className={cn("task__number")}>#{task.task_number}</div>
+        <div className={cn("task__number")}>#{task.task_number} </div>
         <h4 className={cn("task__title")}>{task.title}</h4>
         <div className={cn("task__priority")}>{task.priority}</div>
         {/* <div className={cn("task__create-date")}>от {task.createDate}</div> */}

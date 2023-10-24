@@ -153,6 +153,28 @@ const projectsDataReducer = (
 
     case ActionType.addComment:
       const comment = action.payload;
+      const updateComment = (
+        comments: IComment[],
+        comment: IComment
+      ): IComment[] => {
+        if (comment.parent_id === null) {
+          comments.push(comment);
+          return comments;
+        }
+        for (let i = 0; i < comments.length; i++) {
+          debugger;
+          if (comments[i].comment_id === comment.parent_id) {
+            comments[i].comments = [...comments[i].comments!, comment];
+            return [...comments];
+          } else {
+            comments[i].comments! = updateComment(
+              [...comments[i].comments!],
+              comment
+            );
+          }
+        }
+        return comments;
+      };
       return state.map((project) => {
         if (project.project_id === comment.project_id) {
           const updatedCategories = project.categories.map((category) => {
@@ -160,7 +182,8 @@ const projectsDataReducer = (
               if (task.task_id === comment.task_id) {
                 return {
                   ...task,
-                  comments: [...task.comments, comment],
+                  // comments: [...task.comments, comment],
+                  comments: updateComment([...task.comments], comment),
                 };
               }
               return task;

@@ -29,7 +29,7 @@ export const defaultComment = {
   category_id: "",
   task_id: "",
   comment_id: "",
-  parent_id: "",
+  parent_id: null,
   content: "",
   comments: [],
 };

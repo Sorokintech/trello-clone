@@ -46,14 +46,14 @@ const CommentSection: FC<{
       project_id: task.project_id,
       category_id: task.category_id,
       task_id: task.task_id,
-      parent_id: parent_id === null ? task.task_id : parent_id,
+      parent_id,
       comment_id: format(new Date(), "dd.MM.yyyy HH:mm:ss"),
     }));
   }
 
   function postComment() {
     if (newComment.content.length > 0) {
-      setAddComment(!addComment);
+      // setAddComment(!addComment);
       dispatch(actionCreators.addComment(newComment));
       updateNewComment("content", "", null);
       setAddComment(!addComment);
@@ -73,6 +73,7 @@ const CommentSection: FC<{
     (offset: number) =>
     (item: IComment): ReactNode => {
       console.log(offset);
+      console.log(item);
       const commentStyle = {
         marginLeft: `${offset * 1}rem`,
       };
@@ -107,6 +108,7 @@ const CommentSection: FC<{
                 className={cn("comment-section__add-comment__icon")}
                 src={CommentAcceptDarkIcon}
                 alt="comment-icon"
+                onClick={() => postComment()}
                 // onClick={() => RenderCommentInput(item.comment_id)}
               />
             </div>
@@ -163,6 +165,7 @@ const CommentSection: FC<{
                     className={cn("comment-section__add-comment__icon")}
                     src={CommentAcceptDarkIcon}
                     alt="comment-icon"
+                    onClick={() => postComment()}
                     // onClick={() => RenderCommentInput(item.comment_id)}
                   />
                 </div>

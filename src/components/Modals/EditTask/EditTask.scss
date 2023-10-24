@@ -67,4 +67,20 @@
     justify-content: center;
     align-items: center;
   }
+  &__file {
+    grid-column: span 18;
+    &__input {
+      display: none;
+    }
+    &__label {
+      font-size: 0.825rem;
+      cursor: pointer;
+      padding: 0.325rem 1.325rem;
+      transition: 0.5s all;
+      &:hover {
+        background-color: $color-bg-main-blue;
+        color: #fff;
+      }
+    }
+  }
 }

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ICategory, IModalProps, ITask } from "../../../assets/types/types";
 import Button from "../../Inputs/Button/Button";
 import { actionCreators, State } from "../../../store";
-import { format, compareAsc } from "date-fns";
+import { format } from "date-fns";
 import Input from "../../Inputs/Input/Input";
 import Select from "../../Inputs/Select/Select";
 import { defaultTask } from "../../../assets/data/mockDefaultData";
@@ -32,6 +32,12 @@ const CreateTask: FC<IModalProps> = ({ category_id, isOpen, onClose }) => {
       .filter((el) => el.project_id === project_id)[0]
       .categories.reduce((total, category) => total + category.tasks.length, 0)
   );
+  const queueTasks = useSelector(
+    (state: State) =>
+      state.projectData
+        .filter((el) => el.project_id === project_id)[0]
+        .categories.find((el) => el.category_id === "queue")?.tasks.length
+  );
 
   function updateNewTask(key: string, value: string) {
     let date = new Date();
@@ -40,6 +46,7 @@ const CreateTask: FC<IModalProps> = ({ category_id, isOpen, onClose }) => {
       [key]: value,
       project_id: project_id,
       category_id: category_id,
+      weight: +queueTasks!,
       task_id: (tasksAmount + 1).toString(),
       task_number: (tasksAmount + 1).toString(),
       createDate: format(date, "dd.MM.yyyy"),
@@ -70,15 +77,6 @@ const CreateTask: FC<IModalProps> = ({ category_id, isOpen, onClose }) => {
             defaultValue={""}
             onchange={(e) => updateNewTask("title", e.target.value)}
           />
-          {/* <Input
-            id="description"
-            labelValue="Добавьте описание"
-            type="text"
-            placeholder="Первым делом нужно..."
-            className={"input"}
-            defaultValue={""}
-            onchange={(e) => updateNewTask("description", e.target.value)}
-          /> */}
           <Select
             labelValue="Задайте приоритет"
             onchange={(e) => updateNewTask("priority", e.target.value)}
@@ -88,11 +86,7 @@ const CreateTask: FC<IModalProps> = ({ category_id, isOpen, onClose }) => {
               Пожалуйста, добавьте название задачи
             </span>
           )}
-          <Button
-            title={"Создать задачу"}
-            // className={"button-dark"}
-            click={() => createNewTask()}
-          />
+          <Button title={"Создать задачу"} click={() => createNewTask()} />
         </div>
       </div>
     </div>

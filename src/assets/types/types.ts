@@ -20,6 +20,7 @@ export interface ITask {
   task_number: string;
   title: string;
   description: string;
+  weight: number;
   priority: string;
   devStartTime: string | boolean;
   endDate: string | boolean;

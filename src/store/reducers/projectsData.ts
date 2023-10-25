@@ -1,4 +1,5 @@
 import { ICategory, IComment, IProject } from "../../assets/types/types";
+import { updateCategories } from "../action-creators";
 import { ActionType } from "../action-types";
 import {
   ISetProjectData,
@@ -8,6 +9,7 @@ import {
   IAddSubTask,
   IUpdateSubTask,
   IAddSubComment,
+  IUpdateCategories,
 } from "../actions/index";
 
 // const addCommentToComments = (comments: IAddComment[], comment: IAddComment) => {
@@ -41,6 +43,7 @@ const projectsDataReducer = (
     | IUpdateTask
     | IAddSubTask
     | IUpdateSubTask
+    | IUpdateCategories
 ) => {
   switch (action.type) {
     // Initiate state
@@ -68,7 +71,7 @@ const projectsDataReducer = (
         return project;
       });
 
-    // UPDATE TASK
+    // UPDATE CATEGORIES
     case ActionType.updateTask:
       const updatedTask = action.payload;
       return state.map((project) => {
@@ -86,6 +89,18 @@ const projectsDataReducer = (
         }
         return project;
       });
+
+    // UPDATE TASK
+    case ActionType.updateCategories:
+      const updatedCategories = action.payload;
+
+      return state.map((project) => {
+        if (project.project_id === updatedCategories[0].project_id) {
+          return { ...project, categories: updatedCategories };
+        }
+        return project;
+      });
+
     // ADD SUBTASK
     case ActionType.addSubTask:
       const subtask = action.payload;

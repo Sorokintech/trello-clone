@@ -1,9 +1,19 @@
-import { IProject, ITask, IComment, ISubTask } from "../../assets/types/types";
+import {
+  IProject,
+  ITask,
+  IComment,
+  ISubTask,
+  ICategory,
+} from "../../assets/types/types";
 import { ActionType } from "../action-types";
 
 export interface ISetProjectData {
   type: ActionType.setProjectsData;
   payload: IProject[];
+}
+export interface IUpdateCategories {
+  type: ActionType.updateCategories;
+  payload: ICategory[];
 }
 export interface IAddComment {
   type: ActionType.addComment;

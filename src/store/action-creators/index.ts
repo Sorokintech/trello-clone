@@ -8,13 +8,28 @@ import {
   IUpdateTask,
   IUpdateSubTask,
   IAddSubTask,
+  IUpdateCategories,
 } from "../actions";
-import { ITask, IComment, IProject, ISubTask } from "../../assets/types/types";
+import {
+  ITask,
+  IComment,
+  IProject,
+  ISubTask,
+  ICategory,
+} from "../../assets/types/types";
 
 export const setProjects = (payload: IProject[]) => {
   return (dispatch: Dispatch<ISetProjectData>) => {
     dispatch({
       type: ActionType.setProjectsData,
+      payload: payload,
+    });
+  };
+};
+export const updateCategories = (payload: ICategory[]) => {
+  return (dispatch: Dispatch<IUpdateCategories>) => {
+    dispatch({
+      type: ActionType.updateCategories,
       payload: payload,
     });
   };

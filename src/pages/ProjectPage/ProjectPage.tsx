@@ -13,7 +13,7 @@ import { actionCreators, State } from "../../store";
 import "./ProjectPage.scss";
 import TaskColumn from "../../components/TaskColumn/TaskColumn";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ICategory } from "../../assets/types/types";
 
 const ProjectPage: FC = () => {
@@ -24,6 +24,7 @@ const ProjectPage: FC = () => {
         .categories
   );
   const [columns, setColumns] = useState<ICategory[]>(categories);
+  const dispatch = useDispatch();
   const onDragEnd = (
     result: DropResult,
     columns: ICategory[],
@@ -32,6 +33,9 @@ const ProjectPage: FC = () => {
     // console.log(result);
     if (!result.destination) return;
     const { source, destination } = result;
+    console.log("source:", source);
+    console.log("destination:", destination);
+    console.log("result:", result);
     const column = columns.find(
       (column) => column.category_id === source.droppableId
     );
@@ -42,7 +46,6 @@ const ProjectPage: FC = () => {
             const copiedTasks = [...column.tasks];
             const [removed] = copiedTasks.splice(source.index, 1);
             copiedTasks.splice(destination.index, 0, removed);
-
             return {
               ...column,
               tasks: copiedTasks,
@@ -61,9 +64,11 @@ const ProjectPage: FC = () => {
       // }));
     }
   };
-  // useEffect(() => {
-  //   console.log(columns);
-  // }, [columns]);
+  useEffect(() => {
+    // console.log(columns);
+    dispatch(actionCreators.updateCategories(columns));
+    // console.log(categories);
+  }, [columns, categories]);
   return (
     <div className={cn("project-page")}>
       <Header />
@@ -71,7 +76,7 @@ const ProjectPage: FC = () => {
         onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
       >
         <div className={cn("project-page__task-container")}>
-          {columns.map((category) => (
+          {categories.map((category) => (
             <Droppable
               droppableId={category.category_id}
               key={category.category_id}

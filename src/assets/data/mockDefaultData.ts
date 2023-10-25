@@ -5,7 +5,6 @@ export const defaultTask = {
   task_number: "",
   title: "",
   description: "",
-  weight: 0,
   priority: "",
   devStartTime: false,
   endDate: false,

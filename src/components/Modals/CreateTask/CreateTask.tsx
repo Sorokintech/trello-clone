@@ -46,7 +46,6 @@ const CreateTask: FC<IModalProps> = ({ category_id, isOpen, onClose }) => {
       [key]: value,
       project_id: project_id,
       category_id: category_id,
-      weight: +queueTasks!,
       task_id: (tasksAmount + 1).toString(),
       task_number: (tasksAmount + 1).toString(),
       createDate: format(date, "dd.MM.yyyy"),

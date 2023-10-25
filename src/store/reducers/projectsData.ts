@@ -10,6 +10,8 @@ import {
   IUpdateSubTask,
   IAddSubComment,
   IUpdateCategories,
+  IMoveTaskTo,
+  IMoveTaskFrom,
 } from "../actions/index";
 
 // const addCommentToComments = (comments: IAddComment[], comment: IAddComment) => {
@@ -44,6 +46,8 @@ const projectsDataReducer = (
     | IAddSubTask
     | IUpdateSubTask
     | IUpdateCategories
+    | IMoveTaskTo
+    | IMoveTaskFrom
 ) => {
   switch (action.type) {
     // Initiate state
@@ -62,6 +66,51 @@ const projectsDataReducer = (
                 return {
                   ...category,
                   tasks: [...category.tasks, task],
+                };
+              }
+              return category;
+            }),
+          };
+        }
+        return project;
+      });
+    //Move
+    case ActionType.moveTaskTo:
+      const item = action.payload;
+      return state.map((project) => {
+        if (project.project_id === item.project_id) {
+          return {
+            ...project,
+            categories: project.categories.map((category) => {
+              if (category.category_id === item.category_id) {
+                return {
+                  ...category,
+                  tasks: [...category.tasks, item],
+                };
+              }
+              return category;
+            }),
+          };
+        }
+        return project;
+      });
+    //Move
+    case ActionType.moveTaskFrom:
+      const loseItem = action.payload;
+      return state.map((project) => {
+        if (project.project_id === loseItem.project_id) {
+          return {
+            ...project,
+            categories: project.categories.map((category) => {
+              if (category.category_id === loseItem.category_id) {
+                const copiedTasks = [
+                  ...category.tasks.filter(
+                    (i) => i.task_id !== loseItem.task_id
+                  ),
+                ];
+                return {
+                  ...category,
+                  tasks: [...copiedTasks],
                 };
               }
               return category;

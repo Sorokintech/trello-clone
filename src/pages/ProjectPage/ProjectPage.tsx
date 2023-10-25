@@ -14,7 +14,8 @@ import "./ProjectPage.scss";
 import TaskColumn from "../../components/TaskColumn/TaskColumn";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
-import { ICategory } from "../../assets/types/types";
+import { ICategory, ITask } from "../../assets/types/types";
+import { defaultTask } from "../../assets/data/mockDefaultData";
 
 const ProjectPage: FC = () => {
   const { project_id } = useParams();
@@ -85,15 +86,31 @@ const ProjectPage: FC = () => {
       });
     }
   };
+  const [newIt, setNewIt] = useState<ITask>(defaultTask);
+
+  function Zaebal(result: DropResult) {
+    const { source, destination, draggableId } = result;
+    const task = categories
+      .find((i) => i.category_id === source.droppableId)
+      ?.tasks.find((i) => i.task_id === draggableId);
+    dispatch(actionCreators.moveTaskFrom(task!));
+    task!.category_id = destination?.droppableId;
+    dispatch(actionCreators.moveTaskTo(task!));
+    // setNewIt((prevState) => {});
+    // console.log(
+    //   categories.find((i) => i.category_id === source.droppableId)?.tasks[0]
+    // );
+  }
   useEffect(() => {
-    dispatch(actionCreators.updateCategories(columns));
-    console.log(categories);
-  }, [columns, dispatch, categories]);
+    // dispatch(actionCreators.updateCategories(columns));
+    // console.log(categories);
+  }, [columns]);
   return (
     <div className={cn("project-page")}>
       <Header />
       <DragDropContext
-        onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+        // onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+        onDragEnd={(result) => Zaebal(result)}
       >
         <div className={cn("project-page__task-container")}>
           {categories.map((category) => (

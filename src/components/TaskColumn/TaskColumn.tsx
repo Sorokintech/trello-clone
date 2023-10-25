@@ -40,9 +40,9 @@ const TaskColumn: FC<{
   const ToggleModal = () => {
     setModalState(!isModalOpen);
   };
-  useEffect(() => {
-    console.log(tasks);
-  }, [tasks]);
+  // useEffect(() => {
+  //   console.log(tasks);
+  // }, [tasks]);
   return (
     <div
       className={cn("task-column")}
@@ -51,7 +51,7 @@ const TaskColumn: FC<{
     >
       <h4 className={cn("task-column__header")}>{props.title}</h4>
       <div className={cn("task-column__content")}>
-        {tasks.map((i, index) => (
+        {tasks?.map((i, index) => (
           <Draggable
             key={i.task_id}
             draggableId={i.task_id}

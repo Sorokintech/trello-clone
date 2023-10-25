@@ -9,6 +9,8 @@ import {
   IUpdateSubTask,
   IAddSubTask,
   IUpdateCategories,
+  IMoveTaskFrom,
+  IMoveTaskTo,
 } from "../actions";
 import {
   ITask,
@@ -78,6 +80,22 @@ export const updateSubTask = (payload: ISubTask) => {
   return (dispatch: Dispatch<IUpdateSubTask>) => {
     dispatch({
       type: ActionType.updateSubTask,
+      payload: payload,
+    });
+  };
+};
+export const moveTaskTo = (payload: ITask) => {
+  return (dispatch: Dispatch<IMoveTaskTo>) => {
+    dispatch({
+      type: ActionType.moveTaskTo,
+      payload: payload,
+    });
+  };
+};
+export const moveTaskFrom = (payload: ITask) => {
+  return (dispatch: Dispatch<IMoveTaskFrom>) => {
+    dispatch({
+      type: ActionType.moveTaskFrom,
       payload: payload,
     });
   };

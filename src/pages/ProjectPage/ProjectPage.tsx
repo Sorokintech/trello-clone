@@ -30,22 +30,33 @@ const ProjectPage: FC = () => {
     columns: ICategory[],
     setColumns: Dispatch<SetStateAction<ICategory[]>>
   ) => {
-    // console.log(result);
     if (!result.destination) return;
     const { source, destination } = result;
-    console.log("source:", source);
-    console.log("destination:", destination);
-    console.log("result:", result);
-    const column = columns.find(
-      (column) => column.category_id === source.droppableId
-    );
-    if (column !== undefined) {
+    const draggedItem = columns.find(
+      (i) => i.category_id === source.droppableId
+    )!.tasks[source.index];
+    // console.log("source:", source);
+    // console.log("destination:", destination);
+    // console.log("result:", result);
+
+    if (source.droppableId !== destination.droppableId) {
       setColumns((prevState) => {
         return prevState.map((column) => {
           if (column.category_id === source.droppableId) {
             const copiedTasks = [...column.tasks];
-            const [removed] = copiedTasks.splice(source.index, 1);
-            copiedTasks.splice(destination.index, 0, removed);
+            copiedTasks.splice(source.index, 1);
+            // const [removed] = copiedTasks.splice(source.index, 1);
+            // copiedTasks.splice(destination.index, 0, removed);
+            return {
+              ...column,
+              tasks: copiedTasks,
+            };
+          } else if (column.category_id === destination.droppableId) {
+            const copiedTasks = [...column.tasks];
+            draggedItem.category_id = destination.droppableId;
+
+            // const [removed] = copiedTasks.splice(source.index, 1);
+            copiedTasks.splice(destination.index, 0, draggedItem);
             return {
               ...column,
               tasks: copiedTasks,
@@ -55,19 +66,64 @@ const ProjectPage: FC = () => {
           }
         });
       });
-      // setColumns((prevState) => ({
-      //   ...prevState,
-      //   column: {
-      //     ...column,
-      //     tasks: copiedTasks,
-      //   },
-      // }));
+    } else {
+      setColumns((prevState) => {
+        return prevState.map((column) => {
+          if (column.category_id === source.droppableId) {
+            const copiedTasks = [...column.tasks];
+            const [removed] = copiedTasks.splice(source.index, 1);
+            copiedTasks.splice(destination.index, 0, removed);
+
+            return {
+              ...column,
+              tasks: copiedTasks,
+            };
+          } else {
+            return column;
+          }
+        });
+      });
     }
+
+    // } else {
+    //   const column = columns.find(
+    //     (el) => el.category_id === source.droppableId
+    //   );
+    //   if (column !== undefined) {
+
+    //   }
+    // }
+
+    // if (!result.destination) return;
+    // const { source, destination } = result;
+    // console.log("source:", source);
+    // console.log("destination:", destination);
+    // console.log("result:", result);
+    // const column = columns.find(
+    //   (column) => column.category_id === source.droppableId
+    // );
+    // if (column !== undefined) {
+    //   setColumns((prevState) => {
+    //     return prevState.map((column) => {
+    //       if (column.category_id === source.droppableId) {
+    //         const copiedTasks = [...column.tasks];
+    //         const [removed] = copiedTasks.splice(source.index, 1);
+    //         copiedTasks.splice(destination.index, 0, removed);
+    //         return {
+    //           ...column,
+    //           tasks: copiedTasks,
+    //         };
+    //       } else {
+    //         return column;
+    //       }
+    //     });
+    //   });
+    // }
   };
   useEffect(() => {
-    // console.log(columns);
+    console.log(columns);
     dispatch(actionCreators.updateCategories(columns));
-    // console.log(categories);
+    console.log(categories);
   }, [columns, categories]);
   return (
     <div className={cn("project-page")}>

@@ -72,8 +72,8 @@ const CommentSection: FC<{
   const renderComment =
     (offset: number) =>
     (item: IComment): ReactNode => {
-      console.log(offset);
-      console.log(item);
+      // console.log(offset);
+      // console.log(item);
       const commentStyle = {
         marginLeft: `${offset * 1}rem`,
       };

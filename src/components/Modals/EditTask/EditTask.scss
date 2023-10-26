@@ -82,5 +82,12 @@
         color: #fff;
       }
     }
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.125rem;
+      font-size: 0.825rem;
+      padding-top: 0.5rem;
+    }
   }
 }

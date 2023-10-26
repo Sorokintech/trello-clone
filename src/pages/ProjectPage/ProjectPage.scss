@@ -10,6 +10,24 @@
     flex-direction: row;
     gap: 3rem;
   }
+  &__search-bar {
+    padding-top: 0.325rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.325rem;
+    &__label {
+      color: $color-text-dark-blue;
+    }
+    &__input {
+      outline: none;
+      width: 30%;
+      border: transparent;
+      border-radius: 0.125rem;
+      padding-left: 0.325rem;
+    }
+  }
 }
 
 .task-column {

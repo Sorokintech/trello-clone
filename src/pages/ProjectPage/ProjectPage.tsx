@@ -47,8 +47,6 @@ const ProjectPage: FC = () => {
             const copiedTasks = [...column.tasks];
             copiedTasks.splice(source.index, 1);
             console.log(copiedTasks);
-            // const [removed] = copiedTasks.splice(source.index, 1);
-            // copiedTasks.splice(destination.index, 0, removed);
             return {
               ...column,
               tasks: copiedTasks,
@@ -86,32 +84,48 @@ const ProjectPage: FC = () => {
       });
     }
   };
-  const [newIt, setNewIt] = useState<ITask>(defaultTask);
+  // const [newIt, setNewIt] = useState<ITask>(defaultTask);
 
-  function Zaebal(result: DropResult) {
-    const { source, destination, draggableId } = result;
-    const task = categories
-      .find((i) => i.category_id === source.droppableId)
-      ?.tasks.find((i) => i.task_id === draggableId);
-    dispatch(actionCreators.moveTaskFrom(task!));
-    task!.category_id = destination?.droppableId;
-    dispatch(actionCreators.moveTaskTo(task!));
-    // setNewIt((prevState) => {});
-    // console.log(
-    //   categories.find((i) => i.category_id === source.droppableId)?.tasks[0]
-    // );
+  // function Zaebal(result: DropResult) {
+  //   const { source, destination, draggableId } = result;
+  //   const task = categories
+  //     .find((i) => i.category_id === source.droppableId)
+  //     ?.tasks.find((i) => i.task_id === draggableId);
+  //   dispatch(actionCreators.moveTaskFrom(task!));
+  //   task!.category_id = destination?.droppableId;
+  //   dispatch(actionCreators.moveTaskTo(task!));
+  // }
+  function searchEngine(e: React.ChangeEvent<HTMLInputElement>) {
+    console.log(e.target.value);
   }
+
   useEffect(() => {
-    // dispatch(actionCreators.updateCategories(columns));
-    // console.log(categories);
+    dispatch(actionCreators.updateCategories(columns));
+    console.log(categories);
   }, [columns]);
   return (
     <div className={cn("project-page")}>
       <Header />
       <DragDropContext
-        // onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
-        onDragEnd={(result) => Zaebal(result)}
+        onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+        // onDragEnd={(result) => Zaebal(result)}
       >
+        <div className={cn("project-page__search-bar")}>
+          <label
+            htmlFor="search"
+            className={cn("project-page__search-bar__label")}
+          >
+            Поиск по задаче:
+          </label>
+          <input
+            type="text"
+            name="search"
+            id="search"
+            className={cn("project-page__search-bar__input")}
+            autoComplete="off"
+            onChange={(e) => searchEngine(e)}
+          />
+        </div>
         <div className={cn("project-page__task-container")}>
           {categories.map((category) => (
             <Droppable

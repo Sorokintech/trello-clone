@@ -41,6 +41,7 @@ const EditTask: FC<IModalProps> = ({
         )[0]
   );
   const task = category.tasks.filter((task) => task.task_id === task_id)[0];
+
   const [updatedTask, setUpdatedTask] = useState<ITask>(task);
 
   const updateCurrentTask = useCallback((key: string, value: string) => {
@@ -54,6 +55,12 @@ const EditTask: FC<IModalProps> = ({
     dispatch(actionCreators.updateTask(updatedTask));
     onClose();
   }
+
+  const [files, updateFiles] = useState<String[]>([]);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const array = Object.values(e.target.files!);
+    updateFiles(array.map((i) => i.name));
+  };
 
   useEffect(() => {
     if (Object.keys(task).length > 0) {
@@ -72,7 +79,6 @@ const EditTask: FC<IModalProps> = ({
             onchange={(e) => updateCurrentTask("title", e.target.value)}
           />
           <Select
-            // labelValue="Приоритет"
             onchange={(e) => updateCurrentTask("priority", e.target.value)}
             defaultValue={task.priority}
             className={"select-border"}
@@ -134,22 +140,28 @@ const EditTask: FC<IModalProps> = ({
           />
           <div className={cn("edit-task-modal__file")}>
             <input
-              id="file"
+              id="files"
               type="file"
-              accept="image/*"
+              multiple
+              // accept="all/*"
               className={cn("edit-task-modal__file__input")}
+              onChange={handleFileChange}
             />
             <label
-              htmlFor="file"
+              htmlFor="files"
               className={cn("edit-task-modal__file__label")}
             >
               + Прикрепить файл
             </label>
+            <div className={cn("edit-task-modal__file__list")}>
+              {files.map((i) => (
+                <span>{i}</span>
+              ))}
+            </div>
           </div>
           <SubTaskSection task_id={task.task_id} category_id={category_id} />
           <CommentSection task_id={task.task_id} category_id={category_id} />
           <div className={cn("edit-task-modal__save-btn")}>
-            {/* тут нужно сравнить 2 объекта на идентичность полей */}
             <Button title={"Сохранить изменения"} click={saveChanges} />
           </div>
         </div>

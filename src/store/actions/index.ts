@@ -47,3 +47,7 @@ export interface IMoveTaskFrom {
   type: ActionType.moveTaskFrom;
   payload: ITask;
 }
+export interface IUpdateCategory {
+  type: ActionType.updateCategory;
+  payload: ICategory;
+}

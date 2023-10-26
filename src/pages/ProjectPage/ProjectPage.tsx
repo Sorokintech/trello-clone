@@ -26,6 +26,7 @@ const ProjectPage: FC = () => {
   );
   const [columns, setColumns] = useState<ICategory[]>(categories);
   const dispatch = useDispatch();
+
   const onDragEnd = (
     result: DropResult,
     columns: ICategory[],
@@ -46,7 +47,7 @@ const ProjectPage: FC = () => {
           if (column.category_id === source.droppableId) {
             const copiedTasks = [...column.tasks];
             copiedTasks.splice(source.index, 1);
-            console.log(copiedTasks);
+            // console.log(copiedTasks);
             return {
               ...column,
               tasks: copiedTasks,
@@ -55,7 +56,7 @@ const ProjectPage: FC = () => {
             const copiedTasks = [...column.tasks];
             draggedItem.category_id = destination.droppableId;
             copiedTasks.splice(destination.index, 0, draggedItem);
-            console.log(copiedTasks);
+            // console.log(copiedTasks);
             return {
               ...column,
               tasks: copiedTasks,
@@ -86,17 +87,18 @@ const ProjectPage: FC = () => {
   };
   // const [newIt, setNewIt] = useState<ITask>(defaultTask);
 
-  // function Zaebal(result: DropResult) {
-  //   const { source, destination, draggableId } = result;
-  //   const task = categories
-  //     .find((i) => i.category_id === source.droppableId)
-  //     ?.tasks.find((i) => i.task_id === draggableId);
-  //   dispatch(actionCreators.moveTaskFrom(task!));
-  //   task!.category_id = destination?.droppableId;
-  //   dispatch(actionCreators.moveTaskTo(task!));
-  // }
+  function Zaebal(result: DropResult) {
+    const { source, destination, draggableId } = result;
+    if (!result.destination) return;
+    const task = categories
+      .find((i) => i.category_id === source.droppableId)
+      ?.tasks.find((i) => i.task_id === draggableId);
+    dispatch(actionCreators.moveTaskFrom(task!));
+    task!.category_id = destination?.droppableId;
+    dispatch(actionCreators.moveTaskTo(task!));
+  }
   function searchEngine(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value);
+    // console.log(e.target.value);
   }
 
   useEffect(() => {

@@ -46,3 +46,15 @@
 .tox-statusbar {
   display: none !important;
 }
+
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 600px) {
+  .text-editor {
+    &__label {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

@@ -34,20 +34,16 @@
       width: 100%;
     }
   }
-  // &__save-icon-default {
-  //   // display: none;
-  //   position: absolute;
-  //   width: 1.325rem;
-  //   height: auto;
-  //   right: 26%;
-  //   margin-top: 2.5%;
-  //   cursor: pointer;
-  // }
-  // &__save-icon-shown {
-  //   display: block;
-  // }
-  // &__save-btn {
-  //   display: flex;
-  //   justify-content: center;
-  // }
+}
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 600px) {
+  .sub-task-section {
+    display: grid;
+    justify-items: center;
+    &__header {
+      text-align: center;
+    }
+  }
 }

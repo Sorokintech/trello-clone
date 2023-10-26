@@ -11,6 +11,7 @@ import {
   IUpdateCategories,
   IMoveTaskFrom,
   IMoveTaskTo,
+  IUpdateCategory,
 } from "../actions";
 import {
   ITask,
@@ -32,6 +33,14 @@ export const updateCategories = (payload: ICategory[]) => {
   return (dispatch: Dispatch<IUpdateCategories>) => {
     dispatch({
       type: ActionType.updateCategories,
+      payload: payload,
+    });
+  };
+};
+export const updateCategory = (payload: ICategory) => {
+  return (dispatch: Dispatch<IUpdateCategory>) => {
+    dispatch({
+      type: ActionType.updateCategory,
       payload: payload,
     });
   };

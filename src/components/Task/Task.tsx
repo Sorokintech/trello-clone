@@ -7,7 +7,6 @@ import { State } from "../../store";
 import EditTask from "../Modals/EditTask/EditTask";
 import { useParams } from "react-router-dom";
 import { DraggableProvided } from "react-beautiful-dnd";
-// export type TaskRef = HTMLDivElement;
 
 const Task: FC<{
   task_id: string;
@@ -39,6 +38,10 @@ const Task: FC<{
     props.setDraggable();
   };
 
+  useEffect(() => {
+    console.log(task.title);
+  }, [task]);
+  console.log(task.title);
   return (
     <div
       key={task.task_id}
@@ -54,12 +57,7 @@ const Task: FC<{
         {/* <div className={cn("task__number")}>#{task.task_number} </div> */}
         <h4 className={cn("task__title")}>{task.title}</h4>
         <div className={cn("task__priority")}>{task.priority}</div>
-        {/* <div className={cn("task__create-date")}>от {task.createDate}</div> */}
-        <div className={cn("task__dev-time")}>
-          В работе: {task.devStartTime}
-        </div>
 
-        <div className={cn("task__end-date")}>готово {task.endDate}</div>
         <div className={cn("task__status")}>{category.title}</div>
       </div>
       <EditTask

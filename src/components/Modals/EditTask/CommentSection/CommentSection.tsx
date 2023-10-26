@@ -176,7 +176,7 @@ const CommentSection: FC<{
         </>
       ))}
 
-      <div>
+      <div className={cn("comment-wrapper")}>
         <Button
           title={"+ Добавить комментарий"}
           // click={() => setAddComment(!addComment)}

@@ -31,6 +31,11 @@ const TaskColumn: FC<{
           (category) => category.category_id === props.category_id
         )[0].tasks
   );
+  const cats = useSelector(
+    (state: State) =>
+      state.projectData.filter((el) => el.project_id === project_id)[0]
+        .categories
+  );
   //
   const [isModalOpen, setModalState] = useState(false);
   const [isDraggable, setIsDraggable] = useState(false);
@@ -40,9 +45,9 @@ const TaskColumn: FC<{
   const ToggleModal = () => {
     setModalState(!isModalOpen);
   };
-  // useEffect(() => {
-  //   console.log(tasks);
-  // }, [tasks]);
+  useEffect(() => {
+    console.log(tasks);
+  }, [tasks]);
   return (
     <div
       className={cn("task-column")}

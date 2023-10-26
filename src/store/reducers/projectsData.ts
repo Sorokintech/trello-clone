@@ -12,25 +12,8 @@ import {
   IUpdateCategories,
   IMoveTaskTo,
   IMoveTaskFrom,
+  IUpdateCategory,
 } from "../actions/index";
-
-// const addCommentToComments = (comments: IAddComment[], comment: IAddComment) => {
-//   if (comment.parent_id === null) {
-//     // Если parent_id равен null, добавляем комментарий в массив comments
-//     return [...comments, comment];
-//   } else {
-//     // Если parent_id не равен null, находим родительский комментарий по parent_id и добавляем комментарий в его массив comments
-//     return comments.map((c) => {
-//       if (c.comment_id === comment.parent_id) {
-//         return {
-//           ...c,
-//           comments: addCommentToComments(c.comments, comment),
-//         };
-//       }
-//       return c;
-//     });
-//   }
-// };
 
 const initialState: IProject[] = [];
 
@@ -48,6 +31,7 @@ const projectsDataReducer = (
     | IUpdateCategories
     | IMoveTaskTo
     | IMoveTaskFrom
+    | IUpdateCategory
 ) => {
   switch (action.type) {
     // Initiate state
@@ -139,16 +123,30 @@ const projectsDataReducer = (
         return project;
       });
 
-    // UPDATE TASK
+    // UPDATE CAT
     case ActionType.updateCategories:
       const updatedCategories = action.payload;
-
       return state.map((project) => {
         if (project.project_id === updatedCategories[0].project_id) {
           return { ...project, categories: updatedCategories };
         }
         return project;
       });
+    // UPDATE CAT
+    // case ActionType.updateCategory:
+    //   const updatedCategory = action.payload;
+
+    //   return state.map((project) => {
+    //     if (project.project_id === updatedCategory.project_id) {
+    //       const updatedCategories = project.categories.map((category) => {
+    //         if (category.category_id === updatedCategory.category_id) {
+    //           return { ...category, ...updatedCategory };
+    //         }
+    //       });
+    //       return { ...project, categories: updatedCategories };
+    //     }
+    //     return project;
+    //   });
 
     // ADD SUBTASK
     case ActionType.addSubTask:

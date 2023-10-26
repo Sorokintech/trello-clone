@@ -1,6 +1,6 @@
 @use "../../../assets/styles/colors.scss" as *;
 .select-input {
-  grid-column: span 2;
+  grid-column: span 3;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -41,14 +41,18 @@
 .select-border {
   border-bottom: 0.075rem solid $color-bg-other;
 }
-// background-color: $color-bg-main;
-// grid-column: span 1;
-// grid-column: span;
-// font-weight: 600;
-// font-size: 0.825rem;
-// border: transparent;
-// outline: none;
-// background-color: $color-bg-main-blue;
-// color: $color-text-light;
-// border-radius: 0.125rem;
-// cursor: pointer;
+
+@media (max-width: 1200px) {
+  .select-input {
+    grid-column: span 5;
+  }
+}
+
+@media (max-width: 600px) {
+  .select-input {
+    grid-column: span 18;
+    &__select {
+      width: 70%;
+    }
+  }
+}

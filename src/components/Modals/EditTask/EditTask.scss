@@ -77,6 +77,7 @@
       cursor: pointer;
       padding: 0.325rem 1.325rem;
       transition: 0.5s all;
+      max-width: 12rem;
       &:hover {
         background-color: $color-bg-main-blue;
         color: #fff;
@@ -88,6 +89,28 @@
       gap: 0.125rem;
       font-size: 0.825rem;
       padding-top: 0.5rem;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .edit-task-modal {
+    margin: 5% 5%;
+  }
+}
+
+@media (max-width: 600px) {
+  .edit-task-modal {
+    &__status,
+    &__dev-time,
+    &__end-date {
+      grid-column: span 18;
+      text-align: center;
+    }
+    &__file {
+      display: grid;
+      justify-content: center;
+      justify-items: center;
     }
   }
 }

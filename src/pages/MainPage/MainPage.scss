@@ -12,3 +12,19 @@
     margin: 0 10rem;
   }
 }
+
+@media (max-width: 1200px) {
+  .main-page__project-container {
+    padding: 1rem 2rem;
+    gap: 1rem;
+    margin: 0 5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-page__project-container {
+    padding: 1rem 2rem;
+    gap: 1rem;
+    margin: 0 1rem;
+  }
+}

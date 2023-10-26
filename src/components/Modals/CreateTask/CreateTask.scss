@@ -20,3 +20,15 @@
     transition: 0.5s all;
   }
 }
+
+@media (max-width: 1200px) {
+  .create-task-modal {
+    margin: 10% 15%;
+  }
+}
+
+@media (max-width: 600px) {
+  .create-task-modal {
+    margin: 35% 5%;
+  }
+}

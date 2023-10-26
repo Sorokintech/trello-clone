@@ -2,15 +2,28 @@
 
 .task-column {
   width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  justify-content: start;
+  align-items: start;
   &__header {
     font-size: 1.125rem;
     font-weight: 700;
+    grid-column: 12 span;
     text-align: center;
     color: $color-text-dark-blue;
   }
   &__content {
     display: flex;
     flex-direction: column;
+    grid-column: 12 span;
     gap: 1rem;
   }
+}
+
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 600px) {
 }

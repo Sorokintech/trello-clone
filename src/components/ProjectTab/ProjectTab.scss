@@ -43,3 +43,23 @@
     font-weight: 400;
   }
 }
+
+@media (max-width: 1200px) {
+  .project-tab {
+    &__edit-image {
+      width: 4rem;
+      bottom: 0;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .project-tab {
+    grid-column: 12 span;
+    &__edit-image {
+      width: 5rem;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}

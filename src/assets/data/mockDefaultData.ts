@@ -1,6 +1,6 @@
 export const defaultTask = {
   project_id: "",
-  category_id: "",
+  category_id: "queue",
   task_id: "",
   task_number: "",
   title: "",

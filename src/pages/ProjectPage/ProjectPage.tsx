@@ -24,65 +24,102 @@ const ProjectPage: FC = () => {
       state.projectData.filter((el) => el.project_id === project_id)[0]
         .categories
   );
-  const [columns, setColumns] = useState<ICategory[]>(categories);
+  // const [columns, setColumns] = useState<ICategory[]>(categories);
   const dispatch = useDispatch();
 
-  const onDragEnd = (
-    result: DropResult,
-    columns: ICategory[],
-    setColumns: Dispatch<SetStateAction<ICategory[]>>
-  ) => {
+  const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
     const { source, destination } = result;
-    const draggedItem = columns.find(
+
+    /// менять данные для карточки тут
+    const draggedItem = categories.find(
       (i) => i.category_id === source.droppableId
     )!.tasks[source.index];
-    console.log("source:", source);
-    console.log("destination:", destination);
-    console.log("result:", result);
+    // console.log("source:", source);
+    // console.log("destination:", destination);
+    // console.log("result:", result);
 
     if (source.droppableId !== destination.droppableId) {
-      setColumns((prevState) => {
-        return prevState.map((column) => {
-          if (column.category_id === source.droppableId) {
-            const copiedTasks = [...column.tasks];
-            copiedTasks.splice(source.index, 1);
-            // console.log(copiedTasks);
-            return {
-              ...column,
-              tasks: copiedTasks,
-            };
-          } else if (column.category_id === destination.droppableId) {
-            const copiedTasks = [...column.tasks];
-            draggedItem.category_id = destination.droppableId;
-            copiedTasks.splice(destination.index, 0, draggedItem);
-            // console.log(copiedTasks);
-            return {
-              ...column,
-              tasks: copiedTasks,
-            };
-          } else {
-            return column;
-          }
-        });
+      const columns = categories.map((column) => {
+        if (column.category_id === source.droppableId) {
+          const copiedTasks = [...column.tasks];
+          copiedTasks.splice(source.index, 1);
+          console.log("Удаляем:", copiedTasks);
+          return {
+            ...column,
+            tasks: copiedTasks,
+          };
+        } else if (column.category_id === destination.droppableId) {
+          const copiedTasks = [...column.tasks];
+          draggedItem.category_id = destination.droppableId;
+          copiedTasks.splice(destination.index, 0, draggedItem);
+          console.log("Добавляем:,", copiedTasks);
+          return {
+            ...column,
+            tasks: copiedTasks,
+          };
+        } else {
+          return column;
+        }
       });
+      dispatch(actionCreators.updateCategories(columns));
+      // setColumns((prevState) => {
+      //   return prevState.map((column) => {
+      //     if (column.category_id === source.droppableId) {
+      //       const copiedTasks = [...column.tasks];
+      //       copiedTasks.splice(source.index, 1);
+      //       console.log("Удаляем:", copiedTasks);
+      //       return {
+      //         ...column,
+      //         tasks: copiedTasks,
+      //       };
+      //     } else if (column.category_id === destination.droppableId) {
+      //       const copiedTasks = [...column.tasks];
+      //       draggedItem.category_id = destination.droppableId;
+      //       copiedTasks.splice(destination.index, 0, draggedItem);
+      //       console.log("Добавляем:,", copiedTasks);
+      //       return {
+      //         ...column,
+      //         tasks: copiedTasks,
+      //       };
+      //     } else {
+      //       return column;
+      //     }
+      //   });
+      // });
     } else {
-      setColumns((prevState) => {
-        return prevState.map((column) => {
-          if (column.category_id === source.droppableId) {
-            const copiedTasks = [...column.tasks];
-            const [removed] = copiedTasks.splice(source.index, 1);
-            copiedTasks.splice(destination.index, 0, removed);
-
-            return {
-              ...column,
-              tasks: copiedTasks,
-            };
-          } else {
-            return column;
-          }
-        });
+      const columns = categories.map((column) => {
+        if (column.category_id === source.droppableId) {
+          const copiedTasks = [...column.tasks];
+          const [removed] = copiedTasks.splice(source.index, 1);
+          copiedTasks.splice(destination.index, 0, removed);
+          console.log("Та же колонка:", copiedTasks);
+          return {
+            ...column,
+            tasks: copiedTasks,
+          };
+        } else {
+          return column;
+        }
       });
+      dispatch(actionCreators.updateCategories(columns));
+
+      // setColumns((prevState) => {
+      //   return prevState.map((column) => {
+      //     if (column.category_id === source.droppableId) {
+      //       const copiedTasks = [...column.tasks];
+      //       const [removed] = copiedTasks.splice(source.index, 1);
+      //       copiedTasks.splice(destination.index, 0, removed);
+      //       console.log("Та же колонка:", copiedTasks);
+      //       return {
+      //         ...column,
+      //         tasks: copiedTasks,
+      //       };
+      //     } else {
+      //       return column;
+      //     }
+      //   });
+      // });
     }
   };
   // const [newIt, setNewIt] = useState<ITask>(defaultTask);
@@ -98,18 +135,18 @@ const ProjectPage: FC = () => {
     dispatch(actionCreators.moveTaskTo(task!));
   }
   function searchEngine(e: React.ChangeEvent<HTMLInputElement>) {
-    // console.log(e.target.value);
+    console.log(e.target.value);
   }
 
-  useEffect(() => {
-    dispatch(actionCreators.updateCategories(columns));
-    console.log(categories);
-  }, [columns]);
+  // useEffect(() => {
+  //   dispatch(actionCreators.updateCategories(columns));
+  //   console.log(columns);
+  // }, [columns]);
   return (
     <div className={cn("project-page")}>
       <Header />
       <DragDropContext
-        onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+        onDragEnd={(result) => onDragEnd(result)}
         // onDragEnd={(result) => Zaebal(result)}
       >
         <div className={cn("project-page__search-bar")}>
@@ -117,7 +154,7 @@ const ProjectPage: FC = () => {
             htmlFor="search"
             className={cn("project-page__search-bar__label")}
           >
-            Поиск по задаче:
+            Поиск по задачам:
           </label>
           <input
             type="text"

@@ -45,11 +45,8 @@ const CreateTask: FC<IModalProps> = ({ category_id, isOpen, onClose }) => {
       ...prevState,
       [key]: value,
       project_id: project_id,
-      category_id: category_id,
-      task_id: (tasksAmount + 1).toString(),
+      task_id: format(new Date(), "dd.MM.yyyy HH:mm:ss"),
       task_number: (tasksAmount + 1).toString(),
-      createDate: format(date, "dd.MM.yyyy"),
-      createTime: format(date, "HH:mm"),
     }));
   }
   function createNewTask() {
@@ -57,6 +54,7 @@ const CreateTask: FC<IModalProps> = ({ category_id, isOpen, onClose }) => {
       updateFormIsValid(false);
     } else {
       updateFormIsValid(true);
+      console.log(newTask);
       dispatch(actionCreators.addTask(newTask));
       setNewTask(defaultTask);
       onClose();

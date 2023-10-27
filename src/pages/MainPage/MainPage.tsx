@@ -12,7 +12,9 @@ const MainPage: FC = () => {
   const dispatch = useDispatch();
   const projects = useSelector((state: State) => state.projectData); //=>
   useEffect(() => {
-    dispatch(actionCreators.setProjects(mockProjectsData));
+    if (projects.length === 0) {
+      dispatch(actionCreators.setProjects(mockProjectsData));
+    }
   }, []);
   return (
     <div className="main-page">

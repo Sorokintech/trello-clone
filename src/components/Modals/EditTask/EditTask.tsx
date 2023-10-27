@@ -40,7 +40,7 @@ const EditTask: FC<IModalProps> = ({
           (category) => category.category_id === category_id
         )[0]
   );
-  const task = category.tasks.filter((task) => task.task_id === task_id)[0];
+  const task = category?.tasks.filter((task) => task.task_id === task_id)[0];
 
   const [updatedTask, setUpdatedTask] = useState<ITask>(task);
 
@@ -63,9 +63,9 @@ const EditTask: FC<IModalProps> = ({
   };
 
   useEffect(() => {
-    if (Object.keys(task).length > 0) {
-      setUpdatedTask(task);
-    }
+    // if (Object.keys(task)?.length > 0) {
+    //   setUpdatedTask(task);
+    // }
   }, [task]);
   return isOpen ? (
     <div className="container">

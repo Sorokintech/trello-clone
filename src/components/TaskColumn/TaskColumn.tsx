@@ -56,24 +56,32 @@ const TaskColumn: FC<{
     >
       <h4 className={cn("task-column__header")}>{props.title}</h4>
       <div className={cn("task-column__content")}>
-        {tasks?.map((i, index) => (
-          <Draggable
-            key={i.task_id}
-            draggableId={i.task_id}
-            index={index}
-            isDragDisabled={isDraggable}
-          >
-            {(provided, snapshot) => (
-              <Task
-                key={i.title}
-                task_id={i.task_id}
-                category_id={i.category_id}
-                provided={provided}
-                setDraggable={handleDraggableChange}
-              />
-            )}
-          </Draggable>
-        ))}
+        {/* /// добавить сюда filter match( чтобы выдавал) */}
+        {tasks
+          ?.filter(
+            (i) =>
+              i.title
+                .toLocaleLowerCase()
+                .indexOf("лазан".toLocaleLowerCase()) !== -1
+          )
+          .map((i, index) => (
+            <Draggable
+              key={i.task_id}
+              draggableId={i.task_id}
+              index={index}
+              isDragDisabled={isDraggable}
+            >
+              {(provided, snapshot) => (
+                <Task
+                  key={i.title}
+                  task_id={i.task_id}
+                  category_id={i.category_id}
+                  provided={provided}
+                  setDraggable={handleDraggableChange}
+                />
+              )}
+            </Draggable>
+          ))}
         {props.category_id === "queue" && (
           <Button title={"+ Добавить задачу"} click={ToggleModal} />
         )}

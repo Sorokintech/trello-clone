@@ -9,9 +9,8 @@ import {
   IUpdateSubTask,
   IAddSubTask,
   IUpdateCategories,
-  IMoveTaskFrom,
-  IMoveTaskTo,
   IUpdateCategory,
+  IUpdateSearch,
 } from "../actions";
 import {
   ITask,
@@ -93,18 +92,10 @@ export const updateSubTask = (payload: ISubTask) => {
     });
   };
 };
-export const moveTaskTo = (payload: ITask) => {
-  return (dispatch: Dispatch<IMoveTaskTo>) => {
+export const updateSearch = (payload: string) => {
+  return (dispatch: Dispatch<IUpdateSearch>) => {
     dispatch({
-      type: ActionType.moveTaskTo,
-      payload: payload,
-    });
-  };
-};
-export const moveTaskFrom = (payload: ITask) => {
-  return (dispatch: Dispatch<IMoveTaskFrom>) => {
-    dispatch({
-      type: ActionType.moveTaskFrom,
+      type: ActionType.updateSearch,
       payload: payload,
     });
   };

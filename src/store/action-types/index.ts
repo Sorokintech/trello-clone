@@ -3,11 +3,10 @@ export enum ActionType {
   updateTask = "updateTask",
   updateCategories = "updateCategories",
   updateCategory = "updateCategory",
-  moveTaskTo = "moveTaskTo",
-  moveTaskFrom = "moveTaskFrom",
   addTask = "addTask",
   addComment = "addComment",
   addSubComment = "addSubComment",
   addSubTask = "addSubTask",
   updateSubTask = "updateSubTask",
+  updateSearch = "updateSearch",
 }

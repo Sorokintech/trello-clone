@@ -10,8 +10,6 @@ import {
   IUpdateSubTask,
   IAddSubComment,
   IUpdateCategories,
-  IMoveTaskTo,
-  IMoveTaskFrom,
   IUpdateCategory,
 } from "../actions/index";
 
@@ -29,8 +27,6 @@ const projectsDataReducer = (
     | IAddSubTask
     | IUpdateSubTask
     | IUpdateCategories
-    | IMoveTaskTo
-    | IMoveTaskFrom
     | IUpdateCategory
 ) => {
   switch (action.type) {
@@ -58,53 +54,8 @@ const projectsDataReducer = (
         }
         return project;
       });
-    //Move
-    case ActionType.moveTaskTo:
-      const item = action.payload;
-      return state.map((project) => {
-        if (project.project_id === item.project_id) {
-          return {
-            ...project,
-            categories: project.categories.map((category) => {
-              if (category.category_id === item.category_id) {
-                return {
-                  ...category,
-                  tasks: [...category.tasks, item],
-                };
-              }
-              return category;
-            }),
-          };
-        }
-        return project;
-      });
-    //Move
-    case ActionType.moveTaskFrom:
-      const loseItem = action.payload;
-      return state.map((project) => {
-        if (project.project_id === loseItem.project_id) {
-          return {
-            ...project,
-            categories: project.categories.map((category) => {
-              if (category.category_id === loseItem.category_id) {
-                const copiedTasks = [
-                  ...category.tasks.filter(
-                    (i) => i.task_id !== loseItem.task_id
-                  ),
-                ];
-                return {
-                  ...category,
-                  tasks: [...copiedTasks],
-                };
-              }
-              return category;
-            }),
-          };
-        }
-        return project;
-      });
 
-    // UPDATE CATEGORIES
+    // UPDATE TASK
     case ActionType.updateTask:
       const updatedTask = action.payload;
       return state.map((project) => {
@@ -132,21 +83,6 @@ const projectsDataReducer = (
         }
         return project;
       });
-    // UPDATE CAT
-    // case ActionType.updateCategory:
-    //   const updatedCategory = action.payload;
-
-    //   return state.map((project) => {
-    //     if (project.project_id === updatedCategory.project_id) {
-    //       const updatedCategories = project.categories.map((category) => {
-    //         if (category.category_id === updatedCategory.category_id) {
-    //           return { ...category, ...updatedCategory };
-    //         }
-    //       });
-    //       return { ...project, categories: updatedCategories };
-    //     }
-    //     return project;
-    //   });
 
     // ADD SUBTASK
     case ActionType.addSubTask:
@@ -263,45 +199,6 @@ const projectsDataReducer = (
         return project;
       });
 
-    // case ActionType.addComment:
-    // const comment = action.payload;
-    // return state.map((project) => {
-    //   if (project.project_id === comment.project_id) {
-    //     const updatedCategories = project.categories.map((category) => {
-    //       const updatedTasks = category.tasks.map((task) => {
-    //         if (task.task_id === comment.parent_id) {
-    //           return {
-    //             ...task,
-    //             comments: [...task.comments, comment],
-    //           };
-    //         } else {
-    //           const updatedComments = task.comments.map((c) => {
-    //             if (c.comment_id === comment.parent_id) {
-    //               return {
-    //                 ...c,
-    //                 comments: [...c.comments, comment],
-    //               };
-    //             }
-    //             return c;
-    //           });
-    //           return {
-    //             ...task,
-    //             comments: updatedComments,
-    //           };
-    //         }
-    //       });
-    //       return {
-    //         ...category,
-    //         tasks: updatedTasks,
-    //       };
-    //     });
-    //     return {
-    //       ...project,
-    //       categories: updatedCategories,
-    //     };
-    //   }
-    //   return project;
-    // });
     default:
       return state;
   }

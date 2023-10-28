@@ -39,15 +39,11 @@ export interface IUpdateSubTask {
   type: ActionType.updateSubTask;
   payload: ISubTask;
 }
-export interface IMoveTaskTo {
-  type: ActionType.moveTaskTo;
-  payload: ITask;
-}
-export interface IMoveTaskFrom {
-  type: ActionType.moveTaskFrom;
-  payload: ITask;
-}
 export interface IUpdateCategory {
   type: ActionType.updateCategory;
   payload: ICategory;
+}
+export interface IUpdateSearch {
+  type: ActionType.updateSearch;
+  payload: string;
 }

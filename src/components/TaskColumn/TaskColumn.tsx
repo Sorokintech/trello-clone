@@ -31,12 +31,8 @@ const TaskColumn: FC<{
           (category) => category.category_id === props.category_id
         )[0].tasks
   );
-  const cats = useSelector(
-    (state: State) =>
-      state.projectData.filter((el) => el.project_id === project_id)[0]
-        .categories
-  );
-  //
+  const searchValue = useSelector((state: State) => state.searchValue);
+
   const [isModalOpen, setModalState] = useState(false);
   const [isDraggable, setIsDraggable] = useState(false);
   const handleDraggableChange = () => {
@@ -56,13 +52,12 @@ const TaskColumn: FC<{
     >
       <h4 className={cn("task-column__header")}>{props.title}</h4>
       <div className={cn("task-column__content")}>
-        {/* /// добавить сюда filter match( чтобы выдавал) */}
         {tasks
           ?.filter(
             (i) =>
               i.title
                 .toLocaleLowerCase()
-                .indexOf("лазан".toLocaleLowerCase()) !== -1
+                .indexOf(searchValue.toLocaleLowerCase()) !== -1
           )
           .map((i, index) => (
             <Draggable

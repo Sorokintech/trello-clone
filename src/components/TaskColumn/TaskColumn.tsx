@@ -1,21 +1,15 @@
 import React, { FC, useEffect, useState } from "react";
 import cn from "classnames";
-import "./TaskColumn.scss";
-import Task from "../Task/Task";
-import { Provider, useSelector } from "react-redux";
-import { actionCreators, State } from "../../store";
-import Button from "../Inputs/Button/Button";
+import { Draggable, DroppableProvided } from "react-beautiful-dnd";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { IProject, ITaskColumn } from "../../assets/types/types";
+
+import Task from "../Task/Task";
+import { State } from "../../store";
+import Button from "../Inputs/Button/Button";
 import CreateTask from "../Modals/CreateTask/CreateTask";
-import {} from "react-beautiful-dnd";
-import {
-  DragDropContext,
-  Draggable,
-  DropResult,
-  Droppable,
-  DroppableProvided,
-} from "react-beautiful-dnd";
+
+import "./TaskColumn.scss";
 
 const TaskColumn: FC<{
   title: string;

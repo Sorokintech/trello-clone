@@ -1,22 +1,15 @@
-import React, {
-  Dispatch,
-  FC,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import React, { FC } from "react";
 import { useParams } from "react-router-dom";
 import cn from "classnames";
+import { format } from "date-fns";
+import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
+import { useDispatch, useSelector } from "react-redux";
 
 import Header from "../../components/Header/Header";
 import { actionCreators, State } from "../../store";
-import "./ProjectPage.scss";
 import TaskColumn from "../../components/TaskColumn/TaskColumn";
-import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
-import { useDispatch, useSelector } from "react-redux";
-import { ICategory, ITask } from "../../assets/types/types";
-import { defaultTask } from "../../assets/data/mockDefaultData";
-import { format } from "date-fns";
+
+import "./ProjectPage.scss";
 
 const ProjectPage: FC = () => {
   const { project_id } = useParams();
@@ -31,7 +24,6 @@ const ProjectPage: FC = () => {
     if (!result.destination) return;
     const { source, destination } = result;
 
-    /// менять данные для карточки тут
     const draggedItem = categories.find(
       (i) => i.category_id === source.droppableId
     )!.tasks[source.index];

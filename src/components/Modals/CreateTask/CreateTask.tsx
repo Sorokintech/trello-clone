@@ -1,18 +1,19 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 import cn from "classnames";
-
-import "./CreateTask.scss";
+import { format } from "date-fns";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { ICategory, IModalProps, ITask } from "../../../assets/types/types";
+
+import { IModalProps, ITask } from "../../../assets/types/types";
 import Button from "../../Inputs/Button/Button";
 import { actionCreators, State } from "../../../store";
-import { format } from "date-fns";
 import Input from "../../Inputs/Input/Input";
 import Select from "../../Inputs/Select/Select";
 import { defaultTask } from "../../../assets/data/mockDefaultData";
 
-const CreateTask: FC<IModalProps> = ({ category_id, isOpen, onClose }) => {
+import "./CreateTask.scss";
+
+const CreateTask: FC<IModalProps> = ({ isOpen, onClose }) => {
   const { project_id } = useParams();
   const overlayRef = useRef(null);
   const handleOverlayClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -32,15 +33,8 @@ const CreateTask: FC<IModalProps> = ({ category_id, isOpen, onClose }) => {
       .filter((el) => el.project_id === project_id)[0]
       .categories.reduce((total, category) => total + category.tasks.length, 0)
   );
-  const queueTasks = useSelector(
-    (state: State) =>
-      state.projectData
-        .filter((el) => el.project_id === project_id)[0]
-        .categories.find((el) => el.category_id === "queue")?.tasks.length
-  );
 
   function updateNewTask(key: string, value: string) {
-    let date = new Date();
     setNewTask((prevState) => ({
       ...prevState,
       [key]: value,

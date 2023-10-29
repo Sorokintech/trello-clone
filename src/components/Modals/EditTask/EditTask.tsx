@@ -1,20 +1,19 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import React, { FC, useCallback, useRef, useState } from "react";
 import cn from "classnames";
-
-import "./EditTask.scss";
-import Button from "../../Inputs/Button/Button";
+import { format, parse, differenceInHours } from "date-fns/esm";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+
+import Button from "../../Inputs/Button/Button";
 import { actionCreators, State } from "../../../store";
 import { IModalProps, ITask } from "../../../assets/types/types";
 import Input from "../../Inputs/Input/Input";
 import CommentSection from "./CommentSection/CommentSection";
 import SubTaskSection from "./SubTaskSection/SubTaskSection";
-import { useParams } from "react-router-dom";
-import { Editor } from "@tinymce/tinymce-react";
 import TextEditor from "../../Inputs/TextEditor/TextEditor";
 import Select from "../../Inputs/Select/Select";
-// import { differenceInHours } from "date-fns";
-import { format, parse, differenceInHours } from "date-fns/esm";
+
+import "./EditTask.scss";
 
 const EditTask: FC<IModalProps> = ({
   task_id,
@@ -23,6 +22,7 @@ const EditTask: FC<IModalProps> = ({
   onClose,
 }) => {
   const { project_id } = useParams();
+
   // Ref and function for outside click close of modal
   const overlayRef = useRef(null);
   const handleOverlayClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -62,11 +62,6 @@ const EditTask: FC<IModalProps> = ({
     updateFiles(array.map((i) => i.name));
   };
 
-  useEffect(() => {
-    // if (Object.keys(task)?.length > 0) {
-    //   setUpdatedTask(task);
-    // }
-  }, [task]);
   return isOpen ? (
     <div className="container">
       <div className="wrapper" ref={overlayRef} onClick={handleOverlayClick}>
@@ -143,7 +138,6 @@ const EditTask: FC<IModalProps> = ({
               id="files"
               type="file"
               multiple
-              // accept="all/*"
               className={cn("edit-task-modal__file__input")}
               onChange={handleFileChange}
             />

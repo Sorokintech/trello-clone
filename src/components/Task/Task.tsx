@@ -1,12 +1,13 @@
-import React, { FC, useEffect, useState } from "react";
-
-import cn from "classnames";
-import "./Task.scss";
-import { useSelector } from "react-redux";
-import { State } from "../../store";
-import EditTask from "../Modals/EditTask/EditTask";
+import React, { FC, useState } from "react";
 import { useParams } from "react-router-dom";
 import { DraggableProvided } from "react-beautiful-dnd";
+import cn from "classnames";
+import { useSelector } from "react-redux";
+
+import { State } from "../../store";
+import EditTask from "../Modals/EditTask/EditTask";
+
+import "./Task.scss";
 
 const Task: FC<{
   task_id: string;
@@ -15,6 +16,7 @@ const Task: FC<{
   setDraggable: () => void;
 }> = (props) => {
   const { project_id } = useParams();
+
   const category = useSelector(
     (state: State) =>
       state.projectData
@@ -23,16 +25,7 @@ const Task: FC<{
           (category) => category.category_id === props.category_id
         )[0]
   );
-  // const lol = useSelector(
-  //   (state: State) =>
-  //     state.projectData
-  //       .filter((el) => el.project_id === project_id)[0]
-  //       .categories.filter(
-  //         (category) => category.category_id === props.category_id
-  //       )[0]
-  // );
-  // console.log(category);
-  // console.log(category.tasks.filter((task) => task.task_id === props.task_id));
+
   const task = category.tasks.filter(
     (task) => task.task_id === props.task_id
   )[0];
@@ -48,9 +41,6 @@ const Task: FC<{
     props.setDraggable();
   };
 
-  // useEffect(() => {
-  //   console.log(task);
-  // }, [task]);
   return (
     <div
       key={task?.task_id}
@@ -63,7 +53,6 @@ const Task: FC<{
         onClick={ToggleModal}
         onMouseDown={handleDrag}
       >
-        {/* <div className={cn("task__number")}>#{task.task_number} </div> */}
         <h4 className={cn("task__title")}>{task?.title}</h4>
         <div className={cn("task__priority")}>{task?.priority}</div>
 

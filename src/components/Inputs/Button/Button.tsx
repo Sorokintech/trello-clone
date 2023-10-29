@@ -1,8 +1,9 @@
 import React, { FC } from "react";
-
 import cn from "classnames";
-import "./Button.scss";
+
 import { IButton } from "../../../assets/types/types";
+
+import "./Button.scss";
 
 const Button: FC<IButton> = ({ title, className, click }) => {
   return (

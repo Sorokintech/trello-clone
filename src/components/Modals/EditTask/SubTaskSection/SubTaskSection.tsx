@@ -1,18 +1,16 @@
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import cn from "classnames";
-
-// import saveIcon from "../../../../assets/images/save-icon.png";
-
-import "./SubTaskSection.scss";
-import { ISubTask, ITask } from "../../../../assets/types/types";
-import Button from "../../../Inputs/Button/Button";
-import Input from "../../../Inputs/Input/Input";
+import { format } from "date-fns";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+import { ISubTask } from "../../../../assets/types/types";
+import Button from "../../../Inputs/Button/Button";
 import { State, actionCreators } from "../../../../store";
-import { format } from "date-fns";
 import TextEditor from "../../../Inputs/TextEditor/TextEditor";
 import { defaultSubTask } from "../../../../assets/data/mockDefaultData";
+
+import "./SubTaskSection.scss";
 
 const SubTaskSection: FC<{
   task_id: string;
@@ -31,7 +29,6 @@ const SubTaskSection: FC<{
   const subTaskAmount = task.subtasks.length;
 
   // Use State
-  const [taskDone, setTaskDone] = useState<boolean>(false);
   const [inputShown, setInputShown] = useState<boolean>(false);
   const [newSubTask, setNewSubTask] = useState<ISubTask>(defaultSubTask);
   const [updatedSubTask, setUpdatedSubTask] =
@@ -63,7 +60,6 @@ const SubTaskSection: FC<{
       setInputShown(false);
     }
   }
-  // console.log(format(new Date(), "dd.MM.yyyy HH:mm:ss"));
   // Function that updates the existing subtask
   const updateSubTask = useCallback(
     (
@@ -86,23 +82,11 @@ const SubTaskSection: FC<{
       };
       setUpdatedSubTask(newUpdatedSubTask);
       if (isDone !== item.done) {
-        // console.log(newUpdatedSubTask);
         dispatch(actionCreators.updateSubTask(newUpdatedSubTask));
       }
     },
     []
   );
-
-  // UseEffect dispatches the updatedTask to redux once the subtask is done/undone
-  // useEffect(() => {
-  //   if (
-  //     updatedSubTask.done !==
-  //     task?.subtasks.filter(
-  //       (item) => item.subtask_id === updatedSubTask.subtask_id
-  //     )[0]?.done
-  //   )
-  //     dispatch(actionCreators.updateSubTask(updatedSubTask));
-  // }, [updatedSubTask]);
 
   return (
     <div className={cn("sub-task-section")} key={task_id}>

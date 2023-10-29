@@ -1,12 +1,13 @@
 import React, { FC } from "react";
-
 import cn from "classnames";
-import "./TextEditor.scss";
-import { ISubTask, ITextEditor } from "../../../assets/types/types";
-import { Editor } from "@tinymce/tinymce-react";
-import { useSelector } from "react-redux";
-import { State } from "../../../store";
 import { format, parse } from "date-fns/esm";
+import { useSelector } from "react-redux";
+import { Editor } from "@tinymce/tinymce-react";
+
+import { ITextEditor } from "../../../assets/types/types";
+import { State } from "../../../store";
+
+import "./TextEditor.scss";
 
 const TextEditor: FC<ITextEditor> = ({ ...props }) => {
   const endDate = useSelector(

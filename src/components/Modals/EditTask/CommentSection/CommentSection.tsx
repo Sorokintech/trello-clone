@@ -1,7 +1,9 @@
-import React, { FC, ReactNode, useEffect, useState } from "react";
+import React, { FC, ReactNode, useState } from "react";
 import cn from "classnames";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { format } from "date-fns";
 
-import "./CommentSection.scss";
 import Button from "../../../Inputs/Button/Button";
 import Input from "../../../Inputs/Input/Input";
 import CommentLightIcon from "../../../../assets/images/comment-icon-light.png";
@@ -9,10 +11,9 @@ import CommentDarkIcon from "../../../../assets/images/comment-icon-dark.png";
 import CommentAcceptDarkIcon from "../../../../assets/images/comment-accept-icon-dark.png";
 import { IComment } from "../../../../assets/types/types";
 import { actionCreators, State } from "../../../../store";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { format } from "date-fns";
 import { defaultComment } from "../../../../assets/data/mockDefaultData";
+
+import "./CommentSection.scss";
 
 const CommentSection: FC<{
   task_id: string;
@@ -28,8 +29,7 @@ const CommentSection: FC<{
         )[0]
         .tasks.filter((task) => task.task_id === task_id)[0]
   );
-  // const commentsAmount = task.comments.length;
-  // const [addSubComment, setAddSubComment] = useState<boolean>(false);
+
   const [addComment, setAddComment] = useState<boolean>(false);
   const [selectedComment, setSelectedComment] = useState<String>("");
   const [newComment, setNewComment] = useState<IComment>(defaultComment);
@@ -53,7 +53,6 @@ const CommentSection: FC<{
 
   function postComment() {
     if (newComment.content.length > 0) {
-      // setAddComment(!addComment);
       dispatch(actionCreators.addComment(newComment));
       updateNewComment("content", "", null);
       setAddComment(!addComment);
@@ -72,8 +71,6 @@ const CommentSection: FC<{
   const renderComment =
     (offset: number) =>
     (item: IComment): ReactNode => {
-      // console.log(offset);
-      // console.log(item);
       const commentStyle = {
         marginLeft: `${offset * 1}rem`,
       };
@@ -109,7 +106,6 @@ const CommentSection: FC<{
                 src={CommentAcceptDarkIcon}
                 alt="comment-icon"
                 onClick={() => postComment()}
-                // onClick={() => RenderCommentInput(item.comment_id)}
               />
             </div>
           )}
@@ -117,9 +113,6 @@ const CommentSection: FC<{
         </>
       );
     };
-  // useEffect(() => {
-  //   console.log(task);
-  // }, [newComment]);
 
   return (
     <div className={cn("comment-section")} key={task_id}>
@@ -166,7 +159,6 @@ const CommentSection: FC<{
                     src={CommentAcceptDarkIcon}
                     alt="comment-icon"
                     onClick={() => postComment()}
-                    // onClick={() => RenderCommentInput(item.comment_id)}
                   />
                 </div>
               )}
@@ -179,7 +171,6 @@ const CommentSection: FC<{
       <div className={cn("comment-wrapper")}>
         <Button
           title={"+ Добавить комментарий"}
-          // click={() => setAddComment(!addComment)}
           click={() => RenderCommentInput(task.task_id)}
         />
         {addComment && selectedComment === task.task_id && (

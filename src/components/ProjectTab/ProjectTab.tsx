@@ -1,10 +1,11 @@
 import React, { FC } from "react";
-import projectEditImage from "../../assets/images/project-edit-image.png";
-import "./ProjectTab.scss";
 import cn from "classnames";
-
 import { useNavigate } from "react-router-dom";
+
+import projectEditImage from "../../assets/images/project-edit-image.png";
 import { IProject } from "../../assets/types/types";
+
+import "./ProjectTab.scss";
 
 const ProjectTab: FC<IProject> = ({ ...props }) => {
   const navigate = useNavigate();

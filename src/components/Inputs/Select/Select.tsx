@@ -1,8 +1,9 @@
 import React, { FC } from "react";
-
 import cn from "classnames";
-import "./Select.scss";
+
 import { ISelect } from "../../../assets/types/types";
+
+import "./Select.scss";
 
 const Select: FC<ISelect> = ({
   labelValue,

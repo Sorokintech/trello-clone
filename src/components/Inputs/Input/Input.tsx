@@ -1,8 +1,9 @@
 import React, { FC } from "react";
-
 import cn from "classnames";
-import "./Input.scss";
+
 import { IInput } from "../../../assets/types/types";
+
+import "./Input.scss";
 
 const Input: FC<IInput> = ({
   id,
@@ -21,11 +22,6 @@ const Input: FC<IInput> = ({
           {labelValue}
         </label>
       )}
-      {/* {createDate && (
-        <div className={cn("input-container__date-label")}>
-          Создана {createDate}
-        </div>
-      )} */}
       <input
         className={cn(`input-container__${className}`)}
         id={id}

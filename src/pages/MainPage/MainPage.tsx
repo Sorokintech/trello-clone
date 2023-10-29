@@ -1,16 +1,16 @@
 import React, { FC, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Header from "../../components/Header/Header";
 import ProjectTab from "../../components/ProjectTab/ProjectTab";
 import { mockProjectsData } from "../../assets/data/mockProjectsData";
-import "./MainPage.scss";
-import { useDispatch, useSelector } from "react-redux";
 import { actionCreators, State } from "../../store";
-import { IProject } from "../../assets/types/types";
+
+import "./MainPage.scss";
 
 const MainPage: FC = () => {
   const dispatch = useDispatch();
-  const projects = useSelector((state: State) => state.projectData); //=>
+  const projects = useSelector((state: State) => state.projectData);
   useEffect(() => {
     if (projects.length === 0) {
       dispatch(actionCreators.setProjects(mockProjectsData));

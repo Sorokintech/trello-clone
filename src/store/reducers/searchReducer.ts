@@ -1,4 +1,3 @@
-import { updateSearch } from "../action-creators";
 import { ActionType } from "../action-types";
 import { IUpdateSearch } from "../actions/index";
 

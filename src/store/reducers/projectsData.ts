@@ -1,5 +1,4 @@
-import { ICategory, IComment, IProject } from "../../assets/types/types";
-import { updateCategories } from "../action-creators";
+import { IComment, IProject } from "../../assets/types/types";
 import { ActionType } from "../action-types";
 import {
   ISetProjectData,
